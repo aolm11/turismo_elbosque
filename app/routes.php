@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 /*
 |--------------------------------------------------------------------------
@@ -13,5 +13,13 @@
 
 Route::get('/', function()
 {
-	return View::make('hello');
+	return View::make('template');
 });
+
+
+Route::resource('usuario', 'UsuarioController');
+Route::resource('rol', 'RolController');
+Route::resource('vivienda', 'ViviendaController');
+Route::resource('imagen', 'ImagenController');
+Route::resource('cliente', 'ClienteController');
+Route::resource('alquiler', 'AlquilerController');
