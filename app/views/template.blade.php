@@ -10,13 +10,22 @@
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
     {{HTML::style('/assets/css/font-awesome.min.css')}}
-    {{HTML::style('/assets/css/bootstrap.min.css')}}
     {{HTML::style('/assets/css/freelancer.css')}}
+    {{HTML::style('/assets/css/bootstrap.min.css')}}
     {{HTML::style('/assets/css/estilo-proyecto.css')}}
+    {{HTML::style('/assets/js/jquery-ui-1.11.4/themes/smoothness/jquery-ui.css')}}
 
     {{HTML::script('/assets/js/jquery.min.js')}}
+    {{HTML::script('/assets/js/jquery-ui-1.11.4/jquery-ui.min.js')}}
     {{HTML::script('/assets/js/bootstrap.min.js')}}
     {{HTML::script('/assets/js/freelancer.js')}}
+    {{HTML::script('/assets/js/funciones.js')}}
+
+    <script>
+        $(function() {
+            $( "#datepicker" ).datepicker();
+        });
+    </script>
 
     <title>@yield('title') | Turismo El Bosque</title>
 </head>
@@ -24,5 +33,9 @@
 <body id="page-top" class="index">
 
 @include('header')
+
+<div class="container">
+    @yield('content')
+</div>
 
 </body>

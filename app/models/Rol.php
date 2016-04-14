@@ -3,11 +3,11 @@
 class Rol extends Eloquent {
 
 	protected $table = 'roles';
-	public $timestamps = true;
+	protected $fillable = array('id','tipo');
 
-	public function usuario()
+	public function usuarios()
 	{
-		return $this->hasMany('Usuario', 'id_rol');
+		return $this->hasMany('Usuario');
 	}
 
 }

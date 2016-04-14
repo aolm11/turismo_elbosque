@@ -87,3 +87,9 @@
         border-top:0 none;
     }
 }
+
+.titulo {
+    font-size: 34px;
+    font-weight: 500;
+    line-height: 40px;
+}

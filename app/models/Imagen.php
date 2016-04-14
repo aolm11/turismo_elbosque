@@ -7,7 +7,7 @@ class Imagen extends Eloquent {
 
 	public function vivienda()
 	{
-		return $this->belongsTo('Vivienda', 'id_vivienda');
+		return $this->belongsTo('Vivienda');
 	}
 
 }

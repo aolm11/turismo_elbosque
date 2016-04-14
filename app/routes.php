@@ -11,11 +11,40 @@
 |
 */
 
+
 Route::get('/', function()
 {
 	return View::make('template');
 });
 
+Route::post('login', function () {
+
+	if (Auth::attempt(array('email' => Input::get('email'), 'password' => Input::get('password')), true)) {
+
+		return Redirect::to('/');
+	} else {
+		return Redirect::back()->with('mensaje', 'El email o la contraseña introducidos no son válidos');
+	}
+
+});
+
+
+Route::group(array('before' => ['auth']), function () {
+
+	Route::get('/', function () {
+		if (Usuario::esAdmin()) {
+			$propietarios = Usuario::getPropietarios();
+			return Redirect::to('admin');
+		} elseif (Usuario::esPropietario()) {
+			//return View::make('propietario')->with(['propietarios' => $propietarios]);
+		} else {
+			// retornar a vista sin permisos.
+		}
+
+	});
+});
+
+Route::get('admin', 'UsuarioController@admin');
 
 Route::resource('usuario', 'UsuarioController');
 Route::resource('rol', 'RolController');

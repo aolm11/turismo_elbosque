@@ -7,7 +7,7 @@ class Cliente extends Eloquent {
 
 	public function alquiler()
 	{
-		return $this->hasMany('Alquiler', 'id_alquiler');
+		return $this->hasMany('Alquiler');
 	}
 
 }

@@ -16,6 +16,7 @@ class CreateUsuariosTable extends Migration {
 			$table->string('email', 50)->unique();
 			$table->string('localidad', 80)->nullable();
 			$table->string('password', 100);
+			$table->text('remember_token')->nullable();
 			$table->timestamps();
 		});
 	}

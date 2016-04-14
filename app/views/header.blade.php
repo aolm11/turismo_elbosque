@@ -26,12 +26,26 @@
                     </li>
 
                     <li class="dropdown">
+                        @if(Auth::check())
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>{{Auth::user()->nombre.' '.Auth::user()->apellidos}}</b> <span class="caret"></span></a>
+
+                            <ul class="dropdown-menu dropdown-menu-default">
+                                <li>
+                                    <a href="{{URL::asset('perfilUsuario')}}">
+                                        <i class="fa fa-user" aria-hidden="true"></i> Mi perfil </a>
+                                </li>
+                                <li>
+                                    <a href="{{URL::asset('logout')}}">
+                                        <i class="fa fa-sign-out" aria-hidden="true"></i> Salir </a>
+                                </li>
+                            </ul>
+                        @else
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Acceso propietarios</b> <span class="caret"></span></a>
                         <ul id="login-dp" class="dropdown-menu">
                             <li>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <form class="form" action="#" role="form" method="post" name="login" accept-charset="UTF-8" id="login-nav">
+                                        <form class="form" action="{{URL::asset('login')}}" role="form" method="post" name="login" accept-charset="UTF-8" id="login-nav">
                                             <div class="form-group">
                                                 <!-- <label class="sr-only" for="exampleInputEmail2">Email</label> -->
                                                 <input type="email" class="form-control" name="email" id="idEmail" placeholder="Email" required>
@@ -51,6 +65,7 @@
                                 </div>
                             </li>
                         </ul>
+                        @endif
                     </li>
                 </ul>
             </div>

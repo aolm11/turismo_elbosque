@@ -7,12 +7,12 @@ class Alquiler extends Eloquent {
 
 	public function vivienda()
 	{
-		return $this->belongsTo('Vivienda', 'id_vivienda');
+		return $this->belongsTo('Vivienda');
 	}
 
 	public function cliente()
 	{
-		return $this->belongsTo('Cliente', 'id_cliente');
+		return $this->belongsTo('Cliente');
 	}
 
 }

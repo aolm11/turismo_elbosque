@@ -7,9 +7,10 @@ class UsuarioController extends BaseController {
    *
    * @return Response
    */
-  public function index()
+  public function admin()
   {
-    
+    $propietarios = Usuario::getPropietarios();
+    return View::make('admin')->with(['propietarios' => $propietarios]);
   }
 
   /**
