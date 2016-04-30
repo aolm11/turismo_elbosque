@@ -85,4 +85,66 @@ class Usuario extends Eloquent implements UserInterface, RemindableInterface {
 		return $propietarios;
 	}
 
+	public static function crearPropietario($input){
+
+		$respuesta = array();
+
+		$reglas = array(
+			'nombre' => array('required', 'min:3', 'max:50'),
+			'apellidos' => array('required', 'min:3', 'max:100'),
+			'telefono'=> array('required', 'max:9'),
+			'email' => array('required', 'email', 'max:50', 'unique:usuarios,email'),
+			'password' => array('required', 'min:6', 'max:100', 'same:password2'),
+			'password2' => array('required', 'min:6', 'max:100'),
+		);
+
+		$validator = Validator::make($input, $reglas);
+
+		if ($validator->fails()) {
+			$respuesta['mensaje'] = $validator;
+			$respuesta['error'] = true;
+		} else {
+
+			$usuario = new Usuario();
+			$usuario->nombre = $input['nombre'];
+			$usuario->apellidos = $input['apellidos'];
+			$usuario->email = $input['email'];
+			$usuario->password = Hash::make($input['password']);
+			$usuario->telefono = $input['telefono'];
+			$usuario->id_rol = 2;
+
+			if(isset($input['localidad'])){
+				$usuario->localidad = $input['email'];
+			}
+			$usuario->save();
+
+			$respuesta['mensaje'] = 'Usuario creado';
+			$respuesta['error'] = false;
+			$respuesta['data'] = $usuario;
+
+			//TODO: email de notificacion.
+
+			$data = array(
+
+				'nombre'=>$usuario->nombre,
+				'apellidos'=>$usuario->apellidos,
+				'email'=>$usuario->email,
+				'password'=>$input['password'],
+			);
+
+			Mail::send('emails.emailRespuesta', $data, function ($message) use ($usuario) {
+				$email = $usuario->email;
+				$message->to($email)->subject('Bienvenido a Turismo El Bosque');
+			});
+
+		}
+
+		return $respuesta;
+	}
+
+	public static function propietario(){
+
+		$propietario = Usuario::find(Auth::id());
+	}
+
 }

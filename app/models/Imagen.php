@@ -10,4 +10,13 @@ class Imagen extends Eloquent {
 		return $this->belongsTo('Vivienda');
 	}
 
+	public static function imagenesVivienda($id_vivienda){
+
+		$viviendas = DB::table('imagenes')->where('id_vivienda', '=', $id_vivienda)->get();
+
+		return $viviendas;
+	}
+
+
+
 }

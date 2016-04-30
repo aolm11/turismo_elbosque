@@ -19,8 +19,9 @@
                         <a href="#page-top"></a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#portfolio">Inicio</a>
+                        <a href="{{URL::asset('inicio')}}">Inicio</a>
                     </li>
+                    <!-- Si el usuario es admin crear enlace a panel de control.-->
                     <li class="page-scroll">
                         <a href="#about">Casas</a>
                     </li>

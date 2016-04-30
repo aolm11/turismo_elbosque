@@ -7,6 +7,53 @@ class ViviendaController extends BaseController {
    *
    * @return Response
    */
+
+  public function crear(){
+    $respuesta = Vivienda::crear(Input::all());
+
+    if ($respuesta['error'] == true) {
+      return Redirect::back()->withErrors($respuesta['mensaje'])->withInput();
+    } else {
+      return Redirect::back()->with('mensaje', ($respuesta['mensaje']));
+    }
+  }
+
+  public function edicion($id){
+
+    $propietario = Auth::user();
+
+    $vivienda = Vivienda::find($id);
+
+    $imagenes = Imagen::imagenesVivienda($vivienda->id);
+
+    if($propietario->id != $vivienda->id_usuario){
+      return Redirect::to('401');
+    }else{
+      return View::make('editarVivienda')->with(['vivienda' => $vivienda, 'imagenes' => $imagenes]);
+    }
+
+  }
+
+  public function editar($id){
+    $respuesta = Vivienda::editar($id, Input::all());
+
+    if ($respuesta['error'] == true) {
+      return Redirect::back()->withErrors($respuesta['mensaje'])->withInput();
+    } else {
+      return Redirect::back()->with('mensaje', ($respuesta['mensaje']));
+    }
+  }
+
+  public function addImagen($id_vivienda){
+    $respuesta = Vivienda::addImagen($id_vivienda, Input::all());
+
+    if ($respuesta['error'] == true) {
+      return Redirect::back()->withErrors($respuesta['mensaje']);
+    } else {
+      return Redirect::back()->with('mensaje', ($respuesta['mensaje']));
+    }
+  }
+
   public function index()
   {
     

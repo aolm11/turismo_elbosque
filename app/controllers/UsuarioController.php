@@ -13,6 +13,34 @@ class UsuarioController extends BaseController {
     return View::make('admin')->with(['propietarios' => $propietarios]);
   }
 
+  public function propietario(){
+
+    $propietario = Usuario::find(Auth::id());
+
+    $reservas = Alquiler::reservasPropietario($propietario->id);
+
+    $viviendas = Vivienda::viviendasPropietario($propietario->id);
+
+    return View::make('propietario')->with(['reservas' => $reservas, 'viviendas' => $viviendas]);
+
+  }
+
+  public function logout(){
+    Auth::logout();
+    return Redirect::to('/');
+  }
+
+  public function crearPropietario(){
+
+    $respuesta =Usuario::crearPropietario(Input::all());
+
+    if ($respuesta['error'] == true) {
+      return Redirect::back()->withErrors($respuesta['mensaje'])->withInput();
+    } else {
+      return Redirect::back()->with('mensaje', ($respuesta['mensaje']));
+    }
+  }
+
   /**
    * Show the form for creating a new resource.
    *

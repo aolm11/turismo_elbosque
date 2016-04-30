@@ -1,30 +1,59 @@
-<form name="crearForm" id="crearForm" action="{{URL::asset('area/crear')}}" method="POST">
+<form name="crearForm" id="crearForm" action="{{URL::asset('crearPropietario')}}" method="POST">
     <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-    <div id="crearPropietario" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div id="crearPropietario" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title"><i class="icon-layers"></i> Nuevo Propietario</h4>
+                    <h4 class="modal-title">Nuevo Propietario</h4>
                 </div>
 
-                <div class="modal-form" style="margin-left: 1.5%;">
-                    <div class="scroller" style="height:300px" data-always-visible="1" data-rail-visible1="1">
+                <div class="modal-body" style="margin: 2%;">
+                    <div class="scroller">
                         <div class="row">
                             <div class="col-md-12">
 
                                 <div class="form-group">
-                                    <label class="control-label" for="idNombreRegistro">Nombre:</label>
-                                    <input type="text" class="form-control" name="nombreRegistro" id="idNombreRegistro" placeholder="Nombre" value="{{Input::old('nombreRegistro')}}" maxlength="50" onblur="comprobarInput(this.id)">
-                                    <small class="help-block oculto" id="idNombreRegistroAyuda">El nombre es requerido</small>
+                                    <label class="control-label" for="nombre">Nombre:</label>
+                                    <input type="text" class="form-control" name="nombre" id="nombre" value="{{Input::old('nombreRegistro')}}" maxlength="50" onblur="comprobarInput(this.id)">
+                                    <small class="help-block" style="display: none;" id="nombreAyuda">El nombre es requerido</small>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="apellidos">Apellidos:</label>
+                                    <input type="text" class="form-control" name="apellidos" id="apellidos" value="{{Input::old('nombreRegistro')}}" maxlength="100" onblur="comprobarInput(this.id)">
+                                    <small class="help-block" style="display: none;" id="apellidosAyuda">Los apellidos son requeridos</small>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="telefono">Teléfono:</label>
+                                    <input type="text" class="form-control" name="telefono" id="telefono" value="{{Input::old('nombreRegistro')}}" maxlength="9" onblur="comprobarInput(this.id)">
+                                    <small class="help-block" style="display: none;" id="telefonoAyuda">El teléfono es requerido</small>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="email">E-mail:</label>
+                                    <input type="email" class="form-control" name="email" id="email" maxlength="50" onblur="comprobarInput(this.id)">
+                                    <small class="help-block" style="display: none;" id="emailAyuda">El e-mail es requerido</small>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="localidad">Localidad:</label>
+                                    <input type="text" class="form-control" name="localidad" id="localidad" maxlength="80">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="password">Contraseña:</label>
+                                    <input type="password" class="form-control" name="password" id="password" maxlength="100" onblur="comprobarInput(this.id)">
+                                    <small class="help-block" style="display: none;" id="passwordAyuda">La contraseña es requerida</small>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="password2">Repita Contraseña:</label>
+                                    <input type="password" class="form-control" name="password2" id="password2" maxlength="100" onblur="comprobarInput(this.id)">
+                                    <small class="help-block" style="display: none;" id="password2Ayuda">Debe repetir la contraseña</small>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" data-dismiss="modal" class="btn red btn-outline">Cerrar</button>
-                    <button type="submit" class="btn green">Guardar</button>
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-warning">Cerrar</button>
                 </div>
 
             </div>

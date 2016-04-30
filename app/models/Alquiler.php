@@ -15,4 +15,13 @@ class Alquiler extends Eloquent {
 		return $this->belongsTo('Cliente');
 	}
 
+	public static function reservasPropietario($id_usuario){
+
+		$reservas = DB::table('alquiler')
+			->join('viviendas','alquiler.id_vivienda', '=', 'viviendas.id')
+			->where('viviendas.id_usuario', '=', $id_usuario)->get();
+
+		return $reservas;
+	}
+
 }
