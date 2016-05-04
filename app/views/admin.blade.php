@@ -27,14 +27,15 @@
 							<td>{{$propietario->email}}</td>
 							<td>{{count(Vivienda::viviendasPropietario($propietario->id))}}</td>
 							<td>
-								<a href="#" class="btn btn-info" role="button">
+								<a href="#" class="btn btn-default" role="button">
 									<i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar
 								</a>
-								<a href="#" class="btn btn-danger" role="button">
+								<a href="#" class="btn btn-danger" role="button" data-toggle="modal" data-target="{{'#modalConfirm'.$propietario->id}}">
 									<i class="fa fa-trash" aria-hidden="true"></i> Eliminar
 								</a>
 							</td>
 						</tr>
+					@include('modales.confirmar')
 					@endforeach
 					</tbody>
 				</table>

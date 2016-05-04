@@ -29,7 +29,7 @@
 								<a href="{{URL::asset('vivienda/edicion/'.$vivienda->id)}}" class="btn btn-default" role="button">
 									<i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar
 								</a>
-								<a href="#" class="btn btn-default" role="button">
+								<a href="{{URL::asset('vivienda/eliminar/'.$vivienda->id)}}" class="btn btn-default" role="button">
 									<i class="fa fa-trash" aria-hidden="true"></i> Eliminar
 								</a>
 								<a href="#" class="btn btn-default" role="button">

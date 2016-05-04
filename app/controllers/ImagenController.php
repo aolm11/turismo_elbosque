@@ -7,6 +7,21 @@ class ImagenController extends BaseController {
    *
    * @return Response
    */
+
+  public function borrar($id_imagen){
+
+    $respuesta = Imagen::borrar($id_imagen);
+
+
+
+    if ($respuesta['error'] == true) {
+      return Redirect::back()->withErrors($respuesta['mensaje']);
+    } else {
+      return Redirect::back()->with('mensaje', $respuesta['mensaje']);
+    }
+
+  }
+
   public function index()
   {
     

@@ -41,6 +41,17 @@ class UsuarioController extends BaseController {
     }
   }
 
+  public function eliminarPropietario($id_propietario){
+
+    $respuesta = Usuario::eliminarPropietario($id_propietario);
+
+    if ($respuesta['error'] == true) {
+      return Redirect::back()->withErrors($respuesta['mensaje']);
+    } else {
+      return Redirect::back()->with('mensaje', ($respuesta['mensaje']));
+    }
+  }
+
   /**
    * Show the form for creating a new resource.
    *

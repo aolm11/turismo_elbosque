@@ -121,6 +121,8 @@ class Usuario extends Eloquent implements UserInterface, RemindableInterface {
 			$respuesta['mensaje'] = 'Usuario creado';
 			$respuesta['error'] = false;
 			$respuesta['data'] = $usuario;
+			$respuesta['exito'] = true;
+
 
 			//TODO: email de notificacion.
 
@@ -140,6 +142,48 @@ class Usuario extends Eloquent implements UserInterface, RemindableInterface {
 		}
 
 		return $respuesta;
+	}
+
+	public static function eliminarPropietario($id_propietario){
+
+		//TODO: Borrado en cascada en base de datos??
+
+		$respuesta = array();
+
+		$propietario = Usuario::find($id_propietario);
+
+		$viviendas = Vivienda::viviendasPropietario($id_propietario);
+
+		$reservas = Alquiler::reservasPropietario($id_propietario);
+
+		$respuesta['mensaje'] = 'Propietario ';
+
+		if(!empty($viviendas)){
+
+			if(!empty($reservas)){
+				foreach ($reservas as $reserva) {
+					$reserva->delete();
+				}
+				$respuesta['mensaje'] .= ',reservas, ';
+			}
+
+			foreach ($viviendas as $vivienda) {
+				$vivienda->delete();
+			}
+
+			$respuesta['mensaje'] .= 'y viviendas eliminados';
+
+		}else{
+			$respuesta['mensaje'] .= 'eliminado';
+		}
+
+		$propietario->delete();
+
+		$respuesta['error'] = false;
+		$respuesta['exito'] = true;
+
+		return $respuesta;
+
 	}
 
 	public static function propietario(){

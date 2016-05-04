@@ -158,3 +158,13 @@ header.carousel .fill {
     background-position: center;
     background-size: cover;
 }
+
+#message {
+    top: 0;
+    left: 0;
+    width: 25%;
+    margin: 0 auto;
+}
+#inner-message {
+    margin: 0 auto;
+}

@@ -17,6 +17,37 @@ class Imagen extends Eloquent {
 		return $viviendas;
 	}
 
+	public static function borrar($id_imagen){
+
+		$respuesta = array();
+
+		$imagen = Imagen::find($id_imagen);
+
+		if(!is_null($imagen)){
+
+			File::delete(public_path('img/viviendas/'.$imagen->nombre));
+
+			$imagen->delete();
+
+			$respuesta['mensaje'] = 'Imagen eliminada';
+			$respuesta['error'] = false;
+			$respuesta['data'] = $imagen;
+			$respuesta['exito'] = true;
+
+		}else{
+			$respuesta['mensaje'] = 'La imagen no existe';
+			$respuesta['error'] = false;
+			$respuesta['data'] = $imagen;
+			$respuesta['exito'] = false;
+		}
+
+		return $respuesta;
+
+
+	}
+
+
+
 
 
 }

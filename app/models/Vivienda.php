@@ -67,6 +67,8 @@ class Vivienda extends Eloquent {
 			$respuesta['mensaje'] = 'Vivienda creada';
 			$respuesta['error'] = false;
 			$respuesta['data'] = $vivienda;
+			$respuesta['exito'] = true;
+
 
 		}
 		return $respuesta;
@@ -110,9 +112,11 @@ class Vivienda extends Eloquent {
 
 			$vivienda->save();
 
-			$respuesta['mensaje'] = 'Vivienda creada';
+			$respuesta['mensaje'] = 'Vivienda editada';
 			$respuesta['error'] = false;
 			$respuesta['data'] = $vivienda;
+			$respuesta['exito'] = true;
+
 
 		}
 		return $respuesta;
@@ -137,8 +141,7 @@ class Vivienda extends Eloquent {
 
 			if (!is_null($input['imagen'])) {
 				$imagenarchivo = $input['imagen'];
-
-				$nombreImagen = $vivienda->nombre. count(Imagen::imagenesVivienda($id_vivienda))+1 . ".jpg";
+				$nombreImagen = $vivienda->nombre.(count(Imagen::imagenesVivienda($id_vivienda))+1).".jpg";
 				$directorio = public_path('img/viviendas');
 
 				if (!file_exists($directorio)) {
@@ -156,15 +159,60 @@ class Vivienda extends Eloquent {
 				$respuesta['mensaje'] = 'Imagen añadida';
 				$respuesta['error'] = false;
 				$respuesta['data'] = $vivienda;
+				$respuesta['exito'] = true;
+
 
 			}else{
 				$respuesta['mensaje'] = 'No ha seleccionado ninguna imagen';
 				$respuesta['error'] = false;
 				$respuesta['data'] = null;
+				$respuesta['exito'] = false;
+
 			}
 		}
 
 		return $respuesta;
+	}
+
+	public static function borrar($id_vivienda){
+
+		//TODO: mostrar mensaje de advertencia indicando que se eliminarán también las imágenes de la vivienda.
+
+		$respuesta = array();
+
+		$vivienda = Vivienda::find($id_vivienda);
+
+		$reservas = Alquiler::reservasVivienda($id_vivienda);
+
+		if(empty($reservas)){
+
+			$imagenes = Imagen::imagenesVivienda($id_vivienda);
+
+			if(!empty($imagenes)){
+
+				foreach ($imagenes as $imagen) {
+				Imagen::borrar($imagen->id);
+				}
+
+				$vivienda->delete();
+
+				$respuesta['mensaje'] = 'Vivienda eliminada';
+				$respuesta['error'] = false;
+				$respuesta['data'] = $vivienda;
+				$respuesta['exito'] = true;
+
+
+			}
+		}else{
+			$respuesta['mensaje'] = 'No se ha podido eliminar la vivienda. Tiene reservas asociadas.';
+			$respuesta['error'] = false;
+			$respuesta['data'] = $vivienda;
+			$respuesta['exito'] = false;
+
+		}
+
+		return $respuesta;
+
 	}
 
 }

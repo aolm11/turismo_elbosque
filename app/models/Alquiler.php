@@ -24,4 +24,12 @@ class Alquiler extends Eloquent {
 		return $reservas;
 	}
 
+	public static function reservasVivienda($id_vivienda){
+
+		$reservas = DB::table('alquiler')
+			->where('id_vivienda', '=', $id_vivienda)->get();
+
+		return $reservas;
+	}
+
 }

@@ -40,6 +40,27 @@
 
 <div class="main-container">
     <div class="main">
+        @if(Session::get('mensaje'))
+            @if(Session::get('exito') == true)
+                <div id="message">
+                    <div style="padding: 5px;">
+                        <div id="inner-message" class="alert alert-success">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            {{Session::get('mensaje')}}
+                        </div>
+                    </div>
+                </div>
+            @else
+                <div id="message">
+                    <div style="padding: 5px;">
+                        <div id="inner-message" class="alert alert-error">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            {{Session::get('mensaje')}}
+                        </div>
+                    </div>
+                </div>
+            @endif
+        @endif
         @yield('content')
     </div>
 </div>

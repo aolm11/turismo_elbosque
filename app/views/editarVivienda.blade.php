@@ -114,31 +114,34 @@
             </form>
             @if(isset($imagenes) and count($imagenes) != 0)
                 <div class="form-group">
-                    <div class="file-input">
-                            <div class="file-preview">
-                                <div class="file-drop-zone">
-                                @foreach($imagenes as $imagen)
-                                    <div class="file-preview-frame">
-                                        <img height="12%" width="8%" src="{{URL::asset('img/viviendas/'.$imagen->nombre)}}" class="img-responsive" alt="">
-                                        <div class="file-thumbnail-footer">
-                                            <div class="file-footer-caption" title="{{$imagen->nombre}}">{{$imagen->nombre}}</div>
-                                            <div class="file-actions">
-                                                <div class="file-footer-buttons">
-                                                    <a href="#" title="Eliminar">
-                                                        <i class="fa fa-trash-o text-danger" aria-hidden="true"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            @endforeach
+                    <div class="section-title-panel">
+                        <h3>Imágenes subidas</h3>
                     </div>
+                    <div class="row">
+                        @foreach($imagenes as $imagen)
+                            <div class="col-lg-3 col-sm-4 col-6"><a href="#" data-id="{{$imagen->id}}" title="{{$imagen->nombre}}"><img src="{{URL::asset('img/viviendas/'.$imagen->nombre)}}" class="thumbnail img-responsive"></a></div>
+                        @endforeach
+                    </div>
+
                 </div>
             @endif
 
         </div>
 
     </div>
+    <script>
+        $('.thumbnail').click(function(){
+            var id = $(this).parent().data('id');
+            //alert(id);
+            $('.modal-body').empty();
+            var title = $(this).parent('a').attr("title");
+            $('.modal-title').html(title);
+            $($(this).parents('div').html()).appendTo('.modal-body');
+            $("#modalImg input.my_hidden_field").val(id);
+            var url = '{{URL::asset('eliminar/imagen/')}}/'+id;
+            $("#eliminar").attr("href", url);
+            $('#modalImg').modal({show:true});
+        });
+    </script>
+@include('modales.imagen')
 @stop

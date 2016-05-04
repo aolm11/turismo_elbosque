@@ -54,6 +54,16 @@ class ViviendaController extends BaseController {
     }
   }
 
+  public function borrar($id_vivienda){
+    $respuesta = Vivienda::borrar($id_vivienda);
+
+    if ($respuesta['error'] == true) {
+      return Redirect::back()->withErrors($respuesta['mensaje']);
+    } else {
+      return Redirect::back()->with('mensaje', ($respuesta['mensaje']));
+    }
+  }
+
   public function index()
   {
     

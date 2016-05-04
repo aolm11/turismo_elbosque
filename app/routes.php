@@ -55,7 +55,12 @@ Route::group(array('before' => ['auth']), function () {
 
 		Route::get('admin', 'UsuarioController@admin');
 
-		Route::post('nuevoPropietario', 'UsuarioController@crearPropietario');
+		Route::post('crearPropietario', 'UsuarioController@crearPropietario');
+
+		Route::get('propietario/eliminar/{id}', 'UsuarioController@eliminarPropietario');
+
+
+		//Route::post('nuevoPropietario', 'UsuarioController@crearPropietario');
 
 	});
 
@@ -69,11 +74,16 @@ Route::group(array('before' => ['auth']), function () {
 
 		Route::post('crear/vivienda', 'ViviendaController@crear');
 
+		Route::get('vivienda/eliminar/{id}', 'ViviendaController@borrar');
+
+
 		Route::get('vivienda/edicion/{id}', 'ViviendaController@edicion');
 
 		Route::post('vivienda/editar/{id}', 'ViviendaController@editar');
 
 		Route::post('add/imagen/{id}', 'ViviendaController@addImagen');
+
+		Route::get('eliminar/imagen/{id}', 'ImagenController@borrar');
 
 
 	});
@@ -89,7 +99,6 @@ Route::group(array('before' => ['auth']), function () {
 
 	});
 
-	Route::post('crearPropietario', 'UsuarioController@crearPropietario');
 
 });
 
