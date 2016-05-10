@@ -159,11 +159,27 @@ header.carousel .fill {
     background-size: cover;
 }
 
-#message {
+.alertas{
+    position: absolute;
+    z-index: 9999;
+    width: 100%;
+    margin-top: -2%;
+}
+
+#message , .message {
     top: 0;
     left: 0;
     width: 25%;
     margin: 0 auto;
+
+    /*
+    TODO mostrar mensajes de alerta sobre el contenido.
+    position: absolute;
+    top: 30px;
+    left: 20px;
+    right: 20px;
+    width: 25%;
+    margin: 0 auto;*/
 }
 #inner-message {
     margin: 0 auto;

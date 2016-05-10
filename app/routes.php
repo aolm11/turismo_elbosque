@@ -55,7 +55,10 @@ Route::group(array('before' => ['auth']), function () {
 
 		Route::get('admin', 'UsuarioController@admin');
 
-		Route::post('crearPropietario', 'UsuarioController@crearPropietario');
+		Route::post('nuevo/propietario', 'UsuarioController@crearPropietario');
+
+		Route::post('editar/propietario/{id}', 'UsuarioController@editarPropietario');
+
 
 		Route::get('propietario/eliminar/{id}', 'UsuarioController@eliminarPropietario');
 

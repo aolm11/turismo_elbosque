@@ -36,12 +36,9 @@
 
 <body id="page-top" class="index">
 
-@include('header')
-
-<div class="main-container">
-    <div class="main">
+    <div class="alertas">
         @if(Session::get('mensaje'))
-            @if(Session::get('exito') == true)
+            @if(Session::get('exito'))
                 <div id="message">
                     <div style="padding: 5px;">
                         <div id="inner-message" class="alert alert-success">
@@ -53,7 +50,7 @@
             @else
                 <div id="message">
                     <div style="padding: 5px;">
-                        <div id="inner-message" class="alert alert-error">
+                        <div id="inner-message" class="alert alert-warning">
                             <button type="button" class="close" data-dismiss="alert">&times;</button>
                             {{Session::get('mensaje')}}
                         </div>
@@ -61,8 +58,30 @@
                 </div>
             @endif
         @endif
-        @yield('content')
-    </div>
-</div>
 
+        @yield('alertas')
+    </div>
+
+    @include('header')
+
+    <div class="main-container">
+        <div class="main">
+            @yield('content')
+        </div>
+    </div>
+    <script>
+        window.setTimeout(function() {
+            $("#message").fadeTo(500, 0).slideUp(500, function(){
+                $(this).remove();
+            });
+        }, 3000);
+
+        var mensages = document.getElementsByClassName('message');
+        var segundos = mensages.length * 3000;
+        window.setTimeout(function() {
+            $(".message").fadeTo(500, 0).slideUp(500, function(){
+                $(this).remove();
+            });
+        }, segundos);
+    </script>
 </body>

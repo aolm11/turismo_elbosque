@@ -182,6 +182,7 @@ class Vivienda extends Eloquent {
 
 		$vivienda = Vivienda::find($id_vivienda);
 
+
 		$reservas = Alquiler::reservasVivienda($id_vivienda);
 
 		if(empty($reservas)){
@@ -193,16 +194,13 @@ class Vivienda extends Eloquent {
 				foreach ($imagenes as $imagen) {
 				Imagen::borrar($imagen->id);
 				}
-
-				$vivienda->delete();
-
-				$respuesta['mensaje'] = 'Vivienda eliminada';
-				$respuesta['error'] = false;
-				$respuesta['data'] = $vivienda;
-				$respuesta['exito'] = true;
-
-
 			}
+			$vivienda->delete();
+
+			$respuesta['mensaje'] = 'Vivienda eliminada';
+			$respuesta['error'] = false;
+			$respuesta['data'] = $vivienda;
+			$respuesta['exito'] = true;
 		}else{
 			$respuesta['mensaje'] = 'No se ha podido eliminar la vivienda. Tiene reservas asociadas.';
 			$respuesta['error'] = false;

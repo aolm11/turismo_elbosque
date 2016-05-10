@@ -37,7 +37,22 @@ class UsuarioController extends BaseController {
     if ($respuesta['error'] == true) {
       return Redirect::back()->withErrors($respuesta['mensaje'])->withInput();
     } else {
-      return Redirect::back()->with('mensaje', ($respuesta['mensaje']));
+      return Redirect::back()
+          ->with('mensaje', ($respuesta['mensaje']))
+          ->with('exito', ($respuesta['exito']));
+    }
+  }
+
+  public function editarPropietario($id){
+
+    $respuesta =Usuario::editarPropietario($id, Input::all());
+
+    if ($respuesta['error'] == true) {
+      return Redirect::back()->withErrors($respuesta['mensaje'])->withInput();
+    } else {
+      return Redirect::back()
+          ->with('mensaje', ($respuesta['mensaje']))
+          ->with('exito', ($respuesta['exito']));
     }
   }
 
@@ -48,7 +63,9 @@ class UsuarioController extends BaseController {
     if ($respuesta['error'] == true) {
       return Redirect::back()->withErrors($respuesta['mensaje']);
     } else {
-      return Redirect::back()->with('mensaje', ($respuesta['mensaje']));
+      return Redirect::back()
+          ->with('mensaje', ($respuesta['mensaje']))
+          ->with('exito', ($respuesta['exito']));
     }
   }
 

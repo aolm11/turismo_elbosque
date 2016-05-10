@@ -14,7 +14,9 @@ class ViviendaController extends BaseController {
     if ($respuesta['error'] == true) {
       return Redirect::back()->withErrors($respuesta['mensaje'])->withInput();
     } else {
-      return Redirect::back()->with('mensaje', ($respuesta['mensaje']));
+      return Redirect::back()
+          ->with('mensaje', ($respuesta['mensaje']))
+          ->with('exito', ($respuesta['exito']));
     }
   }
 
@@ -40,7 +42,9 @@ class ViviendaController extends BaseController {
     if ($respuesta['error'] == true) {
       return Redirect::back()->withErrors($respuesta['mensaje'])->withInput();
     } else {
-      return Redirect::back()->with('mensaje', ($respuesta['mensaje']));
+      return Redirect::back()
+          ->with('mensaje', ($respuesta['mensaje']))
+          ->with('exito', ($respuesta['exito']));
     }
   }
 
@@ -50,7 +54,9 @@ class ViviendaController extends BaseController {
     if ($respuesta['error'] == true) {
       return Redirect::back()->withErrors($respuesta['mensaje']);
     } else {
-      return Redirect::back()->with('mensaje', ($respuesta['mensaje']));
+      return Redirect::back()
+          ->with('mensaje', ($respuesta['mensaje']))
+          ->with('exito', ($respuesta['exito']));
     }
   }
 
@@ -60,7 +66,9 @@ class ViviendaController extends BaseController {
     if ($respuesta['error'] == true) {
       return Redirect::back()->withErrors($respuesta['mensaje']);
     } else {
-      return Redirect::back()->with('mensaje', ($respuesta['mensaje']));
+      return Redirect::back()
+          ->with('mensaje', ($respuesta['mensaje']))
+          ->with('exito', ($respuesta['exito']));
     }
   }
 

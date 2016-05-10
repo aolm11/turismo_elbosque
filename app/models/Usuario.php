@@ -12,7 +12,7 @@ class Usuario extends Eloquent implements UserInterface, RemindableInterface {
 	use UserTrait, RemindableTrait;
 
 	protected $table = 'usuarios';
-	protected $fillable = array('nombre','apellidos', 'telefono', 'email', 'localidad', 'password');
+	protected $fillable = array('nombre','apellidos', 'telefono', 'email', 'password', 'permiso_app');
 	protected $hidden = array('password', 'remember_token');
 
 	public function rol()
@@ -92,7 +92,7 @@ class Usuario extends Eloquent implements UserInterface, RemindableInterface {
 		$reglas = array(
 			'nombre' => array('required', 'min:3', 'max:50'),
 			'apellidos' => array('required', 'min:3', 'max:100'),
-			'telefono'=> array('required', 'max:9'),
+			'telefono'=> array('required','min:9', 'max:9'),
 			'email' => array('required', 'email', 'max:50', 'unique:usuarios,email'),
 			'password' => array('required', 'min:6', 'max:100', 'same:password2'),
 			'password2' => array('required', 'min:6', 'max:100'),
@@ -105,37 +105,34 @@ class Usuario extends Eloquent implements UserInterface, RemindableInterface {
 			$respuesta['error'] = true;
 		} else {
 
-			$usuario = new Usuario();
-			$usuario->nombre = $input['nombre'];
-			$usuario->apellidos = $input['apellidos'];
-			$usuario->email = $input['email'];
-			$usuario->password = Hash::make($input['password']);
-			$usuario->telefono = $input['telefono'];
-			$usuario->id_rol = 2;
+			$propietario = new Usuario();
+			$propietario->nombre = $input['nombre'];
+			$propietario->apellidos = $input['apellidos'];
+			$propietario->email = $input['email'];
+			$propietario->password = Hash::make($input['password']);
+			$propietario->telefono = $input['telefono'];
+			$propietario->id_rol = 2;
 
-			if(isset($input['localidad'])){
-				$usuario->localidad = $input['email'];
+			if(isset($input['permiso_app'])){
+				$propietario->permiso_app = 1;
 			}
-			$usuario->save();
+			$propietario->save();
 
-			$respuesta['mensaje'] = 'Usuario creado';
+			$respuesta['mensaje'] = 'Propietario creado';
 			$respuesta['error'] = false;
-			$respuesta['data'] = $usuario;
+			$respuesta['data'] = $propietario;
 			$respuesta['exito'] = true;
-
-
-			//TODO: email de notificacion.
 
 			$data = array(
 
-				'nombre'=>$usuario->nombre,
-				'apellidos'=>$usuario->apellidos,
-				'email'=>$usuario->email,
+				'nombre'=>$propietario->nombre,
+				'apellidos'=>$propietario->apellidos,
+				'email'=>$propietario->email,
 				'password'=>$input['password'],
 			);
 
-			Mail::send('emails.emailRespuesta', $data, function ($message) use ($usuario) {
-				$email = $usuario->email;
+			Mail::send('emails.emailRespuesta', $data, function ($message) use ($propietario) {
+				$email = $propietario->email;
 				$message->to($email)->subject('Bienvenido a Turismo El Bosque');
 			});
 
@@ -144,9 +141,52 @@ class Usuario extends Eloquent implements UserInterface, RemindableInterface {
 		return $respuesta;
 	}
 
-	public static function eliminarPropietario($id_propietario){
+	public static function editarPropietario($id, $input){
+		$respuesta = array();
 
-		//TODO: Borrado en cascada en base de datos??
+		$propietario = Usuario::find($id);
+
+		$reglas = array(
+			'nombre' => array('required', 'min:3', 'max:50'),
+			'apellidos' => array('required', 'min:3', 'max:100'),
+			'telefono' => array('required', 'min:9', 'max:9'),
+		);
+
+		if($input['email'] != $propietario->email){
+			$reglas=array_push($reglas,'email',array('email', 'max:50', 'unique:usuarios,email'));;
+		}
+
+		$validator = Validator::make($input, $reglas);
+
+		if ($validator->fails()) {
+			$respuesta['mensaje'] = $validator;
+			$respuesta['error'] = true;
+		} else {
+
+			$propietario->nombre = $input['nombre'];
+			$propietario->apellidos = $input['apellidos'];
+			$propietario->email = $input['email'];
+			$propietario->telefono = $input['telefono'];
+
+			if (isset($input['permiso_app'])) {
+				$propietario->permiso_app = 1;
+			}
+			$propietario->save();
+
+			$respuesta['mensaje'] = 'Propietario editado';
+			$respuesta['error'] = false;
+			$respuesta['data'] = $propietario;
+			$respuesta['exito'] = true;
+
+		}
+
+		//TODO: email de notificación de modificación de datos..
+
+
+		return $respuesta;
+	}
+
+	public static function eliminarPropietario($id_propietario){
 
 		$respuesta = array();
 
@@ -162,13 +202,20 @@ class Usuario extends Eloquent implements UserInterface, RemindableInterface {
 
 			if(!empty($reservas)){
 				foreach ($reservas as $reserva) {
-					$reserva->delete();
+					Alquiler::find($reserva->id)->delete();
 				}
 				$respuesta['mensaje'] .= ',reservas, ';
 			}
 
 			foreach ($viviendas as $vivienda) {
-				$vivienda->delete();
+
+				$imagenes = Imagen::imagenesVivienda($vivienda->id);
+
+				foreach ($imagenes as $imagen) {
+					Imagen::find($imagen->id)->delete();
+				}
+
+				Vivienda::find($vivienda->id)->delete();
 			}
 
 			$respuesta['mensaje'] .= 'y viviendas eliminados';

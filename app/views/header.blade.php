@@ -23,7 +23,7 @@
                     </li>
                     <!-- Si el usuario es admin crear enlace a panel de control.-->
                     <li class="page-scroll">
-                        <a href="#about">Casas</a>
+                        <a href="#about">Viviendas</a>
                     </li>
 
                     <li class="dropdown">
