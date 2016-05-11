@@ -1,7 +1,93 @@
 @extends('template')
 @section('title', 'Propietario')
+@section('alertas')
+	@if( $errors->has('nombre') )
+		<div class="message">
+			<div style="padding: 5px;">
+				<div id="inner-message" class="alert alert-danger">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					@foreach($errors->get('nombre') as $error )
+						* {{ $error }}<br>
+					@endforeach
+				</div>
+			</div>
+		</div>
+	@endif
 
+	@if( $errors->has('direccion') )
+		<div class="message">
+			<div style="padding: 5px;">
+				<div id="inner-message" class="alert alert-danger">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					@foreach($errors->get('direccion') as $error )
+						* {{ $error }}<br>
+					@endforeach
+				</div>
+			</div>
+		</div>
+	@endif
+	@if( $errors->has('num_habitaciones') )
+		<div class="message">
+			<div style="padding: 5px;">
+				<div id="inner-message" class="alert alert-danger">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					@foreach($errors->get('num_habitaciones') as $error )
+						* {{ $error }}<br>
+					@endforeach
+				</div>
+			</div>
+		</div>
+	@endif
+	@if( $errors->has('num_banos') )
+		<div class="message">
+			<div style="padding: 5px;">
+				<div id="inner-message" class="alert alert-danger">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					@foreach($errors->get('num_banos') as $error )
+						* {{ $error }}<br>
+					@endforeach
+				</div>
+			</div>
+		</div>
+	@endif
+	@if( $errors->has('capacidad') )
+		<div class="message">
+			<div style="padding: 5px;">
+				<div id="inner-message" class="alert alert-danger">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					@foreach($errors->get('capacidad') as $error )
+						* {{ $error }}<br>
+					@endforeach
+				</div>
+			</div>
+		</div>
+	@endif
+	@if( $errors->has('descripcion') )
+		<div class="message">
+			<div style="padding: 5px;">
+				<div id="inner-message" class="alert alert-danger">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					@foreach($errors->get('descripcion') as $error )
+						* {{ $error }}<br>
+					@endforeach
+				</div>
+			</div>
+		</div>
+	@endif
+@stop
 @section('content')
+	<div class="page-bar row content">
+		<ul class="page-breadcrumb">
+			<li>
+				<i class="fa fa-home" aria-hidden="true"></i>
+				<a href="{{URL::asset('')}}">Inicio</a>
+				<i class="fa fa-angle-right"></i>
+			</li>
+			<li>
+				<span>Propietario</span>
+			</li>
+		</ul>
+	</div>
 	<div class="row content">
 		<div class="col-md-8 col-sm-8">
 			<div class="section-title">

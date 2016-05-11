@@ -9,7 +9,6 @@
     <file url="file://$PROJECT_DIR$/app/views/editarVivienda.blade.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/views/header.blade.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/views/modales/confirmar.blade.php" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app/views/modales/editarPropietario.blade.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/views/modales/imagen.blade.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/views/modales/nuevaVivienda.blade.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/views/modales/propietarioCrearEditar.blade.php" charset="UTF-8" />

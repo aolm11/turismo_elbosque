@@ -133,7 +133,7 @@
 .section-title-panel{
     border-bottom: 1px solid #eee;
     padding: 0;
-    margin-bottom: 4%;
+    margin-bottom: 1%;
 }
 
 .derecha{
@@ -184,3 +184,82 @@ header.carousel .fill {
 #inner-message {
     margin: 0 auto;
 }
+
+@media (min-width: 768px) {
+    .form-horizontal .control-label {
+        text-align: left;
+    }
+}
+
+/* Page breadcrumb */
+.page-bar {
+    padding: 0px;
+    background-color: #ffffff;
+    margin-bottom: 20px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px; }
+.page-bar:before,
+.page-bar:after {
+    content: " ";
+    display: table; }
+.page-bar:after {
+    clear: both; }
+.page-bar .page-breadcrumb {
+    display: inline-block;
+    float: left;
+    padding: 10px 6px;
+    margin: 0;
+    list-style: none; }
+.page-bar .page-breadcrumb > li {
+    display: inline-block; }
+.ie8 .page-bar .page-breadcrumb > li {
+    margin-right: 1px; }
+.page-bar .page-breadcrumb > li > a,
+.page-bar .page-breadcrumb > li > span {
+    color: #888;
+    font-size: 13px;
+    text-shadow: none; }
+.page-bar .page-breadcrumb > li > i {
+    color: #aaa;
+    font-size: 14px;
+    text-shadow: none; }
+.page-bar .page-breadcrumb > li > i[class^="icon-"],
+.page-bar .page-breadcrumb > li > i[class*="icon-"] {
+    color: #8c8c8c; }
+.page-bar .page-toolbar {
+    display: inline-block;
+    float: right; }
+.page-bar .page-toolbar .btn-fit-height {
+    -webkit-border-radius: 0 4px 4px 0;
+    -moz-border-radius: 0 4px 4px 0;
+    -ms-border-radius: 0 4px 4px 0;
+    -o-border-radius: 0 4px 4px 0;
+    border-radius: 0 4px 4px 0;
+    padding-top: 9px;
+    padding-bottom: 9px; }
+.page-md .page-bar .page-toolbar .btn-fit-height {
+    padding-top: 11px;
+    padding-bottom: 10px;
+    box-shadow: none !important; }
+.page-bar .page-toolbar .btn.btn-default {
+    border-color: #eee;
+    color: #999; }
+.page-bar .page-toolbar .btn.btn-default > i {
+    color: #999; }
+.page-bar .page-toolbar .btn.btn-sm {
+    margin-top: 0px; }
+.page-bar .page-toolbar .btn-dashboard-daterange {
+    padding: 8px 16px 8px 16px; }
+.page-bar .page-toolbar .btn-dashboard-daterange > i[class^="icon-"] {
+    position: relative;
+    font-size: 20px;
+    opacity: 0.8 ;
+    filter: alpha(opacity=80) ;
+    top: 2px; }
+.page-bar .page-toolbar .btn-dashboard-daterange > i.fa-angle-down {
+    font-size: 16px;
+    opacity: 0.8 ;
+    filter: alpha(opacity=80) ; }

@@ -13,19 +13,19 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class='form-group'>
-                                    <label class='control-label col-sm-4' for='nombre'>* Nombre:</label>
+                                    <label class='control-label col-sm-4' for='nombre'>Nombre: *</label>
                                     <div class='col-sm-8'>
                                         <input type='text' class='form-control' value='{{Input::old('nombre')}}' id='nombre' name='nombre'>
                                     </div>
                                 </div>
                                 <div class='form-group'>
-                                    <label class='control-label col-sm-4' for='direccion'>* Dirección:</label>
+                                    <label class='control-label col-sm-4' for='direccion'>Dirección: *</label>
                                     <div class='col-sm-8'>
                                         <input type='text' class='form-control' value='{{Input::old('direccion')}}' id='direccion' name='direccion'>
                                     </div>
                                 </div>
                                 <div class='form-group'>
-                                    <label class='control-label col-sm-4' for='num_habitaciones'>* Número de habitaciones:</label>
+                                    <label class='control-label col-sm-5' for='num_habitaciones'>Número de habitaciones: *</label>
                                     <div class='col-sm-2'>
                                         <select class="form-control" name="num_habitaciones" id="num_habitaciones">
                                             @for($i = 1; $i <= 10; $i++)
@@ -36,7 +36,7 @@
                                     </div>
                                 </div>
                                 <div class='form-group'>
-                                    <label class='control-label col-sm-4' for='num_banos'>* Número de baños:</label>
+                                    <label class='control-label col-sm-5' for='num_banos'>Número de baños: *</label>
                                     <div class='col-sm-2'>
                                         <select class="form-control" name="num_banos" id="num_banos">
                                             @for($i = 1; $i <= 5; $i++)
@@ -47,31 +47,34 @@
                                     </div>
                                 </div>
                                 <div class='form-group'>
-                                    <label class='control-label col-sm-4' for='capacidad'>* Capacidad:</label>
+                                    <label class='control-label col-sm-5' for='capacidad'>Capacidad: *</label>
                                     <div class='col-sm-2'>
                                         <input type='number' min="1" class='form-control' value='{{Input::old('capacidad')}}' id='capacidad' name='capacidad'>
                                     </div>
                                 </div>
                                 <div class='form-group'>
-                                    <label class='control-label col-sm-4' for='precio_persona'>Precio por persona:</label>
+                                    <label class='control-label col-sm-5' for='precio_persona'>Precio por persona:</label>
                                     <div class='col-sm-2'>
                                         <input type='number' min="0" step="0.1" class='form-control' value='{{Input::old('precio_persona')}}' id='precio_persona' name='precio_persona'>
                                     </div>
                                 </div>
                                 <div class='form-group'>
-                                    <label class='control-label col-sm-4' for='precio_total'>Precio total:</label>
+                                    <label class='control-label col-sm-5' for='precio_total'>Precio total:</label>
                                     <div class='col-sm-2'>
                                         <input type='number' min="0" step="0.1" class='form-control' value='{{Input::old('precio_total')}}' id='precio_total' name='precio_total'>
                                     </div>
                                 </div>
                                 <div class='form-group'>
-                                    <label class='control-label col-sm-4' for='descripcion'>* Descripción:</label>
-                                    <div class='col-sm-8'>
+                                    <label class='control-label col-sm-3' for='descripcion'>Descripción: *</label>
+                                    <div class='col-sm-9'>
                                         <textarea class='form-control' id='descripcion' name='descripcion' rows='7'>{{Input::old('descripcion')}}</textarea>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="panel panel-info">
+                        <div class="panel-heading"><i class="fa fa-info-circle" aria-hidden="true"></i> Para añadir imágenes pulse editar, una vez creada la vivienda</div>
                     </div>
                 </div>
                 <div class="modal-footer">

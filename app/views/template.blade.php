@@ -74,7 +74,7 @@
             $("#message").fadeTo(500, 0).slideUp(500, function(){
                 $(this).remove();
             });
-        }, 3000);
+        }, 2000);
 
         var mensages = document.getElementsByClassName('message');
         var segundos = mensages.length * 3000;

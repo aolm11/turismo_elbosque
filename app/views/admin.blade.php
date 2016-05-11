@@ -64,6 +64,18 @@
 @endif
 @stop
 @section('content')
+	<div class="page-bar">
+		<ul class="page-breadcrumb">
+			<li>
+				<i class="fa fa-home" aria-hidden="true"></i>
+				<a href="{{URL::asset('')}}">Inicio</a>
+				<i class="fa fa-angle-right"></i>
+			</li>
+			<li>
+				<span>Administrador</span>
+			</li>
+		</ul>
+	</div>
 	<div class="row content">
 		<div class="col-md-12 col-sm-12">
 			<div class="section-title">
@@ -94,9 +106,18 @@
 								<a href="{{'#editarPropietario'.$propietario->id}}" class="btn btn-default" role="button" data-toggle="modal">
 									<i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar
 								</a>
-								<a href="#" class="btn btn-danger" role="button" data-toggle="modal" data-target="{{'#modalConfirm'.$propietario->id}}">
-									<i class="fa fa-trash" aria-hidden="true"></i> Eliminar
-								</a>
+								@if($propietario->alta == 1)
+									<a href="{{URL::asset('propietario/baja/'.$propietario->id)}}" class="btn btn-danger" role="button">
+										<i class="fa fa-user-times" aria-hidden="true"></i> Dar de baja
+									</a>
+								@else
+									<a href="{{URL::asset('propietario/alta/'.$propietario->id)}}" class="btn btn-success" role="button">
+										<i class="fa fa-sign-in" aria-hidden="true"></i> Dar de alta
+									</a>
+									<a href="#" class="btn btn-danger" role="button" data-toggle="modal" data-target="{{'#modalConfirm'.$propietario->id}}">
+										<i class="fa fa-trash" aria-hidden="true"></i> Eliminar
+									</a>
+								@endif
 							</td>
 						</tr>
 						@include('modales.propietarioCrearEditar')

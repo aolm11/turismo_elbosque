@@ -71,7 +71,7 @@ class Usuario extends Eloquent implements UserInterface, RemindableInterface {
 			$idRol=Auth::user()->id_rol;
 
 			$rol = DB::table('roles')->where('id', '=', $idRol)->first();
-			if ($rol->id == 2) {
+			if ($rol->id == 2 and Auth::user()->alta == 1) {
 				return true;
 			}
 		} else {
@@ -112,6 +112,7 @@ class Usuario extends Eloquent implements UserInterface, RemindableInterface {
 			$propietario->password = Hash::make($input['password']);
 			$propietario->telefono = $input['telefono'];
 			$propietario->id_rol = 2;
+			$propietario->alta = 1;
 
 			if(isset($input['permiso_app'])){
 				$propietario->permiso_app = 1;
@@ -182,6 +183,42 @@ class Usuario extends Eloquent implements UserInterface, RemindableInterface {
 
 		//TODO: email de notificación de modificación de datos..
 
+
+		return $respuesta;
+	}
+
+	public static function darDeBajaPropietario($id_propietario){
+
+		$respuesta = array();
+
+		$propietario = Usuario::find($id_propietario);
+
+		$propietario->alta = 0;
+
+		$propietario->save();
+
+		$respuesta['mensaje'] = 'El propietario ha sido dado de baja';
+		$respuesta['error'] = false;
+		$respuesta['exito'] = true;
+
+		return $respuesta;
+
+
+	}
+
+	public static function darDeAltaPropietario($id_propietario){
+
+		$respuesta = array();
+
+		$propietario = Usuario::find($id_propietario);
+
+		$propietario->alta = 1;
+
+		$propietario->save();
+
+		$respuesta['mensaje'] = 'El propietario ha sido dado de alta';
+		$respuesta['error'] = false;
+		$respuesta['exito'] = true;
 
 		return $respuesta;
 	}

@@ -2,8 +2,24 @@
 @section('title', 'Editar Vivienda')
 
 @section('content')
+    <div class="page-bar row content">
+        <ul class="page-breadcrumb">
+            <li>
+                <i class="fa fa-home" aria-hidden="true"></i>
+                <a href="{{URL::asset('')}}">Inicio</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="{{URL::asset('propietario')}}">Propietario</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <span>Editar vivienda</span>
+            </li>
+        </ul>
+    </div>
     <div class="row content">
-        <div class="section-title">
+        <div class="section-title-panel">
             <h3>Detalles Vivienda</h3>
         </div>
         <form role="form" class="form-horizontal" name="crearVivienda" id="crearVivienda" method="POST" action="{{URL::asset('vivienda/editar/'.$vivienda->id)}}">
@@ -52,7 +68,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-7 col-sm-7">
+        <div class="col-md-1 col-sm-1"></div>
+        <div class="col-md-6 col-sm-6">
 
             <div class='form-group'>
                 <label class='control-label col-sm-3' for='capacidad'>Capacidad:</label>
@@ -74,8 +91,8 @@
             </div>
             <div class='form-group'>
                 <label class='control-label col-sm-3' for='descripcion'>Descripción:</label>
-                <div class='col-sm-7'>
-                    <textarea class='form-control' id='descripcion' name='descripcion' rows='7'>{{$vivienda->descripcion}}</textarea>
+                <div class='col-sm-9'>
+                    <textarea class='form-control' id='descripcion' name='descripcion' rows='10'>{{$vivienda->descripcion}}</textarea>
                 </div>
             </div>
         </div>

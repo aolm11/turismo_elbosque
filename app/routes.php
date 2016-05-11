@@ -33,15 +33,14 @@ Route::get('inicio', function () {
 
 });
 
-
 Route::filter('admin', function () {
 	if (!Usuario::esAdmin())
-		return View::make('401', array(), 401);
+		return Response::view('401', array(), 401);
 });
 
 Route::filter('propietario', function () {
 	if (!Usuario::esPropietario())
-		return View::make('401', array(), 401);
+		return Response::view('401', array(), 401);
 });
 
 Route::group(array('before' => ['auth']), function () {
@@ -59,6 +58,9 @@ Route::group(array('before' => ['auth']), function () {
 
 		Route::post('editar/propietario/{id}', 'UsuarioController@editarPropietario');
 
+		Route::get('propietario/alta/{id}', 'UsuarioController@darDeAltaPropietario');
+
+		Route::get('propietario/baja/{id}', 'UsuarioController@darDeBajaPropietario');
 
 		Route::get('propietario/eliminar/{id}', 'UsuarioController@eliminarPropietario');
 

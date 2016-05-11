@@ -56,6 +56,24 @@ class UsuarioController extends BaseController {
     }
   }
 
+  public function darDeBajaPropietario($id_propietario){
+
+    $respuesta = Usuario::darDeBajaPropietario($id_propietario);
+
+    return Redirect::back()
+        ->with('mensaje', ($respuesta['mensaje']))
+        ->with('exito', ($respuesta['exito']));
+  }
+
+  public function darDeAltaPropietario($id_propietario){
+
+    $respuesta = Usuario::darDeAltaPropietario($id_propietario);
+
+    return Redirect::back()
+        ->with('mensaje', ($respuesta['mensaje']))
+        ->with('exito', ($respuesta['exito']));
+  }
+
   public function eliminarPropietario($id_propietario){
 
     $respuesta = Usuario::eliminarPropietario($id_propietario);

@@ -2,6 +2,14 @@
 @section('title', 'Inicio')
 
 @section('content')
+    <div class="page-bar row content">
+        <ul class="page-breadcrumb">
+            <li>
+                <i class="fa fa-home" aria-hidden="true"></i>
+                <span>Inicio</span>
+            </li>
+        </ul>
+    </div>
     <div class="row content">
         <div class="col-md-12 col-sm-12">
             <header id="myCarousel" class="carousel slide">
