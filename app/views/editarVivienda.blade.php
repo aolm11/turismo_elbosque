@@ -146,12 +146,9 @@
                             <div class="col-lg-3 col-sm-4 col-6" style="max-width:150px; max-height:120px;"><a href="#" data-id="{{$imagen->id}}" title="{{$imagen->nombre}}"><img src="{{URL::asset('img/viviendas/'.$imagen->nombre)}}" class="thumbnail img-responsive"></a></div>
                         @endforeach
                     </div>
-
                 </div>
             @endif
-
         </div>
-
     </div>
 
     <script>

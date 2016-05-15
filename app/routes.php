@@ -117,3 +117,10 @@ Route::resource('vivienda', 'ViviendaController');
 Route::resource('imagen', 'ImagenController');
 Route::resource('cliente', 'ClienteController');
 Route::resource('alquiler', 'AlquilerController');
+
+Route::get('prueba', function(){
+
+
+	dd(Vivienda::viviendaDisponible(2, '28-05-2016','07-06-2016'));
+
+});

@@ -14,7 +14,7 @@
                 @if(isset($propietario))
                     <?php
                     $viviendas = Vivienda::viviendasPropietario($propietario->id);
-                    $reservas = Alquiler::reservasPropietario($propietario->id);
+                    $reservas = Alquiler::reservasPropietarioSinConfirmar($propietario->id);
                     ?>
                     @if(!empty($viviendas) or !empty($reservas))
                         <p>Tiene {{(empty($reservas)) ? 'viviendas ' : 'viviendas y reservas'}} en la plataforma.</p>

@@ -212,5 +212,62 @@ class Vivienda extends Eloquent {
 		return $respuesta;
 
 	}
+	
+	public static function getTodasFechasReservadas($id_vivienda){
+		
+		$reservas = Alquiler::reservasVivienda($id_vivienda);
+
+		$alquileres = array();
+		if(count($reservas) > 0){
+			foreach ($reservas as $reserva) {
+				$fechas = array();
+				$dias = Alquiler::getDiasAlquilados($reserva->fecha_inicio,$reserva->fecha_fin);
+				
+				for($i = 1; $i<= $dias->d; $i++){
+					array_push($fechas, date('d-m-Y', strtotime($reserva->fecha_inicio. ' + '.$i.' days')));
+				}
+				
+				array_push($alquileres, $fechas);
+			}
+		}else{
+			$alquileres = null;
+		}
+		
+		return $alquileres;
+		
+	}
+	
+	public static function viviendaDisponible($id_vivienda, $fecha_inicio, $fecha_fin){
+
+		$disponible = true;
+
+		$diasNuevaReserva = Alquiler::getDiasAlquilados($fecha_inicio,$fecha_fin);
+
+		$alquileres = Vivienda::getTodasFechasReservadas($id_vivienda);
+
+		if(!is_null($alquileres)){
+			foreach ($alquileres as $alquiler) {
+
+				foreach ($alquiler as $dia) {
+
+					if($fecha_inicio != $dia or $fecha_inicio == end($alquiler)){
+
+						for($i = 1; $i<= $diasNuevaReserva->d; $i++){
+							 $diaNuevaReserva = date('d-m-Y', strtotime($fecha_inicio. ' + '.$i.' days'));
+							if($diaNuevaReserva == $dia){
+								$disponible = false;
+								break 3;
+							}
+						}
+
+					}
+				}
+
+			}
+
+		}
+
+		return $disponible;
+	}
 
 }

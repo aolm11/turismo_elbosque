@@ -231,7 +231,7 @@ class Usuario extends Eloquent implements UserInterface, RemindableInterface {
 
 		$viviendas = Vivienda::viviendasPropietario($id_propietario);
 
-		$reservas = Alquiler::reservasPropietario($id_propietario);
+		$reservas = Alquiler::reservasPropietarioSinConfirmar($id_propietario);
 
 		$respuesta['mensaje'] = 'Propietario ';
 

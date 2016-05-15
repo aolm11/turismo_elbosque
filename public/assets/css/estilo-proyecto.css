@@ -89,7 +89,7 @@
 }
 
 .titulo {
-    font-size: 34px;
+    font-size: 30px;
     font-weight: 500;
     line-height: 40px;
     float: left;
@@ -115,6 +115,7 @@
     padding: 1% 2% 5%;
     background-color: #fff;
     border-radius: 10px;
+    margin: 5px 25px;
 }
 
 .content-panel{

@@ -17,7 +17,7 @@ class UsuarioController extends BaseController {
 
     $propietario = Usuario::find(Auth::id());
 
-    $reservas = Alquiler::reservasPropietario($propietario->id);
+    $reservas = Alquiler::reservasPropietarioSinConfirmar($propietario->id);
 
     $viviendas = Vivienda::viviendasPropietario($propietario->id);
 

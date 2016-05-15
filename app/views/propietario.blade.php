@@ -174,12 +174,114 @@
 					</tbody>
 				</table>
 			@else
-				<div class="col-md-9 col-xs-12 text-center font-grey-mint">
+				<div class="col-md-9 col-xs-12 text-center">
 
-					<h3 style="margin-top: 10%">No tiene ninguna reserva en sus viviendas.</h3>
+					<h3 style="margin-top: 6%">No tiene ninguna reserva en sus viviendas.</h3>
 				</div>
 			@endif
 		</div>
 	</div>
+	<br>
+	<br>
+	<div class="row">
+		<div class="content" style="padding-bottom: 1%; margin: 5px 40px;">
+			<div class="section-title">
+				<h1 class="titulo">Gestión de alquileres</h1>
+			</div>
+		</div>
+	</div>
+	<div class="row" style="margin:5px 25px;
+">
+		<div class="col-md-3 col-sm-3 content-panel">
+			<div class="section-title-panel" style="margin-bottom: 5%">
+				<h4>Añadir reserva</h4>
+			</div>
+
+			<form role="form">
+				<div class="form-group">
+					<label for="nombre">Nombre cliente:</label>
+					<input type="text" class="form-control" id="nombre">
+				</div>
+				<div class="form-group">
+					<label for="email">E-mail:</label>
+					<input type="email" class="form-control" id="email">
+				</div>
+				<div class="form-group">
+					<label for="telefono">Teléfono:</label>
+					<input type="text" class="form-control" id="telefono">
+				</div>
+				<div class="form-group">
+					<label for="vivienda">Vivienda:</label>
+					<select class="form-control" name="vivienda" id="vivienda">
+						@if(count($viviendas) > 0)
+							@foreach($viviendas as $vivienda)
+								<option value="{{$vivienda->id}}">{{$vivienda->nombre}}</option>
+							@endforeach
+						@else
+							<option value="">No tiene viviendas añadidas</option>
+						@endif
+					</select>
+				</div>
+				<div class="row">
+					<div class="col-md-6 col-xs-12">
+						<div class="form-group">
+							<label for="entrada">Entrada:</label>
+							<div class='input-group date' >
+								<input type="text" class="form-control" id='datepicker' name="entrada">
+								<span class="input-group-addon">
+									<i class="fa fa-calendar" aria-hidden="true"></i>
+								</span>
+							</div>
+
+						</div>
+					</div>
+					<div class="col-md-6 col-xs-12">
+						<div class="form-group">
+							<label for="salida">Salida:</label>
+							<div class='input-group date' >
+								<input type="text" class="form-control" id='datepicker' name="salida">
+								<span class="input-group-addon">
+									<i class="fa fa-calendar" aria-hidden="true"></i>
+								</span>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<button type="submit" class="btn btn-default">Guardar</button>
+			</form>
+		</div>
+		<div class="col-md-8 col-sm-8 col-md-offset-1 content-panel">
+			<div class="section-title-panel">
+				<h4>Reservas</h4>
+			</div>
+			<div id="calendar"></div>
+		</div>
+	</div>
 @include('modales.nuevaVivienda')
+
+	<script>
+		$(function() {
+			$( "#datepicker" ).datepicker();
+		});
+
+		$(function () {
+			$('#calendar').fullCalendar({
+				header: {
+					left: 'prev,next today',
+					center: 'title',
+					right: 'month,agendaWeek,agendaDay'
+				},
+				buttonText: {
+					today: 'Hoy',
+					month: 'Mes',
+					week: 'Semana',
+					day: 'Día'
+				}
+			});
+		});
+	</script>
 @stop
+
+
+

@@ -16,6 +16,8 @@
     {{HTML::style('/assets/js/jquery-ui-1.11.4/themes/smoothness/jquery-ui.css')}}
     {{HTML::style('/assets/plugins/bootstrap-fileinput/bootstrap-fileinput.css')}}
     {{HTML::style('/assets/plugins/bootstrap-fileinput/fileinput.min.css')}}
+    {{HTML::style('/assets/plugins/fullcalendar/fullcalendar.min.css')}}
+    {{HTML::style('/assets/plugins/fullcalendar/fullcalendar.print.css')}}
 
     {{HTML::script('/assets/js/jquery.min.js')}}
     {{HTML::script('/assets/js/jquery-ui-1.11.4/jquery-ui.min.js')}}
@@ -23,13 +25,12 @@
     {{HTML::script('/assets/js/freelancer.js')}}
     {{HTML::script('/assets/js/funciones.js')}}
     {{HTML::script('/assets/plugins/bootstrap-fileinput/bootstrap-fileinput.js')}}
+    {{HTML::script('/assets/plugins/fullcalendar/moment.min.js')}}
+    {{HTML::script('/assets/plugins/fullcalendar/fullcalendar.min.js')}}
+    {{HTML::script('/assets/plugins/fullcalendar/lang/es.js')}}
 
 
-    <script>
-        $(function() {
-            $( "#datepicker" ).datepicker();
-        });
-    </script>
+
 
     <title>@yield('title') | Turismo El Bosque</title>
 </head>
