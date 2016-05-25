@@ -16,17 +16,15 @@ class Alquiler extends Eloquent {
 	}
 
 
-	public static function crearReserva($id_propietario, $input){
+	public static function crearReserva($input){
 		$respuesta = array();
-
-		$propietario = Usuario::find($id_propietario);
 
 		$reglas = array(
 			'nombre' => array('required', 'min:3', 'max:100'),
 			'telefono'=> array('required','min:9', 'max:9'),
 			'email' => array('required', 'email', 'max:100'),
-			'entrada' => array('required', 'date_format:dd/mm/yyyy'),
-			'salida' => array('required', 'date_format:dd/mm/yyyy'),
+			'entrada' => array('required', 'date_format:d-m-Y'),
+			'salida' => array('required', 'date_format:d-m-Y'),
 			'vivienda' => array('required'),
 
 		);
@@ -38,8 +36,47 @@ class Alquiler extends Eloquent {
 			$respuesta['error'] = true;
 		} else {
 
-			$vivienda = Vivienda::find($input['vivienda']);
+
+			if(Vivienda::viviendaDisponible($input['vivienda'],$input['entrada'],$input['salida'])){
+
+				$cliente = Cliente::getClienteByEmail($input['email']);
+				if(is_null($cliente)){
+					$cliente = new Cliente();
+					$cliente->nombre = $input['nombre'];
+					$cliente->email = $input['email'];
+					$cliente->telefono = $input['telefono'];
+					$cliente->save();
+				}
+
+				$reserva = new Alquiler();
+				$reserva->id_vivienda = $input['vivienda'];
+				$reserva->id_cliente = $cliente->id;
+				$reserva->fecha_inicio = Herramientas::formatearFechaBD($input['entrada']);
+				$reserva->fecha_fin = Herramientas::formatearFechaBD($input['salida']);
+				$reserva->confirmado = 1;
+				$reserva->save();
+
+				$respuesta['mensaje'] = 'Reserva creada y confirmada';
+				$respuesta['error'] = false;
+				$respuesta['exito'] = true;
+			}else{
+				$respuesta['mensaje'] = 'La vivienda no está disponible en las fechas selecciondas. Elimine la reserva para poder añadir una nueva.';
+				$respuesta['error'] = false;
+				$respuesta['exito'] = false;
+			}
 		}
+		return $respuesta;
+	}
+
+	public static function reservasPropietarioConfirmadas($id_usuario){
+
+		$reservas = DB::table('alquiler')
+			->join('viviendas','alquiler.id_vivienda', '=', 'viviendas.id')
+			->where('viviendas.id_usuario', '=', $id_usuario)
+			->where('alquiler.confirmado', '=', 1)
+			->get();
+
+		return $reservas;
 	}
 
 	public static function reservasPropietarioSinConfirmar($id_usuario){
@@ -57,6 +94,16 @@ class Alquiler extends Eloquent {
 
 		$reservas = DB::table('alquiler')
 			->where('id_vivienda', '=', $id_vivienda)->get();
+
+		return $reservas;
+	}
+
+	public static function reservasConfirmadas($id_vivienda){
+
+		$reservas = DB::table('alquiler')
+			->where('id_vivienda', '=', $id_vivienda)
+			->where('confirmado', '=', 1)
+			->get();
 
 		return $reservas;
 	}

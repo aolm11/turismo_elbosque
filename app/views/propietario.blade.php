@@ -74,6 +74,66 @@
 			</div>
 		</div>
 	@endif
+	@if( $errors->has('email') )
+		<div class="message">
+			<div style="padding: 5px;">
+				<div id="inner-message" class="alert alert-danger">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					@foreach($errors->get('email') as $error )
+						* {{ $error }}<br>
+					@endforeach
+				</div>
+			</div>
+		</div>
+	@endif
+	@if( $errors->has('telefono') )
+		<div class="message">
+			<div style="padding: 5px;">
+				<div id="inner-message" class="alert alert-danger">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					@foreach($errors->get('telefono') as $error )
+						* {{ $error }}<br>
+					@endforeach
+				</div>
+			</div>
+		</div>
+	@endif
+	@if( $errors->has('vivienda') )
+		<div class="message">
+			<div style="padding: 5px;">
+				<div id="inner-message" class="alert alert-danger">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					@foreach($errors->get('vivienda') as $error )
+						* {{ $error }}<br>
+					@endforeach
+				</div>
+			</div>
+		</div>
+	@endif
+	@if( $errors->has('entrada') )
+		<div class="message">
+			<div style="padding: 5px;">
+				<div id="inner-message" class="alert alert-danger">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					@foreach($errors->get('entrada') as $error )
+						* {{ $error }}<br>
+					@endforeach
+				</div>
+			</div>
+		</div>
+	@endif
+	@if( $errors->has('salida') )
+		<div class="message">
+			<div style="padding: 5px;">
+				<div id="inner-message" class="alert alert-danger">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					@foreach($errors->get('salida') as $error )
+						* {{ $error }}<br>
+					@endforeach
+				</div>
+			</div>
+		</div>
+	@endif
 @stop
 @section('content')
 	<div class="page-bar row content">
@@ -143,7 +203,7 @@
 				<h1 class="titulo">Notificaciones</h1>
 			</div>
 
-			@if(count($reservas) != 0)
+			@if(count($reservasNoConfirmadas) != 0)
 				<table class="table table-bordered table-hover">
 					<thead>
 					<tr>
@@ -155,7 +215,7 @@
 					</tr>
 					</thead>
 					<tbody>
-					@foreach($reservas as $reserva)
+					@foreach($reservasNoConfirmadas as $reserva)
 						<tr>
 							<td>{{Vivienda::find($reserva->id_vivienda)->nombre}}</td>
 							<td>{{Herramientas::formatearFechaBD($reserva->fecha_inicio)}}</td>
@@ -197,18 +257,18 @@
 				<h4>Añadir reserva</h4>
 			</div>
 
-			<form role="form">
+			<form role="form" method="POST" action="{{URL::asset('crear/reserva')}}">
 				<div class="form-group">
 					<label for="nombre">Nombre cliente:</label>
-					<input type="text" class="form-control" id="nombre">
+					<input type="text" class="form-control" id="nombre" name="nombre" value="{{Input::old('nombre')}}">
 				</div>
 				<div class="form-group">
 					<label for="email">E-mail:</label>
-					<input type="email" class="form-control" id="email">
+					<input type="email" class="form-control" id="email" name="email" value="{{Input::old('email')}}">
 				</div>
 				<div class="form-group">
 					<label for="telefono">Teléfono:</label>
-					<input type="text" class="form-control" id="telefono">
+					<input type="text" class="form-control" id="telefono" name="telefono" value="{{Input::old('telefono')}}">
 				</div>
 				<div class="form-group">
 					<label for="vivienda">Vivienda:</label>
@@ -227,7 +287,7 @@
 						<div class="form-group">
 							<label for="entrada">Entrada:</label>
 							<div class='input-group date' >
-								<input type="text" class="form-control" id='datepicker' name="entrada">
+								<input type="text" class="form-control" id='entrada' name="entrada" value="{{Input::old('entrada')}}">
 								<span class="input-group-addon">
 									<i class="fa fa-calendar" aria-hidden="true"></i>
 								</span>
@@ -239,7 +299,7 @@
 						<div class="form-group">
 							<label for="salida">Salida:</label>
 							<div class='input-group date' >
-								<input type="text" class="form-control" id='datepicker' name="salida">
+								<input type="text" class="form-control" id='salida' name="salida" value="{{Input::old('salida')}}">
 								<span class="input-group-addon">
 									<i class="fa fa-calendar" aria-hidden="true"></i>
 								</span>
@@ -259,10 +319,14 @@
 		</div>
 	</div>
 @include('modales.nuevaVivienda')
-
 	<script>
 		$(function() {
-			$( "#datepicker" ).datepicker();
+			$( "#entrada" ).datepicker({
+				dateFormat: 'dd-mm-yy'
+			});
+			$( "#salida" ).datepicker({
+				dateFormat: 'dd-mm-yy'
+			});
 		});
 
 		$(function () {
@@ -270,14 +334,30 @@
 				header: {
 					left: 'prev,next today',
 					center: 'title',
-					right: 'month,agendaWeek,agendaDay'
+					right: 'month,agendaWeek,agendaDay',
 				},
 				buttonText: {
 					today: 'Hoy',
 					month: 'Mes',
 					week: 'Semana',
 					day: 'Día'
-				}
+				},
+				events: [
+						@foreach($reservasConfirmadas as $reserva)
+                        {
+						id: '{{$reserva->id}}',
+						title: '{{Cliente::find($reserva->id_cliente)->nombre}}',
+
+						start: '{{$reserva->fecha_inicio}}',
+						end: '{{date('Y-m-d', strtotime($reserva->fecha_fin. ' + 1 day'))}}',
+						allDay: false,
+						backgroundColor: "#AA1B30",
+						borderColor: "#AA1B30",
+						height:200
+					},
+					@endforeach
+				]
+
 			});
 		});
 	</script>

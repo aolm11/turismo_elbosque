@@ -36,6 +36,17 @@
                                         <i class="fa fa-user" aria-hidden="true"></i> Mi perfil </a>
                                 </li>
                                 <li>
+                                    @if(Usuario::esAdmin())
+                                        <a href="{{URL::asset('admin')}}">
+                                            <i class="fa fa-cogs" aria-hidden="true"></i>
+                                            <i class="fa fa-users" aria-hidden="true"></i> Gestión de propietarios</a>
+                                    @elseif(Usuario::esPropietario())
+                                        <a href="{{URL::asset('propietario')}}">
+                                            <i class="fa fa-cogs" aria-hidden="true"></i>
+                                            <i class="fa fa-home" aria-hidden="true"></i> Gestión de viviendas</a>
+                                    @endif
+                                </li>
+                                <li>
                                     <a href="{{URL::asset('logout')}}">
                                         <i class="fa fa-sign-out" aria-hidden="true"></i> Salir </a>
                                 </li>

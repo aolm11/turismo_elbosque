@@ -90,10 +90,13 @@ Route::group(array('before' => ['auth']), function () {
 
 		Route::get('eliminar/imagen/{id}', 'ImagenController@borrar');
 
+		Route::post('crear/reserva', 'AlquilerController@crearReserva');
+
+
 
 	});
 
-	Route::get('/', function () {
+	/*Route::get('/', function () {
 		if (Usuario::esAdmin()) {
 			return Redirect::to('admin');
 		} elseif (Usuario::esPropietario()) {
@@ -102,7 +105,7 @@ Route::group(array('before' => ['auth']), function () {
 			// retornar a vista sin permisos.
 		}
 
-	});
+	});*/
 
 
 });
@@ -120,7 +123,7 @@ Route::resource('alquiler', 'AlquilerController');
 
 Route::get('prueba', function(){
 
-
-	dd(Vivienda::viviendaDisponible(2, '28-05-2016','07-06-2016'));
+	//dd(Vivienda::viviendaDisponible(2, '01-06-2016','07-06-2016'));
+	dd(Cliente::getClienteByEmail('ads@ds.com'));
 
 });

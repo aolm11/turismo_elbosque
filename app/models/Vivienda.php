@@ -215,7 +215,7 @@ class Vivienda extends Eloquent {
 	
 	public static function getTodasFechasReservadas($id_vivienda){
 		
-		$reservas = Alquiler::reservasVivienda($id_vivienda);
+		$reservas = Alquiler::reservasConfirmadas($id_vivienda);
 
 		$alquileres = array();
 		if(count($reservas) > 0){
@@ -223,7 +223,7 @@ class Vivienda extends Eloquent {
 				$fechas = array();
 				$dias = Alquiler::getDiasAlquilados($reserva->fecha_inicio,$reserva->fecha_fin);
 				
-				for($i = 1; $i<= $dias->d; $i++){
+				for($i = 0; $i<= $dias->d; $i++){
 					array_push($fechas, date('d-m-Y', strtotime($reserva->fecha_inicio. ' + '.$i.' days')));
 				}
 				
@@ -260,6 +260,9 @@ class Vivienda extends Eloquent {
 							}
 						}
 
+					}else{
+						$disponible = false;
+						break 2;
 					}
 				}
 

@@ -10,4 +10,9 @@ class Cliente extends Eloquent {
 		return $this->hasMany('Alquiler');
 	}
 
+	public static function getClienteByEmail($email){
+		$cliente = DB::table('clientes')->where('email', '=', $email)->first();
+		return $cliente;
+	}
+
 }

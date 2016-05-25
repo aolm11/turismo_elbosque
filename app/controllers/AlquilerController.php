@@ -2,6 +2,18 @@
 
 class AlquilerController extends BaseController {
 
+  public function crearReserva(){
+    $respuesta = Alquiler::crearReserva(Input::all());
+
+    if ($respuesta['error'] == true) {
+      return Redirect::back()->withErrors($respuesta['mensaje'])->withInput();
+    } else {
+      return Redirect::back()
+          ->with('mensaje', ($respuesta['mensaje']))
+          ->with('exito', ($respuesta['exito']));
+    }
+  }
+
   /**
    * Display a listing of the resource.
    *

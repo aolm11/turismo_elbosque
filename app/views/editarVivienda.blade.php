@@ -143,7 +143,8 @@
                     </div>
                     <div class="row">
                         @foreach($imagenes as $imagen)
-                            <div class="col-lg-3 col-sm-4 col-6" style="max-width:150px; max-height:120px;"><a href="#" data-id="{{$imagen->id}}" title="{{$imagen->nombre}}"><img src="{{URL::asset('img/viviendas/'.$imagen->nombre)}}" class="thumbnail img-responsive"></a></div>
+                            <?php $nombre = explode('.jpg', $imagen->nombre); ?>
+                            <div class="col-lg-3 col-sm-4 col-6" style="max-width:150px; max-height:120px;"><a href="#" data-id="{{$imagen->id}}" title="{{$nombre[0]}}"><img src="{{URL::asset('img/viviendas/'.$imagen->nombre)}}" class="thumbnail img-responsive"></a></div>
                         @endforeach
                     </div>
                 </div>

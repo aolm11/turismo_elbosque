@@ -7,6 +7,11 @@ class UsuarioController extends BaseController {
    *
    * @return Response
    */
+  public function __construct()
+  {
+    $this->beforeFilter('csrf', array('on' => 'post'));
+  }
+
   public function admin()
   {
     $propietarios = Usuario::getPropietarios();
@@ -17,11 +22,13 @@ class UsuarioController extends BaseController {
 
     $propietario = Usuario::find(Auth::id());
 
-    $reservas = Alquiler::reservasPropietarioSinConfirmar($propietario->id);
+    $reservasNoConfirmadas = Alquiler::reservasPropietarioSinConfirmar($propietario->id);
+
+    $reservasConfirmadas = Alquiler::reservasPropietarioConfirmadas($propietario->id);
 
     $viviendas = Vivienda::viviendasPropietario($propietario->id);
 
-    return View::make('propietario')->with(['reservas' => $reservas, 'viviendas' => $viviendas]);
+    return View::make('propietario')->with(['reservasNoConfirmadas' => $reservasNoConfirmadas, 'reservasConfirmadas' => $reservasConfirmadas, 'viviendas' => $viviendas]);
 
   }
 
