@@ -13,6 +13,7 @@
     <file url="file://$PROJECT_DIR$/app/views/modales/imagen.blade.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/views/modales/nuevaVivienda.blade.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/views/modales/propietarioCrearEditar.blade.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/views/modales/reserva.blade.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/views/propietario.blade.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/views/template.blade.php" charset="UTF-8" />
   </component>

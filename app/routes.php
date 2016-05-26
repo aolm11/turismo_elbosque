@@ -92,6 +92,9 @@ Route::group(array('before' => ['auth']), function () {
 
 		Route::post('crear/reserva', 'AlquilerController@crearReserva');
 
+		Route::get('eliminar/reserva/{id}', 'AlquilerController@eliminarReservaConfirmada');
+
+
 
 
 	});

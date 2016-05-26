@@ -36,7 +36,6 @@ class Alquiler extends Eloquent {
 			$respuesta['error'] = true;
 		} else {
 
-
 			if(Vivienda::viviendaDisponible($input['vivienda'],$input['entrada'],$input['salida'])){
 
 				$cliente = Cliente::getClienteByEmail($input['email']);
@@ -66,6 +65,25 @@ class Alquiler extends Eloquent {
 			}
 		}
 		return $respuesta;
+	}
+
+	public static function eliminarReservaConfirmada($id_reserva){
+
+		$respuesta = array();
+
+		$reserva =  Alquiler::find($id_reserva);
+
+		$reserva->delete();
+
+		$respuesta['mensaje'] = 'Reserva eliminada';
+		$respuesta['data'] = $reserva;
+		$respuesta['exito'] = true;
+
+		return $respuesta;
+
+		//TODO Email informando al cliente. (Enviar contacto del propietario por si quiere saber más).
+
+
 	}
 
 	public static function reservasPropietarioConfirmadas($id_usuario){

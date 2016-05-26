@@ -14,7 +14,16 @@ class AlquilerController extends BaseController {
     }
   }
 
-  /**
+  public function eliminarReservaConfirmada($id_reserva){
+    $respuesta = Alquiler::eliminarReservaConfirmada($id_reserva);
+
+      return Redirect::back()
+          ->with('mensaje', ($respuesta['mensaje']))
+          ->with('exito', ($respuesta['exito']));
+  }
+
+
+    /**
    * Display a listing of the resource.
    *
    * @return Response

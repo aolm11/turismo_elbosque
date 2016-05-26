@@ -330,6 +330,31 @@
 		});
 
 		$(function () {
+			/* initialize the external events
+			 -----------------------------------------------------------------*/
+			function ini_events(ele) {
+				ele.each(function () {
+
+					var eventObject = {
+						title: $.trim($(this).text())
+					};
+
+
+					$(this).data('eventObject', eventObject);
+
+					// make the event draggable using jQuery UI
+					$(this).draggable({
+						zIndex: 1070,
+						revert: true,
+						revertDuration: 0
+					});
+
+				});
+			}
+
+			ini_events($('#external-events div.external-event'));
+
+		$(function () {
 			$('#calendar').fullCalendar({
 				header: {
 					left: 'prev,next today',
@@ -346,7 +371,7 @@
 						@foreach($reservasConfirmadas as $reserva)
                         {
 						id: '{{$reserva->id}}',
-						title: '{{Cliente::find($reserva->id_cliente)->nombre}}',
+						title: '{{$reserva->id.' '. Cliente::find($reserva->id_cliente)->nombre}}',
 
 						start: '{{$reserva->fecha_inicio}}',
 						end: '{{date('Y-m-d', strtotime($reserva->fecha_fin. ' + 1 day'))}}',
@@ -356,10 +381,14 @@
 						height:200
 					},
 					@endforeach
-				]
+				],
+				eventClick: function(event) {
+					alert(event.id);
+				}
 
 			});
 		});
+	});
 	</script>
 @stop
 
