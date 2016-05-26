@@ -92,6 +92,10 @@ Route::group(array('before' => ['auth']), function () {
 
 		Route::post('crear/reserva', 'AlquilerController@crearReserva');
 
+		Route::post('reserva/editar/{id}', 'AlquilerController@editarReserva');
+
+		Route::get('detalles/reserva/{id}', 'AlquilerController@detallesReserva');
+
 		Route::get('eliminar/reserva/{id}', 'AlquilerController@eliminarReservaConfirmada');
 
 
@@ -127,6 +131,14 @@ Route::resource('alquiler', 'AlquilerController');
 Route::get('prueba', function(){
 
 	//dd(Vivienda::viviendaDisponible(2, '01-06-2016','07-06-2016'));
-	dd(Cliente::getClienteByEmail('ads@ds.com'));
+
+	$reservasConfirmadas = Alquiler::reservasPropietarioConfirmadas(18);
+
+	foreach ($reservasConfirmadas as $res) {
+		dd($res);
+	}
+
+
+	//dd($reservasConfirmadas);
 
 });

@@ -8,6 +8,11 @@ class ViviendaController extends BaseController {
    * @return Response
    */
 
+  public function __construct()
+  {
+    $this->beforeFilter('csrf', array('on' => 'post'));
+  }
+
   public function crear(){
     $respuesta = Vivienda::crear(Input::all());
 

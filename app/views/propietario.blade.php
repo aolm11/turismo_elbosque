@@ -330,31 +330,6 @@
 		});
 
 		$(function () {
-			/* initialize the external events
-			 -----------------------------------------------------------------*/
-			function ini_events(ele) {
-				ele.each(function () {
-
-					var eventObject = {
-						title: $.trim($(this).text())
-					};
-
-
-					$(this).data('eventObject', eventObject);
-
-					// make the event draggable using jQuery UI
-					$(this).draggable({
-						zIndex: 1070,
-						revert: true,
-						revertDuration: 0
-					});
-
-				});
-			}
-
-			ini_events($('#external-events div.external-event'));
-
-		$(function () {
 			$('#calendar').fullCalendar({
 				header: {
 					left: 'prev,next today',
@@ -370,26 +345,49 @@
 				events: [
 						@foreach($reservasConfirmadas as $reserva)
                         {
-						id: '{{$reserva->id}}',
-						title: '{{$reserva->id.' '. Cliente::find($reserva->id_cliente)->nombre}}',
+						id: '{{$reserva->id_alquiler}}',
+						title: '{{Cliente::find($reserva->id_cliente)->nombre}}',
 
 						start: '{{$reserva->fecha_inicio}}',
 						end: '{{date('Y-m-d', strtotime($reserva->fecha_fin. ' + 1 day'))}}',
 						allDay: false,
 						backgroundColor: "#AA1B30",
 						borderColor: "#AA1B30",
-						height:200
+						height:200,
+						url: '{{URL::asset('detalles/reserva/'.$reserva->id_alquiler)}}'
 					},
 					@endforeach
 				],
 				eventClick: function(event) {
-					alert(event.id);
+
+					if (event.url) {
+						window.open(event.url, "_self");
+						return false;
+					}
+
+					 //var id = {{--{{$reserva->id_alquiler}};--}}
+
+					/*var idModal =  $('.modal.fade.prueba').attr("id");
+
+					if(idModal != 'modalReserva'+event.id){
+						$('.modal.fade.prueba').attr("id", 'modalReserva'+event.id);
+					}
+
+					$('.modal.fade.prueba').modal();
+
+					/*alert(id);
+					if(id == event.id){
+					}else{
+					$('#modalReserva'+id).attr("id", 'modalReserva'+event.id);
+					}*/
+
+
 				}
 
 			});
 		});
-	});
 	</script>
+@include('modales.reserva')
 @stop
 
 

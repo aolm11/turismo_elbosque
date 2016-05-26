@@ -2,6 +2,11 @@
 
 class AlquilerController extends BaseController {
 
+  public function __construct()
+  {
+    $this->beforeFilter('csrf', array('on' => 'post'));
+  }
+
   public function crearReserva(){
     $respuesta = Alquiler::crearReserva(Input::all());
 
@@ -14,10 +19,32 @@ class AlquilerController extends BaseController {
     }
   }
 
+  public function editarReserva($id){
+    $respuesta = Alquiler::editarReserva($id, Input::all());
+
+    if ($respuesta['error'] == true) {
+      return Redirect::back()->withErrors($respuesta['mensaje'])->withInput();
+    } else {
+      return Redirect::back()
+          ->with('mensaje', ($respuesta['mensaje']))
+          ->with('exito', ($respuesta['exito']));
+    }
+  }
+
+  public function detallesReserva($id){
+    $reserva = Alquiler::find($id);
+    $vivienda = Vivienda::find($reserva->id_vivienda);
+    $viviendasPropietario = Vivienda::viviendasPropietario(Usuario::find($vivienda->id_usuario)->id);
+    $cliente = Cliente::find($reserva->id_cliente);
+
+    return View::make('detallesReserva')->with(['reserva' => $reserva, 'vivienda' => $vivienda, 'viviendasPropietario' => $viviendasPropietario, 'cliente' => $cliente]);
+  }
+
+
   public function eliminarReservaConfirmada($id_reserva){
     $respuesta = Alquiler::eliminarReservaConfirmada($id_reserva);
 
-      return Redirect::back()
+      return Redirect::to('propietario')
           ->with('mensaje', ($respuesta['mensaje']))
           ->with('exito', ($respuesta['exito']));
   }

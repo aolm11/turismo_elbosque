@@ -1,4 +1,4 @@
-<div id="{{'modalReserva'.$reserva->id}}" class="modal fade" tabindex="-1" role="dialog">
+<div id="{{'modalReserva'.$reserva->id_alquiler}}" class="modal fade prueba" tabindex="-1" role="dialog" data-remote="">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -7,7 +7,7 @@
             </div>
             <div class="modal-body">
                 <?php
-                    $reserva = Alquiler::find($reserva->id);
+                    $reserva = Alquiler::find($reserva->id_alquiler);
                     $cliente = Cliente::find($reserva->id_cliente);
                 ?>
                 <h4>Nombre: <small>{{$cliente->nombre}}</small></h4>
