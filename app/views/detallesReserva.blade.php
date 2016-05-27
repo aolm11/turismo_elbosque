@@ -1,6 +1,6 @@
 @extends('template')
 @section('title', 'Detalles Reserva')
-
+@include('notificaciones')
 @section('content')
     <div class="page-bar row content">
         <ul class="page-breadcrumb">
@@ -26,19 +26,19 @@
             <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
         <div class="col-md-5 col-sm-5">
             <div class='form-group'>
-                <label class='control-label col-sm-4' for='nombre'>Nombre:</label>
+                <label class='control-label col-sm-2' for='nombre'>Nombre:</label>
                 <div class='col-sm-8'>
                     <input type='text' class='form-control' value='{{$cliente->nombre}}' id='nombre' name='nombre'>
                 </div>
             </div>
             <div class='form-group'>
-                <label class='control-label col-sm-4' for='telefono'>Teléfono:</label>
+                <label class='control-label col-sm-2' for='telefono'>Teléfono:</label>
                 <div class='col-sm-8'>
                     <input type='text' class='form-control' value='{{$cliente->telefono}}' id='telefono' name='telefono'>
                 </div>
             </div>
             <div class='form-group'>
-                <label class='control-label col-sm-4' for='email'>E-mail:</label>
+                <label class='control-label col-sm-2' for='email'>E-mail:</label>
                 <div class='col-sm-8'>
                     <input type='text' class='form-control' value='{{$cliente->email}}' id='email' name='email'>
                 </div>
@@ -48,8 +48,8 @@
         <div class="col-md-6 col-sm-6">
 
             <div class='form-group'>
-                <label class='control-label col-sm-4' for='vivienda'>Vivienda:</label>
-                <select class="form-control" name="vivienda" id="vivienda">
+                <label class='control-label' for='vivienda'>Vivienda:</label>
+                <select class="form-control" name="vivienda" id="vivienda" style="width: 91%">
                     @if(count($viviendasPropietario) > 0)
                         @foreach($viviendasPropietario as $viviendaProp)
                             @if($vivienda->nombre == $viviendaProp->nombre)
@@ -63,28 +63,37 @@
                     @endif
                 </select>
             </div>
-            <div class='form-group'>
-                <label class='control-label col-sm-4' for='entrada'>Entrada:</label>
-                <div class='input-group date' >
-                    <input type="text" class="form-control" id='entrada' name="entrada" value="{{$reserva->fecha_inicio}}">
+            <div class="row">
+                <div class="col-md-5 col-xs-12">
+                    <div class="form-group">
+                        <label for="entrada">Entrada:</label>
+                        <div class='input-group date' >
+                            <input type="text" class="form-control" id='entrada' name="entrada" value="{{Herramientas::formatearFechaFromBD($reserva->fecha_inicio)}}">
 								<span class="input-group-addon">
 									<i class="fa fa-calendar" aria-hidden="true"></i>
 								</span>
+                        </div>
+
+                    </div>
                 </div>
-            </div>
-            <div class='form-group'>
-                <label class='control-label col-sm-4' for='salida'>Salida:</label>
-                <div class='input-group date' >
-                    <input type="text" class="form-control" id='salida' name="salida" value="{{$reserva->fecha_fin}}">
+                <div class="col-md-1 col-xs-12"></div>
+                <div class="col-md-5 col-xs-12">
+                    <div class="form-group">
+                        <label for="salida">Salida:</label>
+                        <div class='input-group date' >
+                            <input type="text" class="form-control" id='salida' name="salida" value="{{Herramientas::formatearFechaFromBD($reserva->fecha_fin)}}">
 								<span class="input-group-addon">
 									<i class="fa fa-calendar" aria-hidden="true"></i>
 								</span>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-12 col-sm-12">
+        <div class="col-md-5 col-sm-12">
             <div class='form-group'>
-                <label class='control-label col-sm-3' for='mensaje'>Mensaje:</label>
+                <label class='control-label col-sm-2' for='mensaje'>Mensaje:</label>
                 <div class='col-sm-9'>
                     <textarea class='form-control' id='mensaje' name='mensaje' rows='10'>{{(is_null($reserva->mensaje)) ? 'No hay mensaje' : $reserva->mensaje}}</textarea>
                 </div>
@@ -94,7 +103,7 @@
             <div class='form-group'>
                 <button type="submit" class="btn btn-success">Guardar</button>
                 <a href="{{URL::asset('eliminar/reserva/'.$reserva->id)}}" id="eliminar" class="btn btn-danger"><i class="fa fa-trash-o"></i> Anular</a>
-                <a href="{{URL::previous()}}" id="volver" class="btn btn-default"> Volver</a>
+                <a href="{{URL::to('propietario')}}" id="volver" class="btn btn-default"> Volver</a>
 
             </div>
         </div>
@@ -102,11 +111,23 @@
     </div>
     <script>
         $(function() {
+            //TODO. Pasar al array fechas todas las fechas de la vivienda seleccionda en el select (AJAX).
+           /* var fechas =
+                    [
+
+
+                    ];
+               beforeShowDay: function(date){
+             var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+             return [ array.indexOf(string) == -1 ]*/
+
             $( "#entrada" ).datepicker({
-                dateFormat: 'dd-mm-yy'
+                dateFormat: 'dd-mm-yy',
+                minDate: new Date()
             });
             $( "#salida" ).datepicker({
-                dateFormat: 'dd-mm-yy'
+                dateFormat: 'dd-mm-yy',
+                minDate: new Date((new Date()).valueOf() + 1000*3600*24)
             });
         });
     </script>

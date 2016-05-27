@@ -1,68 +1,6 @@
 @extends('template')
 @section('title', 'Admin')
-@section('alertas')
-@if( $errors->has('nombre') )
-	<div class="message">
-		<div style="padding: 5px;">
-			<div id="inner-message" class="alert alert-danger">
-				<button type="button" class="close" data-dismiss="alert">&times;</button>
-				@foreach($errors->get('nombre') as $error )
-					* {{ $error }}<br>
-				@endforeach
-			</div>
-		</div>
-	</div>
-@endif
-
-@if( $errors->has('apellidos') )
-	<div class="message">
-		<div style="padding: 5px;">
-			<div id="inner-message" class="alert alert-danger">
-				<button type="button" class="close" data-dismiss="alert">&times;</button>
-				@foreach($errors->get('apellidos') as $error )
-					* {{ $error }}<br>
-				@endforeach
-			</div>
-		</div>
-	</div>
-@endif
-@if( $errors->has('telefono') )
-	<div class="message">
-		<div style="padding: 5px;">
-			<div id="inner-message" class="alert alert-danger">
-				<button type="button" class="close" data-dismiss="alert">&times;</button>
-				@foreach($errors->get('telefono') as $error )
-					* {{ $error }}<br>
-				@endforeach
-			</div>
-		</div>
-	</div>
-@endif
-@if( $errors->has('email') )
-	<div class="message">
-		<div style="padding: 5px;">
-			<div id="inner-message" class="alert alert-danger">
-				<button type="button" class="close" data-dismiss="alert">&times;</button>
-				@foreach($errors->get('email') as $error )
-					* {{ $error }}<br>
-				@endforeach
-			</div>
-		</div>
-	</div>
-@endif
-@if( $errors->has('password') )
-	<div class="message">
-		<div style="padding: 5px;">
-			<div id="inner-message" class="alert alert-danger">
-				<button type="button" class="close" data-dismiss="alert">&times;</button>
-				@foreach($errors->get('password') as $error )
-					* {{ $error }}<br>
-				@endforeach
-			</div>
-		</div>
-	</div>
-@endif
-@stop
+@include('notificaciones')
 @section('content')
 	<div class="page-bar">
 		<ul class="page-breadcrumb">
