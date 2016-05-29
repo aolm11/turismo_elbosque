@@ -214,7 +214,7 @@
 						@foreach($reservasConfirmadas as $reserva)
                         {
 						id: '{{$reserva->id_alquiler}}',
-						title: '{{Cliente::find($reserva->id_cliente)->nombre}}',
+						title: '{{Cliente::find($reserva->id_cliente)->nombre.' '.Vivienda::find($reserva->id_vivienda)->nombre}}',
 
 						start: '{{$reserva->fecha_inicio}}',
 						end: '{{date('Y-m-d', strtotime($reserva->fecha_fin. ' + 1 day'))}}',

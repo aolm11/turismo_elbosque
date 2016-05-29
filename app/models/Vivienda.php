@@ -212,8 +212,15 @@ class Vivienda extends Eloquent {
 		return $respuesta;
 
 	}
-	
-	public static function getTodasFechasReservadas($id_vivienda){
+
+	/**
+	 * @param $id_vivienda
+	 * @param bool|false $pickers. Devolverá todas las fechas en único array. Se usa para deshabilitar las fechas reservadas en los datepickers.
+	 * 							   Si es false, devolverá una matriz con los los días de cada reserva.
+	 * @param null $reserva_edic. Devolverá todas las fechas, sin incluir la fecha de la reserva, para poder ser editada.
+	 * @return array|null
+	 */
+	public static function getTodasFechasReservadas($id_vivienda, $pickers = false, $reserva_edic = null){
 		
 		$reservas = Alquiler::reservasConfirmadas($id_vivienda);
 
@@ -224,10 +231,27 @@ class Vivienda extends Eloquent {
 				$dias = Alquiler::getDiasAlquilados($reserva->fecha_inicio,$reserva->fecha_fin);
 				
 				for($i = 0; $i<= $dias->d; $i++){
-					array_push($fechas, date('d-m-Y', strtotime($reserva->fecha_inicio. ' + '.$i.' days')));
+					if($pickers){
+						if(is_null($reserva_edic)){
+							array_push($alquileres, date('Y-m-d', strtotime($reserva->fecha_inicio. ' + '.$i.' days')));
+						}else{
+							if($reserva_edic->id != $reserva->id){
+								array_push($alquileres, date('Y-m-d', strtotime($reserva->fecha_inicio. ' + '.$i.' days')));
+							}
+						}
+					}else{
+						if(is_null($reserva_edic)){
+							array_push($fechas, date('d-m-Y', strtotime($reserva->fecha_inicio. ' + '.$i.' days')));
+						}else{
+							if($reserva_edic->id != $reserva->id){
+								array_push($fechas, date('d-m-Y', strtotime($reserva->fecha_inicio. ' + '.$i.' days')));
+							}
+						}
+					}
 				}
-				
-				array_push($alquileres, $fechas);
+				if(!$pickers){
+					array_push($alquileres, $fechas);
+				}
 			}
 		}else{
 			$alquileres = null;
@@ -236,8 +260,16 @@ class Vivienda extends Eloquent {
 		return $alquileres;
 		
 	}
-	
-	public static function viviendaDisponible($id_vivienda, $fecha_inicio, $fecha_fin){
+
+	/**
+	 * @param $id_vivienda
+	 * @param $fecha_inicio
+	 * @param $fecha_fin
+	 * @param null $reserva. Se usa en la edición de la reserva. Si no se han modificado las fechas devuelve true.
+	 * 						 En caso contrario comprueba la coincidencia con el resto de reservas.
+	 * @return bool
+	 */
+	public static function viviendaDisponible($id_vivienda, $fecha_inicio, $fecha_fin, $reserva = null){
 
 		$disponible = true;
 
@@ -245,9 +277,17 @@ class Vivienda extends Eloquent {
 
 		$alquileres = Vivienda::getTodasFechasReservadas($id_vivienda);
 
+		if(!is_null($reserva)){
+			if(Herramientas::formatearFechaBD($fecha_inicio) == $reserva->fecha_inicio and Herramientas::formatearFechaBD($fecha_fin) == $reserva->fecha_fin){
+				return true;
+			}else{
+				$alquileres = Vivienda::getTodasFechasReservadas($id_vivienda, false,$reserva);
+			}
+
+		}
+
 		if(!is_null($alquileres)){
 			foreach ($alquileres as $alquiler) {
-
 				foreach ($alquiler as $dia) {
 
 					if($fecha_inicio != $dia or $fecha_inicio == end($alquiler)){

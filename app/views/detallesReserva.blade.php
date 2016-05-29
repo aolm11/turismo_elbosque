@@ -111,24 +111,75 @@
     </div>
     <script>
         $(function() {
-            //TODO. Pasar al array fechas todas las fechas de la vivienda seleccionda en el select (AJAX).
-           /* var fechas =
-                    [
+            var fechas = {{json_encode($reservasVivienda)}};
 
+            crearDatePickers(fechas);
+            actualizaMinDateSalidas(fechas);
+            var id_reserva = '{{$reserva->id}}';
+            $("#vivienda").change(function () {
+                $.ajax({
+                    method: 'GET',
+                    url: window.location.pathname + '/../../../reservas/vivienda/'+$(this).val(),
+                    data: {_token: $('#_token').val(), id: $(this).val(), id_reserva:id_reserva},
+                    success: function (data) {
 
-                    ];
-               beforeShowDay: function(date){
-             var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
-             return [ array.indexOf(string) == -1 ]*/
+                        $('#entrada').datepicker("destroy");
+                        $('#entrada').val('');
+                        $('#salida').datepicker("destroy");
+                        $('#salida').val('');
+                        if ($('#vivienda').val() != '') {
+                             crearDatePickers(data);
+                            actualizaMinDateSalidas(data);
+                        }
+                        //$("#vivienda").trigger('change');
+
+                    },
+                    error: function (datas) {
+                        alert('error');
+                    }
+                })
+
+            });
+        });
+
+        function crearDatePickers(fechas){
 
             $( "#entrada" ).datepicker({
                 dateFormat: 'dd-mm-yy',
-                minDate: new Date()
+                minDate: new Date(),
+                beforeShowDay: function(date){
+                    var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+                    return [ fechas.indexOf(string) == -1 ]
+                }
             });
             $( "#salida" ).datepicker({
                 dateFormat: 'dd-mm-yy',
-                minDate: new Date((new Date()).valueOf() + 1000*3600*24)
+                minDate: new Date((new Date()).valueOf() + 1000*3600*24),
+                beforeShowDay: function(date){
+                    var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+                    return [ fechas.indexOf(string) == -1 ]
+                }
             });
-        });
+        }
+
+        function actualizaMinDateSalidas(fechas){
+            $("#entrada").change(function () {
+                var select = $("#entrada").val();
+                var result = select.split('-');
+                var fecha = result[2]+'-'+result[1]+'-'+result[0];
+                fecha = new Date(fecha);
+                var man = fecha.setDate(fecha.getDate() + 1);
+                man = new Date(man);
+                $('#salida').datepicker("destroy");
+                $( "#salida" ).datepicker({
+                    dateFormat: 'dd-mm-yy',
+                    minDate: man,
+                    beforeShowDay: function(date){
+                        var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+                        return [ fechas.indexOf(string) == -1 ]
+                    }
+                });
+            });
+        }
     </script>
 @stop

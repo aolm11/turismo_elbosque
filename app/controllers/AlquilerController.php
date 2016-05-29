@@ -37,7 +37,9 @@ class AlquilerController extends BaseController {
     $viviendasPropietario = Vivienda::viviendasPropietario(Usuario::find($vivienda->id_usuario)->id);
     $cliente = Cliente::find($reserva->id_cliente);
 
-    return View::make('detallesReserva')->with(['reserva' => $reserva, 'vivienda' => $vivienda, 'viviendasPropietario' => $viviendasPropietario, 'cliente' => $cliente]);
+    $reservasVivienda = Vivienda::getTodasFechasReservadas($vivienda->id, true, $reserva);
+
+    return View::make('detallesReserva')->with(['reserva' => $reserva, 'vivienda' => $vivienda, 'viviendasPropietario' => $viviendasPropietario, 'cliente' => $cliente, 'reservasVivienda' => $reservasVivienda]);
   }
 
 

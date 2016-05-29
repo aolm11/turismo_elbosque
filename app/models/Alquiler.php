@@ -92,10 +92,9 @@ class Alquiler extends Eloquent {
 
 			//TODO. Distinguir si fecha inicio y fecha fin son iguales, Si lo son, actualizar todo menos las fechas. Si es igual fecha inicio
 			//TODO añadir bandera a viviendaDisponible, $editando para que compruebe el resto de dias ; si no es igual comprobar normal.
+			$reserva = Alquiler::find($id);
+			if(Vivienda::viviendaDisponible($input['vivienda'],$input['entrada'],$input['salida'], $reserva)){
 
-			if(Vivienda::viviendaDisponible($input['vivienda'],$input['entrada'],$input['salida'])){
-
-				$reserva = Alquiler::find($id);
 
 				$cliente = Cliente::find($reserva->id_cliente);
 				$cliente->nombre = $input['nombre'];

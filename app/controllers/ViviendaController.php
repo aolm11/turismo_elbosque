@@ -77,6 +77,13 @@ class ViviendaController extends BaseController {
     }
   }
 
+  public function fechasReservadasVivienda(){
+    $reserva = Alquiler::find(Input::get('id_reserva'));
+    $reservas = Vivienda::getTodasFechasReservadas(Input::get('id'), true, $reserva);
+
+    return $reservas;
+  }
+
   public function index()
   {
     

@@ -81,6 +81,8 @@ Route::group(array('before' => ['auth']), function () {
 
 		Route::get('vivienda/eliminar/{id}', 'ViviendaController@borrar');
 
+		Route::get('reservas/vivienda/{id}', 'ViviendaController@fechasReservadasVivienda');
+
 
 		Route::get('vivienda/edicion/{id}', 'ViviendaController@edicion');
 
@@ -132,11 +134,7 @@ Route::get('prueba', function(){
 
 	//dd(Vivienda::viviendaDisponible(2, '01-06-2016','07-06-2016'));
 
-	$reservasConfirmadas = Alquiler::reservasPropietarioConfirmadas(18);
-
-	foreach ($reservasConfirmadas as $res) {
-		dd($res);
-	}
+	dd(Vivienda::getTodasFechasReservadas(2, true));
 
 
 	//dd($reservasConfirmadas);
