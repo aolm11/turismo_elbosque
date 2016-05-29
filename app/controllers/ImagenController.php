@@ -10,14 +10,21 @@ class ImagenController extends BaseController {
 
   public function borrar($id_imagen){
 
-    $respuesta = Imagen::borrar($id_imagen);
+    $imagen = Imagen::find($id_imagen);
+    $vivienda = Vivienda::find(($imagen->id_vivienda));
+
+    if(Auth::id() != $vivienda->id_usuario){
+      return Redirect::to('401');
+    }else {
+
+      $respuesta = Imagen::borrar($id_imagen);
 
 
-
-    if ($respuesta['error'] == true) {
-      return Redirect::back()->withErrors($respuesta['mensaje']);
-    } else {
-      return Redirect::back()->with('mensaje', $respuesta['mensaje']);
+      if ($respuesta['error'] == true) {
+        return Redirect::back()->withErrors($respuesta['mensaje']);
+      } else {
+        return Redirect::back()->with('mensaje', $respuesta['mensaje']);
+      }
     }
 
   }

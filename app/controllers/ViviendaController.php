@@ -54,26 +54,40 @@ class ViviendaController extends BaseController {
   }
 
   public function addImagen($id_vivienda){
-    $respuesta = Vivienda::addImagen($id_vivienda, Input::all());
 
-    if ($respuesta['error'] == true) {
-      return Redirect::back()->withErrors($respuesta['mensaje']);
-    } else {
-      return Redirect::back()
-          ->with('mensaje', ($respuesta['mensaje']))
-          ->with('exito', ($respuesta['exito']));
+    $vivienda = Vivienda::find($id_vivienda);
+
+    if(Auth::id() != $vivienda->id_usuario){
+      return Redirect::to('401');
+    }else {
+
+      $respuesta = Vivienda::addImagen($id_vivienda, Input::all());
+
+      if ($respuesta['error'] == true) {
+        return Redirect::back()->withErrors($respuesta['mensaje']);
+      } else {
+        return Redirect::back()
+            ->with('mensaje', ($respuesta['mensaje']))
+            ->with('exito', ($respuesta['exito']));
+      }
     }
   }
 
   public function borrar($id_vivienda){
-    $respuesta = Vivienda::borrar($id_vivienda);
+    $vivienda = Vivienda::find($id_vivienda);
 
-    if ($respuesta['error'] == true) {
-      return Redirect::back()->withErrors($respuesta['mensaje']);
-    } else {
-      return Redirect::back()
-          ->with('mensaje', ($respuesta['mensaje']))
-          ->with('exito', ($respuesta['exito']));
+    if(Auth::id() != $vivienda->id_usuario){
+      return Redirect::to('401');
+    }else {
+      $respuesta = Vivienda::borrar($id_vivienda);
+
+      if ($respuesta['error'] == true) {
+        return Redirect::back()->withErrors($respuesta['mensaje']);
+      } else {
+        return Redirect::back()
+            ->with('mensaje', ($respuesta['mensaje']))
+            ->with('exito', ($respuesta['exito']));
+      }
     }
   }
 

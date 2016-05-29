@@ -3,7 +3,7 @@
 class Alquiler extends Eloquent {
 
 	protected $table = 'alquiler';
-	protected $fillable = array('id_vivienda', 'id_cliente','fecha_inicio','fecha_fin', 'mensaje');
+	protected $fillable = array('id', 'id_vivienda', 'id_cliente','fecha_inicio','fecha_fin', 'mensaje');
 	protected $hidden = array('remember_token');
 
 	public $timestamps = true;

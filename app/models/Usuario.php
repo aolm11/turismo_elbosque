@@ -12,7 +12,7 @@ class Usuario extends Eloquent implements UserInterface, RemindableInterface {
 	use UserTrait, RemindableTrait;
 
 	protected $table = 'usuarios';
-	protected $fillable = array('nombre','apellidos', 'telefono', 'email', 'password', 'permiso_app');
+	protected $fillable = array('id', 'id_rol', 'nombre','apellidos', 'telefono', 'email', 'password', 'permiso_app', 'alta');
 	protected $hidden = array('password', 'remember_token');
 
 	public function rol()

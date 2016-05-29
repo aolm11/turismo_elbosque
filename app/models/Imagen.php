@@ -3,6 +3,7 @@
 class Imagen extends Eloquent {
 
 	protected $table = 'imagenes';
+	protected $fillable = array('id', 'id_vivienda','nombre');
 	public $timestamps = true;
 
 	public function vivienda()

@@ -20,14 +20,21 @@ class AlquilerController extends BaseController {
   }
 
   public function editarReserva($id){
-    $respuesta = Alquiler::editarReserva($id, Input::all());
+    $reserva = Alquiler::find($id);
+    $vivienda = Vivienda::find(($reserva->id_vivienda));
 
-    if ($respuesta['error'] == true) {
-      return Redirect::back()->withErrors($respuesta['mensaje'])->withInput();
-    } else {
-      return Redirect::back()
-          ->with('mensaje', ($respuesta['mensaje']))
-          ->with('exito', ($respuesta['exito']));
+    if(Auth::id() != $vivienda->id_usuario){
+      return Redirect::to('401');
+    }else {
+      $respuesta = Alquiler::editarReserva($id, Input::all());
+
+      if ($respuesta['error'] == true) {
+        return Redirect::back()->withErrors($respuesta['mensaje'])->withInput();
+      } else {
+        return Redirect::back()
+            ->with('mensaje', ($respuesta['mensaje']))
+            ->with('exito', ($respuesta['exito']));
+      }
     }
   }
 
@@ -39,16 +46,28 @@ class AlquilerController extends BaseController {
 
     $reservasVivienda = Vivienda::getTodasFechasReservadas($vivienda->id, true, $reserva);
 
-    return View::make('detallesReserva')->with(['reserva' => $reserva, 'vivienda' => $vivienda, 'viviendasPropietario' => $viviendasPropietario, 'cliente' => $cliente, 'reservasVivienda' => $reservasVivienda]);
+    if(Auth::id() != $vivienda->id_usuario){
+      return Redirect::to('401');
+    }else{
+      return View::make('detallesReserva')->with(['reserva' => $reserva, 'vivienda' => $vivienda, 'viviendasPropietario' => $viviendasPropietario, 'cliente' => $cliente, 'reservasVivienda' => $reservasVivienda]);
+    }
+
   }
 
 
   public function eliminarReservaConfirmada($id_reserva){
-    $respuesta = Alquiler::eliminarReservaConfirmada($id_reserva);
 
+    $reserva = Alquiler::find($id_reserva);
+    $vivienda = Vivienda::find(($reserva->id_vivienda));
+
+    if(Auth::id() != $vivienda->id_usuario){
+      return Redirect::to('401');
+    }else{
+      $respuesta = Alquiler::eliminarReservaConfirmada($id_reserva);
       return Redirect::to('propietario')
           ->with('mensaje', ($respuesta['mensaje']))
           ->with('exito', ($respuesta['exito']));
+    }
   }
 
 

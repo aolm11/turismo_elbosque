@@ -3,6 +3,7 @@
 class Vivienda extends Eloquent {
 
 	protected $table = 'viviendas';
+	protected $fillable = array('id', 'id_usuario', 'nombre','direccion', 'num_habitaciones', 'num_banos', 'capacidad', 'precio_persona', 'precio_total', 'descripcion');
 	public $timestamps = true;
 
 	public function usuario()

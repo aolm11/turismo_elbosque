@@ -232,30 +232,11 @@
 						window.open(event.url, "_self");
 						return false;
 					}
-
-					 //var id = {{--{{$reserva->id_alquiler}};--}}
-
-					/*var idModal =  $('.modal.fade.prueba').attr("id");
-
-					if(idModal != 'modalReserva'+event.id){
-						$('.modal.fade.prueba').attr("id", 'modalReserva'+event.id);
-					}
-
-					$('.modal.fade.prueba').modal();
-
-					/*alert(id);
-					if(id == event.id){
-					}else{
-					$('#modalReserva'+id).attr("id", 'modalReserva'+event.id);
-					}*/
-
-
 				}
 
 			});
 		});
 	</script>
-@include('modales.reserva')
 @stop
 
 

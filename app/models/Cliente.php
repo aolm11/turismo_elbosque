@@ -3,7 +3,7 @@
 class Cliente extends Eloquent {
 
 	protected $table = 'clientes';
-	protected $fillable = array('nombre','telefono', 'email');
+	protected $fillable = array('id', 'nombre','telefono', 'email');
 	protected $hidden = array('remember_token');
 
 	public $timestamps = true;
