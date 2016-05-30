@@ -17,6 +17,10 @@ Route::get('/', function()
 	return View::make('inicio');
 });
 
+Route::get('viviendas', 'ViviendaController@viviendas');
+
+Route::get('detalles/vivienda/{id}', 'ViviendaController@detallesVivienda');
+
 Route::post('login', function () {
 
 	if (Auth::attempt(array('email' => Input::get('email'), 'password' => Input::get('password')), true)) {
@@ -134,7 +138,9 @@ Route::get('prueba', function(){
 
 	//dd(Vivienda::viviendaDisponible(2, '01-06-2016','07-06-2016'));
 
-	dd(Vivienda::getTodasFechasReservadas(2, true));
+	//dd(Vivienda::getTodasFechasReservadas(2, true));
+
+	dd(Imagen::getNombreImagenVivienda(11)->nombre);
 
 
 	//dd($reservasConfirmadas);

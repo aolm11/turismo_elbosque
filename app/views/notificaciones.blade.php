@@ -120,6 +120,16 @@
             </div>
         </div>
     @endif
+    @if( $errors->has('precio_dia') )
+        <div class="message">
+            <div style="padding: 5px;">
+                <div id="inner-message" class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        * {{ 'Debe indicar un precio, por persona o por día' }}<br>
+                </div>
+            </div>
+        </div>
+    @endif
     @if( $errors->has('vivienda') )
         <div class="message">
             <div style="padding: 5px;">

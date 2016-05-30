@@ -14,7 +14,7 @@ class CreateViviendasTable extends Migration {
 			$table->integer('num_banos')->unsigned();
 			$table->integer('capacidad')->unsigned();
 			$table->decimal('precio_persona')->nullable();
-			$table->decimal('precio_total')->nullable();
+			$table->decimal('precio_dia')->nullable();
 			$table->text('descripcion');
 			$table->tinyInteger('estado')->unsigned();
 			$table->timestamps();

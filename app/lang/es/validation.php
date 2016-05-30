@@ -126,7 +126,7 @@ return array(
         'num_banos' =>'número de baños',
         'capacidad' =>'capacidad',
         'precio_persona' =>'precio por persona',
-        'precio_total' => 'precio total',
+        'precio_dia' => 'precio por día',
         'descripcion' =>'descripción',
 
     ),

@@ -264,3 +264,25 @@ header.carousel .fill {
     font-size: 16px;
     opacity: 0.8 ;
     filter: alpha(opacity=80) ; }
+
+.portfolio-item {
+    margin-bottom: 40px;
+}
+
+.slide-image {
+    width: 100%;
+}
+
+.carousel-holder {
+    margin-bottom: 30px;
+}
+
+.carousel-control,
+.item {
+    border-radius: 4px;
+}
+.ratings {
+    padding-right: 10px;
+    padding-left: 10px;
+    color: #d17581;
+}

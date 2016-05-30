@@ -1,6 +1,6 @@
 @extends('template')
 @section('title', 'Editar Vivienda')
-
+@include('notificaciones')
 @section('content')
     <div class="page-bar row content">
         <ul class="page-breadcrumb">
@@ -84,9 +84,9 @@
                 </div>
             </div>
             <div class='form-group'>
-                <label class='control-label col-sm-3' for='precio_total'>Precio total:</label>
+                <label class='control-label col-sm-3' for='precio_dia'>Precio por día:</label>
                 <div class='col-sm-2'>
-                    <input type='number' min="0" step="0.1" class='form-control' value='@if(!is_null($vivienda->precio_total)){{$vivienda->precio_total}}@endif' id='precio_total' name='precio_total'>
+                    <input type='number' min="0" step="0.1" class='form-control' value='@if(!is_null($vivienda->precio_dia)){{$vivienda->precio_dia}}@endif' id='precio_dia' name='precio_dia'>
                 </div>
             </div>
             <div class='form-group'>

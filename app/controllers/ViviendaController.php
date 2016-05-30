@@ -13,6 +13,21 @@ class ViviendaController extends BaseController {
     $this->beforeFilter('csrf', array('on' => 'post'));
   }
 
+  public function viviendas(){
+    $viviendas = Vivienda::getTodasViviendas();
+
+    return View::make('viviendas')->with(['viviendas' => $viviendas]);
+
+  }
+
+  public function detallesVivienda($id){
+    $vivienda = Vivienda::find($id);
+    $imagenes = Imagen::imagenesVivienda($id);
+    $reservas = Vivienda::getTodasFechasReservadas($id, true);
+
+    return View::make('detallesVivienda')->with(['vivienda' => $vivienda, 'imagenes' => $imagenes, 'reservas' => $reservas]);
+  }
+
   public function crear(){
     $respuesta = Vivienda::crear(Input::all());
 

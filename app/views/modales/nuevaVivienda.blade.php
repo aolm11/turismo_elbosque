@@ -59,11 +59,12 @@
                                     </div>
                                 </div>
                                 <div class='form-group'>
-                                    <label class='control-label col-sm-5' for='precio_total'>Precio total:</label>
+                                    <label class='control-label col-sm-5' for='precio_dia'>Precio por día:</label>
                                     <div class='col-sm-2'>
-                                        <input type='number' min="0" step="0.1" class='form-control' value='{{Input::old('precio_total')}}' id='precio_total' name='precio_total'>
+                                        <input type='number' min="0" step="0.1" class='form-control' value='{{Input::old('precio_dia')}}' id='precio_dia' name='precio_dia'>
                                     </div>
                                 </div>
+                                <span class="help-block">Debe indicar al menos un precio.</span>
                                 <div class='form-group'>
                                     <label class='control-label col-sm-3' for='descripcion'>Descripción: *</label>
                                     <div class='col-sm-9'>

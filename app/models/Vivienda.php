@@ -3,7 +3,7 @@
 class Vivienda extends Eloquent {
 
 	protected $table = 'viviendas';
-	protected $fillable = array('id', 'id_usuario', 'nombre','direccion', 'num_habitaciones', 'num_banos', 'capacidad', 'precio_persona', 'precio_total', 'descripcion');
+	protected $fillable = array('id', 'id_usuario', 'nombre','direccion', 'num_habitaciones', 'num_banos', 'capacidad', 'precio_persona', 'precio_dia', 'descripcion');
 	public $timestamps = true;
 
 	public function usuario()
@@ -26,6 +26,11 @@ class Vivienda extends Eloquent {
 		return $viviendas;
 	}
 
+	public static function getTodasViviendas(){
+		$viviendas = DB::table('viviendas')->paginate(9);
+		return $viviendas;
+	}
+
 	public static function crear($input){
 
 		$respuesta = array();
@@ -38,6 +43,9 @@ class Vivienda extends Eloquent {
 			'capacidad' => array('required', 'integer', 'min:1'),
 			'descripcion' => array('required', 'alpha_num'),
 		);
+		if($input['precio_persona'] == "" and $input['precio_dia'] == ""){
+			$reglas=array_add($reglas,'precio_dia',array('required'));;
+		}
 
 		$validator = Validator::make($input, $reglas);
 
@@ -59,8 +67,8 @@ class Vivienda extends Eloquent {
 				$vivienda->precio_persona = $input['precio_persona'];
 			}
 
-			if(isset($input['precio_total'])){
-				$vivienda->precio_total = $input['precio_total'];
+			if(isset($input['precio_dia'])){
+				$vivienda->precio_dia = $input['precio_dia'];
 			}
 
 			$vivienda->save();
@@ -88,6 +96,10 @@ class Vivienda extends Eloquent {
 			'descripcion' => array('required', 'alpha_num'),
 		);
 
+		if($input['precio_persona'] == "" and $input['precio_dia'] == ""){
+			$reglas=array_add($reglas,'precio_dia',array('required'));;
+		}
+
 		$validator = Validator::make($input, $reglas);
 
 		if ($validator->fails()) {
@@ -107,8 +119,8 @@ class Vivienda extends Eloquent {
 				$vivienda->precio_persona = $input['precio_persona'];
 			}
 
-			if(isset($input['precio_total'])){
-				$vivienda->precio_total = $input['precio_total'];
+			if(isset($input['precio_dia'])){
+				$vivienda->precio_dia = $input['precio_dia'];
 			}
 
 			$vivienda->save();

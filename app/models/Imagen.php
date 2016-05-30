@@ -18,6 +18,13 @@ class Imagen extends Eloquent {
 		return $viviendas;
 	}
 
+	public static function getNombreImagenVivienda($id_vivienda){
+
+		$nombre = DB::table('imagenes')->where('id_vivienda', '=', $id_vivienda)->select('nombre')->first();
+
+		return $nombre;
+	}
+
 	public static function borrar($id_imagen){
 
 		$respuesta = array();
