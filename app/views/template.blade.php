@@ -8,7 +8,8 @@
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet"
           type="text/css"/>
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet"
+          type="text/css">
     {{HTML::style('/assets/css/font-awesome.min.css')}}
     {{HTML::style('/assets/css/freelancer.css')}}
     {{HTML::style('/assets/css/bootstrap.min.css')}}
@@ -31,54 +32,50 @@
     <title>@yield('title') | Turismo El Bosque</title>
 </head>
 
+
 <body id="page-top" class="index">
 
-    <div class="alertas">
-        @if(Session::get('mensaje'))
-            @if(Session::get('exito'))
-                <div id="message">
-                    <div style="padding: 5px;">
-                        <div id="inner-message" class="alert alert-success">
-                            <button type="button" class="close" data-dismiss="alert">&times;</button>
-                            {{Session::get('mensaje')}}
-                        </div>
-                    </div>
-                </div>
-            @else
-                <div id="message">
-                    <div style="padding: 5px;">
-                        <div id="inner-message" class="alert alert-warning">
-                            <button type="button" class="close" data-dismiss="alert">&times;</button>
-                            {{Session::get('mensaje')}}
-                        </div>
-                    </div>
-                </div>
-            @endif
-        @endif
+@include('header')
 
+<div class="main-container">
+    <div class="alertas">
         @yield('alertas')
     </div>
+    <div class="main">
+        @yield('content')
+    </div>
+</div>
+<script>
+    window.setTimeout(function () {
+        $("#message").fadeTo(500, 0).slideUp(500, function () {
+            $(this).remove();
+        });
+    }, 2000);
 
-    @include('header')
+    var mensages = document.getElementsByClassName('message');
+    var segundos = mensages.length * 3000;
+    window.setTimeout(function () {
+        $(".message").fadeTo(500, 0).slideUp(500, function () {
+            $(this).remove();
+        });
+    }, segundos);
+</script>
 
-    <div class="main-container">
-        <div class="main">
-            @yield('content')
+<footer class="footer foo">
+    <div class="container">
+        <div class="col-md-6">
+            <p class="font-white font-15">© 2016 Turismo El Bosque</p>
+        </div>
+        <div class="pull-right">
+            <h4>  <a class="font-white" href=""><i class="fa fa-facebook"></i></a>
+                    <a class="font-white" href=""><i class="fa fa-twitter"></i></a>
+                    <a class="font-white" href=""><i class="fa fa-pinterest"></i></a>
+                        <a class="font-white" href=""><i class="fa fa-google-plus"></i></a>
+            </h4>
+
         </div>
     </div>
-    <script>
-        window.setTimeout(function() {
-            $("#message").fadeTo(500, 0).slideUp(500, function(){
-                $(this).remove();
-            });
-        }, 2000);
 
-        var mensages = document.getElementsByClassName('message');
-        var segundos = mensages.length * 3000;
-        window.setTimeout(function() {
-            $(".message").fadeTo(500, 0).slideUp(500, function(){
-                $(this).remove();
-            });
-        }, segundos);
-    </script>
+</footer>
 </body>
+

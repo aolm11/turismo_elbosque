@@ -20,6 +20,18 @@ class ViviendaController extends BaseController {
 
   }
 
+  public function viviendasFiltradas(){
+    $viviendas = Vivienda::buscarViviendas(Input::all());
+
+    if ($viviendas['error'] == true) {
+      dd('sadad');
+      return Redirect::back()->withErrors($viviendas['mensaje']);
+    } else {
+      return View::make('viviendas')->with(['viviendas' => $viviendas]);
+
+    }
+  }
+
   public function detallesVivienda($id){
     $vivienda = Vivienda::find($id);
     $imagenes = Imagen::imagenesVivienda($id);

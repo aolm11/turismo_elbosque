@@ -31,6 +31,40 @@ class Vivienda extends Eloquent {
 		return $viviendas;
 	}
 
+	public static function buscarViviendas($input){
+		$respuesta = array();
+
+		$reglas = array(
+			'entrada' => array('required', 'date_format:d-m-Y'),
+			'salida' => array('required', 'date_format:d-m-Y')
+		);
+
+		$validator = Validator::make($input, $reglas);
+
+		if ($validator->fails()) {
+			$respuesta['mensaje'] = $validator;
+			$respuesta['error'] = true;
+
+			return $respuesta;
+		} else {
+			if(!empty($input['personas'])){
+				dd(1);
+				$viviendas = DB::table('viviendas')->where('capacidad', '>=', $input['personas']);
+			}else{
+				$viviendas = Vivienda::all();
+			}
+
+			$disponibles = array();
+			foreach ($viviendas as $vivienda) {
+				if(!Vivienda::viviendaDisponible($vivienda->id, $input['entrada'], $input['salida'])){
+					unset($viviendas[$vivienda]);
+				}
+			}
+			$res = Paginator::make(array(), count($viviendas), 9);
+			return $res;
+		}
+	}
+
 	public static function crear($input){
 
 		$respuesta = array();

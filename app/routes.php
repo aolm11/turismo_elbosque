@@ -37,6 +37,9 @@ Route::get('inicio', function () {
 
 });
 
+Route::post('filtrarViviendas', 'ViviendaController@viviendasFiltradas');
+
+
 Route::filter('admin', function () {
 	if (!Usuario::esAdmin())
 		return Response::view('401', array(), 401);

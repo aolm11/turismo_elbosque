@@ -1,4 +1,25 @@
 @section('alertas')
+    @if(Session::get('mensaje'))
+        @if(Session::get('exito'))
+            <div id="message">
+                <div style="padding: 5px;">
+                    <div id="inner-message" class="alert alert-success">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        {{Session::get('mensaje')}}
+                    </div>
+                </div>
+            </div>
+        @else
+            <div id="message">
+                <div style="padding: 5px;">
+                    <div id="inner-message" class="alert alert-warning">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        {{Session::get('mensaje')}}
+                    </div>
+                </div>
+            </div>
+        @endif
+    @endif
     @if( $errors->has('nombre') )
         <div class="message">
             <div style="padding: 5px;">

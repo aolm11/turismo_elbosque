@@ -9,7 +9,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#page-top">Turismo El Bosque</a>
+                <a class="navbar-brand" href="#page-top"> Turismo El Bosque</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -19,11 +19,11 @@
                         <a href="#page-top"></a>
                     </li>
                     <li class="page-scroll">
-                        <a href="{{URL::asset('inicio')}}">Inicio</a>
+                        <a href="{{URL::asset('inicio')}}"><i class="fa fa-home"></i> Inicio</a>
                     </li>
                     <!-- Si el usuario es admin crear enlace a panel de control.-->
                     <li class="page-scroll">
-                        <a href="{{URL::asset('viviendas')}}">Viviendas</a>
+                        <a href="{{URL::asset('viviendas')}}"><i class="fa fa-building"></i> Viviendas</a>
                     </li>
 
                     <li class="dropdown">
@@ -52,7 +52,7 @@
                                 </li>
                             </ul>
                         @else
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Acceso propietarios</b> <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Acceso propietarios<span class="caret"></span></a>
                         <ul id="login-dp" class="dropdown-menu">
                             <li>
                                 <div class="row">
@@ -65,7 +65,7 @@
                                             <div class="form-group">
                                                 <!--  <label class="sr-only" for="exampleInputPassword2">Contraseña</label> -->
                                                 <input type="password" class="form-control" name="password" id="idPassword" placeholder="Contraseña" required>
-                                                <div class="help-block text-right"><a href="">¿Olvidó su contraseña?</a></div>
+                                                <div class="help-block text-center"><a href="javascript;">¿Olvidó su contraseña?</a></div>
                                             </div>
                                             <div class="form-group">
                                                 <button type="submit" name="btnLogin" class="btn btn-primary btn-block">Entrar</button>

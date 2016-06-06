@@ -15,7 +15,7 @@
     </div>
     <div class="row content">
         <div class="section-title-panel">
-            <h3>Viviendas</h3>
+            <h3><i class="fa fa-building font-grey"></i> Viviendas</h3>
         </div>
         <?php $cont = 0; $ultima = $viviendas[count($viviendas)-1]?>
         @foreach($viviendas as $vivienda)
