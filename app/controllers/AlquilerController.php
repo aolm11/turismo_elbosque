@@ -7,6 +7,18 @@ class AlquilerController extends BaseController {
     $this->beforeFilter('csrf', array('on' => 'post'));
   }
 
+  public function crearNotificacion(){
+    $respuesta = Alquiler::crearNotificacion(Input::all());
+
+    if ($respuesta['error'] == true) {
+      return Redirect::back()->withErrors($respuesta['mensaje'])->withInput();
+    } else {
+      return Redirect::back()
+          ->with('mensaje', ($respuesta['mensaje']))
+          ->with('exito', ($respuesta['exito']));
+    }
+  }
+
   public function crearReserva(){
     $respuesta = Alquiler::crearReserva(Input::all());
 
@@ -14,6 +26,21 @@ class AlquilerController extends BaseController {
       return Redirect::back()->withErrors($respuesta['mensaje'])->withInput();
     } else {
       return Redirect::back()
+          ->with('mensaje', ($respuesta['mensaje']))
+          ->with('exito', ($respuesta['exito']));
+    }
+  }
+
+  public function confirmarReserva($id_reserva){
+
+    $reserva = Alquiler::find($id_reserva);
+    $vivienda = Vivienda::find(($reserva->id_vivienda));
+
+    if(Auth::id() != $vivienda->id_usuario){
+      return Redirect::to('401');
+    }else{
+      $respuesta = Alquiler::confirmarReserva($id_reserva);
+      return Redirect::to('propietario')
           ->with('mensaje', ($respuesta['mensaje']))
           ->with('exito', ($respuesta['exito']));
     }
@@ -55,7 +82,7 @@ class AlquilerController extends BaseController {
   }
 
 
-  public function eliminarReservaConfirmada($id_reserva){
+  public function eliminarReserva($id_reserva){
 
     $reserva = Alquiler::find($id_reserva);
     $vivienda = Vivienda::find(($reserva->id_vivienda));
@@ -63,7 +90,7 @@ class AlquilerController extends BaseController {
     if(Auth::id() != $vivienda->id_usuario){
       return Redirect::to('401');
     }else{
-      $respuesta = Alquiler::eliminarReservaConfirmada($id_reserva);
+      $respuesta = Alquiler::eliminarReserva($id_reserva);
       return Redirect::to('propietario')
           ->with('mensaje', ($respuesta['mensaje']))
           ->with('exito', ($respuesta['exito']));

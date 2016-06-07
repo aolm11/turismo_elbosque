@@ -85,14 +85,14 @@
 					@foreach($reservasNoConfirmadas as $reserva)
 						<tr>
 							<td>{{Vivienda::find($reserva->id_vivienda)->nombre}}</td>
-							<td>{{Herramientas::formatearFechaBD($reserva->fecha_inicio)}}</td>
-							<td>{{Herramientas::formatearFechaBD($reserva->fecha_fin)}}</td>
+							<td>{{Herramientas::formatearFechaFromBD($reserva->fecha_inicio)}}</td>
+							<td>{{Herramientas::formatearFechaFromBD($reserva->fecha_fin)}}</td>
 							<td>{{$reserva->mensaje}}</td>
 							<td>
-								<a href="#" class="btn btn-info" role="button">
+								<a href="{{URL::asset('confirmar/reserva/'.$reserva->id_alquiler)}}" class="btn btn-info" role="button">
 									<i class="fa fa-check-square-o" aria-hidden="true"></i> Reservar
 								</a>
-								<a href="#" class="btn btn-danger" role="button">
+								<a href="{{URL::asset('eliminar/reserva/'.$reserva->id_alquiler)}}" class="btn btn-danger" role="button">
 									<i class="fa fa-ban" aria-hidden="true"></i> Cancelar
 								</a>
 							</td>

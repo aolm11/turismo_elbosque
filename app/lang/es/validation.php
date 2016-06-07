@@ -128,6 +128,6 @@ return array(
         'precio_persona' =>'precio por persona',
         'precio_dia' => 'precio por día',
         'descripcion' =>'descripción',
-
+        'mensaje' => 'mensaje',
     ),
 );

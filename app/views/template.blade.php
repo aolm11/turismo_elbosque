@@ -45,21 +45,6 @@
         @yield('content')
     </div>
 </div>
-<script>
-    window.setTimeout(function () {
-        $("#message").fadeTo(500, 0).slideUp(500, function () {
-            $(this).remove();
-        });
-    }, 2000);
-
-    var mensages = document.getElementsByClassName('message');
-    var segundos = mensages.length * 3000;
-    window.setTimeout(function () {
-        $(".message").fadeTo(500, 0).slideUp(500, function () {
-            $(this).remove();
-        });
-    }, segundos);
-</script>
 
 <footer class="footer foo">
     <div class="container">
@@ -77,5 +62,20 @@
     </div>
 
 </footer>
+<script>
+    window.setTimeout(function () {
+        $("#message").fadeTo(500, 0).slideUp(500, function () {
+            $(this).remove();
+        });
+    }, 2000);
+
+    var mensages = document.getElementsByClassName('message');
+    var segundos = mensages.length * 3000;
+    window.setTimeout(function () {
+        $(".message").fadeTo(500, 0).slideUp(500, function () {
+            $(this).remove();
+        });
+    }, segundos);
+</script>
 </body>
 

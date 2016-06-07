@@ -12,7 +12,7 @@
         @else
             <div id="message">
                 <div style="padding: 5px;">
-                    <div id="inner-message" class="alert alert-warning">
+                    <div id="inner-message" class="alert alert-danger">
                         <button type="button" class="close" data-dismiss="alert">&times;</button>
                         {{Session::get('mensaje')}}
                     </div>
@@ -181,6 +181,18 @@
                 <div id="inner-message" class="alert alert-danger">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
                     @foreach($errors->get('salida') as $error )
+                        * {{ $error }}<br>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    @endif
+    @if( $errors->has('mensaje') )
+        <div class="message">
+            <div style="padding: 5px;">
+                <div id="inner-message" class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    @foreach($errors->get('mensaje') as $error )
                         * {{ $error }}<br>
                     @endforeach
                 </div>

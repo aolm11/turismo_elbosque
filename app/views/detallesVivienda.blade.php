@@ -87,8 +87,9 @@
                     <h4>Contacto</h4>
                 </div>
 
-                <form role="form" method="POST" action="">
+                <form role="form" method="POST" action="{{URL::asset('enviar/reserva')}}">
                     <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+                    <input type="hidden" name="vivienda" id="vivienda" value="{{$vivienda->id}}">
                     <div class="form-group">
                         <label for="nombre">Nombre:</label>
                         <input type="text" class="form-control" id="nombre" name="nombre" value="{{Input::old('nombre')}}">
@@ -126,6 +127,10 @@
 
                             </div>
                         </div>
+                    </div>
+                    <div class='form-group'>
+                        <label for='mensaje'>Mensaje:</label>
+                        <textarea class='form-control' id='mensaje' name='mensaje' rows='10'>{{Input::old('mensaje')}}</textarea>
                     </div>
                     <button type="submit" class="btn btn-default">Enviar</button>
                 </form>

@@ -37,8 +37,9 @@ Route::get('inicio', function () {
 
 });
 
-Route::post('filtrarViviendas', 'ViviendaController@viviendasFiltradas');
+Route::post('viviendas/filtradas', 'ViviendaController@viviendasFiltradas');
 
+Route::post('enviar/reserva', 'AlquilerController@crearNotificacion');
 
 Route::filter('admin', function () {
 	if (!Usuario::esAdmin())
@@ -105,7 +106,9 @@ Route::group(array('before' => ['auth']), function () {
 
 		Route::get('detalles/reserva/{id}', 'AlquilerController@detallesReserva');
 
-		Route::get('eliminar/reserva/{id}', 'AlquilerController@eliminarReservaConfirmada');
+		Route::get('confirmar/reserva/{id}', 'AlquilerController@confirmarReserva');
+
+		Route::get('eliminar/reserva/{id}', 'AlquilerController@eliminarReserva');
 
 
 

@@ -33,7 +33,7 @@
                                  src="{{URL::asset('http://www.cadiz-turismo.com/municipios/elbosque/4_Parque_Natural_Sierra_de_Grazalema_El_Bosque.jpg')}}">
                         </div>
                     </div>
-                    <form class="form-inline " role="form" id="busqueda" method="POST" action="{{URL::asset('filtrarViviendas')}}">
+                    <form class="form-inline " role="form" id="busqueda" method="POST" action="{{URL::asset('viviendas/filtradas')}}">
                         <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                         <div class='input-group date' >
                             <input type="text" class="form-control" id='entrada' name="entrada" placeholder="Entrada">
@@ -66,19 +66,17 @@
 
         </div>
     </div>
-
+    <br>
     <div class="row content">
         <div class="row multi-columns-row alt-features-grid">
 
             <!-- Features Item -->
             <div class="col-sm-6 col-md-4 col-lg-4">
                 <div class="alt-features-item align-center">
-                       <h3> <i class="fa fa-building"></i></h3>
-                    <h3 class="alt-features-title font-alt">Somos Creativos</h3>
+                    <h3 class="alt-features-title font-alt"><i class="fa fa-shopping-bag" aria-hidden="true"></i> Ofertas</h3>
 
                     <div class="alt-features-descr align-left">
-                        Siempre al corriente de las últimas tendencias y tecnologías que van surgiendo para
-                        poder aplicar el diseño más actual y la funcionalidad más efectiva.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla purus justo, tristique at mi eget, dapibus pretium urna. Ut placerat nec lorem eget ultricies. Integer sit amet arcu vel neque convallis eleifend quis sed nulla. Donec iaculis orci est, ac maximus ipsum convallis vel. Phasellus facilisis lectus nulla, quis mollis erat convallis nec. Vivamus non odio sed magna bibendum pellentesque. Phasellus efficitur ut nisl id vulputate.
                     </div>
                 </div>
             </div>
@@ -87,12 +85,10 @@
             <!-- Features Item -->
             <div class="col-sm-6 col-md-4 col-lg-4">
                 <div class="alt-features-item align-center">
-                    <h3> <i class="fa fa-clock-o"></i></h3>
-                    <h3 class="alt-features-title font-alt">Trabajamos a tiempo real</h3>
+                    <h3 class="alt-features-title font-alt"><i class="fa fa-star-o" aria-hidden="true"></i> Mejor valoradas</h3>
 
                     <div class="alt-features-descr align-left">
-                        Por medio de herramientas de gestión mantenemos una estrecha colaboración con el cliente
-                        para agilizar el proyecto durante el proceso de desarrollo.
+                        Quisque non tortor ornare, congue dui id, sodales augue. In eu elit vitae lectus pretium interdum. Nullam accumsan nibh nulla, quis faucibus lectus rutrum eget. Sed placerat justo vel lectus aliquet sodales. Ut rutrum nunc non dolor elementum, a tempor purus tempus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque accumsan lobortis tortor at consectetur.
                     </div>
                 </div>
             </div>
@@ -101,12 +97,10 @@
             <!-- Features Item -->
             <div class="col-sm-6 col-md-4 col-lg-4">
                 <div class="alt-features-item align-center">
-                    <h3> <i class="fa fa-user"></i></h3>
-                    <h3 class="alt-features-title font-alt">Creamos valor</h3>
+                    <h3 class="alt-features-title font-alt"><i class="fa fa-calendar" aria-hidden="true"></i> Eventos</h3>
 
                     <div class="alt-features-descr align-left">
-                        Analizamos tu negocio, creamos tu solución a medida y desarrollamos contigo una
-                        estrategia que hará que tu proyecto sea un éxito.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed iaculis tortor lorem, nec luctus massa consectetur at. Aliquam quis tempus nisl. Aliquam imperdiet auctor consectetur. Vestibulum aliquet arcu vitae ultrices ultrices. Integer et egestas velit. Proin justo tellus, lobortis at risus sit amet, fringilla varius sapien. Nulla vel ligula posuere, efficitur libero id, imperdiet sem. Vestibulum et eleifend enim. Phasellus non ante eu velit pharetra lacinia eu eget turpis.
                     </div>
                 </div>
             </div>

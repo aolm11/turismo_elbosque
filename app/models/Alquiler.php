@@ -18,6 +18,74 @@ class Alquiler extends Eloquent {
 		return $this->belongsTo('Cliente');
 	}
 
+	public static function crearNotificacion($input){
+		$respuesta = array();
+
+		$reglas = array(
+			'nombre' => array('required', 'min:3', 'max:100'),
+			'telefono'=> array('required','min:9', 'max:9'),
+			'email' => array('required', 'email', 'max:100'),
+			'entrada' => array('required', 'date_format:d-m-Y'),
+			'salida' => array('required', 'date_format:d-m-Y'),
+			'mensaje' => array('required'),
+
+		);
+
+		$validator = Validator::make($input, $reglas);
+
+		if ($validator->fails()) {
+			$respuesta['mensaje'] = $validator;
+			$respuesta['error'] = true;
+		} else {
+			if(Vivienda::viviendaDisponible($input['vivienda'],$input['entrada'],$input['salida'])){
+
+				$cliente = Cliente::getClienteByEmail($input['email']);
+				if(is_null($cliente)){
+					$cliente = new Cliente();
+					$cliente->nombre = $input['nombre'];
+					$cliente->email = $input['email'];
+					$cliente->telefono = $input['telefono'];
+					$cliente->save();
+				}
+
+				$reserva = new Alquiler();
+				$reserva->id_vivienda = $input['vivienda'];
+				$reserva->id_cliente = $cliente->id;
+				$reserva->fecha_inicio = Herramientas::formatearFechaBD($input['entrada']);
+				$reserva->fecha_fin = Herramientas::formatearFechaBD($input['salida']);
+				$reserva->mensaje = $input['mensaje'];
+				$reserva->confirmado = 0;
+				$reserva->save();
+
+				$respuesta['mensaje'] = 'Se ha enviado su reserva al propietario. Recuerde que aún debe ser aceptada';
+				$respuesta['error'] = false;
+				$respuesta['exito'] = true;
+
+				//TODO email al propietario.
+			}else{
+				$respuesta['mensaje'] = 'La vivienda no está disponible en las fechas selecciondas.';
+				$respuesta['error'] = false;
+				$respuesta['exito'] = false;
+			}
+		}
+		return $respuesta;
+	}
+
+	public static function confirmarReserva($id_reserva){
+		$respuesta = array();
+
+		$reserva = Alquiler::find($id_reserva);
+
+		$reserva->confirmado = 1;
+		$reserva->save();
+
+		$respuesta['mensaje'] = 'Reserva confirmada.';
+		$respuesta['error'] = false;
+		$respuesta['exito'] = true;
+
+		return $respuesta;
+	}
+
 
 	public static function crearReserva($input){
 		$respuesta = array();
@@ -120,7 +188,7 @@ class Alquiler extends Eloquent {
 		return $respuesta;
 	}
 
-	public static function eliminarReservaConfirmada($id_reserva){
+	public static function eliminarReserva($id_reserva){
 
 		$respuesta = array();
 
@@ -157,6 +225,7 @@ class Alquiler extends Eloquent {
 			->join('viviendas','alquiler.id_vivienda', '=', 'viviendas.id')
 			->where('viviendas.id_usuario', '=', $id_usuario)
 			->where('alquiler.confirmado', '=', 0)
+			->select('alquiler.id as id_alquiler', 'id_vivienda', 'id_cliente', 'fecha_inicio', 'fecha_fin', 'nombre', 'mensaje')
 			->get();
 
 		return $reservas;

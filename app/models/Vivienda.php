@@ -48,20 +48,18 @@ class Vivienda extends Eloquent {
 			return $respuesta;
 		} else {
 			if(!empty($input['personas'])){
-				dd(1);
-				$viviendas = DB::table('viviendas')->where('capacidad', '>=', $input['personas']);
+				$viviendas = DB::table('viviendas')->where('capacidad', '>=', $input['personas'])->get();
 			}else{
-				$viviendas = Vivienda::all();
+				$viviendas = DB::table('viviendas')->get();
 			}
 
-			$disponibles = array();
-			foreach ($viviendas as $vivienda) {
+			foreach ($viviendas as $key => $vivienda) {
 				if(!Vivienda::viviendaDisponible($vivienda->id, $input['entrada'], $input['salida'])){
-					unset($viviendas[$vivienda]);
+					unset($viviendas[$key]);
 				}
 			}
-			$res = Paginator::make(array(), count($viviendas), 9);
-			return $res;
+
+			return $viviendas;
 		}
 	}
 
@@ -75,7 +73,7 @@ class Vivienda extends Eloquent {
 			'num_habitaciones' => array('required','integer',  'between:1,11'),
 			'num_banos'=> array('required', 'integer', 'between:1,6'),
 			'capacidad' => array('required', 'integer', 'min:1'),
-			'descripcion' => array('required', 'alpha_num'),
+			'descripcion' => array('required'),
 		);
 		if($input['precio_persona'] == "" and $input['precio_dia'] == ""){
 			$reglas=array_add($reglas,'precio_dia',array('required'));;

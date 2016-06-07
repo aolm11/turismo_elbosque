@@ -23,12 +23,10 @@ class ViviendaController extends BaseController {
   public function viviendasFiltradas(){
     $viviendas = Vivienda::buscarViviendas(Input::all());
 
-    if ($viviendas['error'] == true) {
-      dd('sadad');
+    if (isset($viviendas['error'])) {
       return Redirect::back()->withErrors($viviendas['mensaje']);
     } else {
-      return View::make('viviendas')->with(['viviendas' => $viviendas]);
-
+      return View::make('viviendasFiltradas')->with(['viviendas' => $viviendas]);
     }
   }
 
