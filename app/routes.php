@@ -53,6 +53,11 @@ Route::filter('propietario', function () {
 
 Route::group(array('before' => ['auth']), function () {
 
+
+	Route::get('perfil/usuario/{id}', 'UsuarioController@edicionPerfil');
+
+	Route::post('usuario/editar/{id}', 'UsuarioController@editarPerfil');
+
 	Route::group(array('before' => 'admin'), function () {
 
 		/*Route::get('/', function () {

@@ -154,7 +154,7 @@ class Usuario extends Eloquent implements UserInterface, RemindableInterface {
 		);
 
 		if($input['email'] != $propietario->email){
-			$reglas=array_push($reglas,'email',array('email', 'max:50', 'unique:usuarios,email'));;
+			$reglas=array_add($reglas,'email',array('email', 'max:50', 'unique:usuarios,email'));;
 		}
 
 		$validator = Validator::make($input, $reglas);
@@ -270,9 +270,51 @@ class Usuario extends Eloquent implements UserInterface, RemindableInterface {
 
 	}
 
-	public static function propietario(){
+	public static function editarPerfil($id_usuario, $input)
+	{
+		$respuesta = array();
 
-		$propietario = Usuario::find(Auth::id());
+		$usuario = Usuario::find($id_usuario);
+
+		$reglas = array(
+			'nombre' => array('required', 'min:3', 'max:50'),
+			'apellidos' => array('required', 'min:3', 'max:100'),
+			'telefono' => array('required', 'min:9', 'max:9'),
+		);
+
+		if($input['email'] != $usuario->email){
+			$reglas=array_add($reglas,'email',array('email', 'max:50', 'unique:usuarios,email'));
+		}
+		if ($input['password'] != "") {
+			$reglas = array_add($reglas, 'password', array('required', 'min:6', 'max:100', 'same:password2'));
+			$reglas = array_add($reglas, 'password2', array('required', 'min:6', 'max:100'));
+		}
+
+		$validator = Validator::make($input, $reglas);
+
+		if ($validator->fails()) {
+			$respuesta['mensaje'] = $validator;
+			$respuesta['error'] = true;
+		} else {
+
+			$usuario->nombre = $input['nombre'];
+			$usuario->apellidos = $input['apellidos'];
+			$usuario->telefono = $input['telefono'];
+			$usuario->email = $input['email'];
+
+			if ($input['password'] != "") {
+				$usuario->password = Hash::make($input['password']);
+			}
+
+			$usuario->save();
+
+			$respuesta['mensaje'] = 'Su perfil ha sido actualizado';
+			$respuesta['error'] = false;
+			$respuesta['exito'] = true;
+			$respuesta['data'] = $usuario;
+		}
+
+		return $respuesta;
 	}
 
 }

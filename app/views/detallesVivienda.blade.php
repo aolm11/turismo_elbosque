@@ -34,34 +34,41 @@
                 <div class="row carousel-holder">
 
                     <div class="col-md-12">
-                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                            <ol class="carousel-indicators">
-                                <?php $cont = 0 ?>
-                                @foreach($imagenes as $imagen)
-                                    <li data-target="#carousel-example-generic" data-slide-to="{{$cont}}"></li>
-                                    <?php $cont++ ?>
-                                @endforeach
-                            </ol>
-                            <div class="carousel-inner">
-                                @foreach($imagenes as $imagen)
-                                    @if($imagenes[0] == $imagen)
-                                        <div class="item active">
-                                            <img class="slide-image" src="{{URL::asset('img/viviendas/'.$imagen->nombre)}}" alt="">
-                                        </div>
-                                    @else
-                                        <div class="item">
-                                            <img class="slide-image" src="{{URL::asset('img/viviendas/'.$imagen->nombre)}}" alt="">
-                                        </div>
-                                    @endif
-                                @endforeach
+                        @if(count($imagenes) > 0)
+                            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    <?php $cont = 0 ?>
+                                    @foreach($imagenes as $imagen)
+                                        <li data-target="#carousel-example-generic" data-slide-to="{{$cont}}"></li>
+                                        <?php $cont++ ?>
+                                    @endforeach
+                                </ol>
+                                <div class="carousel-inner">
+                                    @foreach($imagenes as $imagen)
+                                        @if($imagenes[0] == $imagen)
+                                            <div class="item active">
+                                                <img class="slide-image" src="{{URL::asset('img/viviendas/'.$imagen->nombre)}}" alt="">
+                                            </div>
+                                        @else
+                                            <div class="item">
+                                                <img class="slide-image" src="{{URL::asset('img/viviendas/'.$imagen->nombre)}}" alt="">
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                </div>
+                                <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                                    <span class="glyphicon glyphicon-chevron-left"></span>
+                                </a>
+                                <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                                    <span class="glyphicon glyphicon-chevron-right"></span>
+                                </a>
                             </div>
-                            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                                <span class="glyphicon glyphicon-chevron-left"></span>
-                            </a>
-                            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                                <span class="glyphicon glyphicon-chevron-right"></span>
-                            </a>
-                        </div>
+                        @else
+                            <div class="col-md-9 col-xs-12 text-center font-grey-mint">
+
+                                <h3 style="margin-top: 10%">La vivienda aún no tiene imágenes.</h3>
+                            </div>
+                        @endif
                     </div>
 
                 </div>
@@ -189,16 +196,49 @@
     </div>
     <script>
         var fechas = {{json_encode($reservas)}};
-        $( "#disponibilidad" ).datepicker({
-            dateFormat: 'dd-mm-yy',
-            minDate: new Date(),
-            beforeShowDay: function(date){
-                var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
-                return [ fechas.indexOf(string) == -1 ]
-            }
-        });
 
-        crearDatePickers(fechas);
-        actualizaMinDateSalidas(fechas);
+        if(fechas != null){
+            $( "#disponibilidad" ).datepicker({
+                dateFormat: 'dd-mm-yy',
+                minDate: new Date(),
+                beforeShowDay: function(date){
+                    var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+                    return [ fechas.indexOf(string) == -1 ]
+                }
+            });
+
+            crearDatePickers(fechas);
+            actualizaMinDateSalidas(fechas);
+        }else{
+            $( "#disponibilidad" ).datepicker({
+                dateFormat: 'dd-mm-yy',
+                minDate: new Date(),
+            });
+
+            $( "#entrada" ).datepicker({
+                dateFormat: 'dd-mm-yy',
+                minDate: new Date()
+            });
+            $( "#salida" ).datepicker({
+                dateFormat: 'dd-mm-yy',
+                minDate: new Date((new Date()).valueOf() + 1000*3600*24),
+            });
+
+            $("#entrada").change(function () {
+                var select = $("#entrada").val();
+                var result = select.split('-');
+                var fecha = result[2]+'-'+result[1]+'-'+result[0];
+                fecha = new Date(fecha);
+                var man = fecha.setDate(fecha.getDate() + 1);
+                man = new Date(man);
+                $('#salida').datepicker("destroy");
+                $( "#salida" ).datepicker({
+                    dateFormat: 'dd-mm-yy',
+                    minDate: man,
+                });
+            });
+
+        }
+
     </script>
 @stop

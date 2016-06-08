@@ -94,6 +94,23 @@ class UsuarioController extends BaseController {
     }
   }
 
+  public function edicionPerfil($id_usuario){
+    $usuario = Usuario::find($id_usuario);
+    return View::make('perfil')->with(['usuario' => $usuario]);
+  }
+
+  public function editarPerfil($id_usuario){
+    $respuesta =Usuario::editarPerfil($id_usuario,Input::all());
+
+    if ($respuesta['error'] == true) {
+      return Redirect::back()->withErrors($respuesta['mensaje'])->withInput();
+    } else {
+      return Redirect::back()
+          ->with('mensaje', ($respuesta['mensaje']))
+          ->with('exito', ($respuesta['exito']));
+    }
+  }
+
   /**
    * Show the form for creating a new resource.
    *

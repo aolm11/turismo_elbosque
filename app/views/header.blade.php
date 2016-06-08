@@ -32,7 +32,7 @@
 
                             <ul class="dropdown-menu dropdown-menu-default">
                                 <li>
-                                    <a href="{{URL::asset('perfilUsuario')}}">
+                                    <a href="{{URL::asset('perfil/usuario/'.Auth::id())}}">
                                         <i class="fa fa-user" aria-hidden="true"></i> Mi perfil </a>
                                 </li>
                                 <li>
