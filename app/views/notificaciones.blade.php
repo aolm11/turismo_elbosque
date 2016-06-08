@@ -199,4 +199,28 @@
             </div>
         </div>
     @endif
+    @if( $errors->has('desde') )
+        <div class="message">
+            <div style="padding: 5px;">
+                <div id="inner-message" class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    @foreach($errors->get('desde') as $error )
+                        * {{ $error }}<br>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    @endif
+    @if( $errors->has('hasta') )
+        <div class="message">
+            <div style="padding: 5px;">
+                <div id="inner-message" class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    @foreach($errors->get('hasta') as $error )
+                        * {{ $error }}<br>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    @endif
 @stop

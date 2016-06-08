@@ -16,7 +16,7 @@
 		</ul>
 	</div>
 	<div class="row content">
-		<div class="col-md-8 col-sm-8">
+		<div class="col-md-7 col-sm-7">
 			<div class="section-title">
 				<h1 class="titulo">Mis Viviendas</h1>
 				<a class="btn btn-default derecha" data-toggle="modal" href="#crearVivienda" data-target="#crearVivienda">
@@ -61,6 +61,43 @@
 				</div>
 			@endif
 		</div>
+		@if(count($viviendas) != 0)
+			<div class="col-md-1 col-sm-1"></div>
+			<div class="col-md-4 col-sm-4">
+				<div class="section-title">
+					<h1 class="titulo">Generar informe de reservas</h1>
+				</div>
+				<form role="form" method="POST" action="{{URL::asset('generar/informe')}}">
+					<input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+					<div class="row">
+						<div class="col-md-6 col-xs-12">
+							<div class="form-group">
+								<label for="entrada">Desde:</label>
+								<div class='input-group date' >
+									<input type="text" class="form-control" id='desde' name="desde" value="{{Input::old('desde')}}">
+								<span class="input-group-addon">
+									<i class="fa fa-calendar" aria-hidden="true"></i>
+								</span>
+								</div>
+
+							</div>
+						</div>
+						<div class="col-md-6 col-xs-12">
+							<div class="form-group">
+								<label for="salida">Hasta:</label>
+								<div class='input-group date' >
+									<input type="text" class="form-control" id='hasta' name="hasta" value="{{Input::old('hasta')}}">
+								<span class="input-group-addon">
+									<i class="fa fa-calendar" aria-hidden="true"></i>
+								</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<button type="submit" class="btn btn-default"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Generar</button>
+				</form>
+			</div>
+		@endif
 	</div>
 	<br>
 	<br>
@@ -142,7 +179,8 @@
 					<label for="vivienda">Vivienda:</label>
 					<select class="form-control" name="vivienda" id="vivienda">
 						@if(count($viviendas) > 0)
-							@foreach($viviendas as $vivienda)
+							<option value="">Seleccione una vivienda</option>
+						@foreach($viviendas as $vivienda)
 								<option value="{{$vivienda->id}}">{{$vivienda->nombre}}</option>
 							@endforeach
 						@else
@@ -189,13 +227,62 @@
 @include('modales.nuevaVivienda')
 	<script>
 		$(function() {
-			$( "#entrada" ).datepicker({
+
+			$( "#desde" ).datepicker({
 				dateFormat: 'dd-mm-yy'
 			});
-			$( "#salida" ).datepicker({
+			$( "#hasta" ).datepicker({
 				dateFormat: 'dd-mm-yy'
+			});
+
+			$("#desde").change(function () {
+				var select = $("#desde").val();
+				var result = select.split('-');
+				var fecha = result[2]+'-'+result[1]+'-'+result[0];
+				fecha = new Date(fecha);
+				var man = fecha.setDate(fecha.getDate() + 1);
+				man = new Date(man);
+				$('#hasta').datepicker("destroy");
+				$( "#hasta" ).datepicker({
+					dateFormat: 'dd-mm-yy',
+					minDate: man,
+				});
+			});
+
+			$("#vivienda").change(function () {
+				if($(this).val() != "") {
+
+					$.ajax({
+						method: 'GET',
+						url: window.location.pathname + '/../reservas/vivienda/' + $(this).val(),
+						data: {_token: $('#_token').val(), id: $(this).val()},
+						success: function (data) {
+
+							$('#entrada').datepicker("destroy");
+							$('#entrada').val('');
+							$('#salida').datepicker("destroy");
+							$('#salida').val('');
+							if ($('#vivienda').val() != '') {
+								crearDatePickers(data);
+								actualizaMinDateSalidas(data);
+							}
+							//$("#vivienda").trigger('change');
+
+						},
+						error: function (datas) {
+							alert('error');
+						}
+					})
+				}else{
+					$('#entrada').datepicker("destroy");
+					$('#entrada').val('');
+					$('#salida').datepicker("destroy");
+					$('#salida').val('');
+				}
+
 			});
 		});
+
 
 		$(function () {
 			$('#calendar').fullCalendar({

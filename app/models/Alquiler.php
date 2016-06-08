@@ -249,6 +249,52 @@ class Alquiler extends Eloquent {
 		return $reservas;
 	}
 
+	public static function getAlquileresPropietario($id_propietario, $fecha_inicio, $fecha_fin){
+		$alquileres = DB::table('viviendas')
+			->join('alquiler', 'alquiler.id_vivienda', '=', 'viviendas.id')
+			->join('clientes', 'clientes.id', '=', 'alquiler.id_cliente')
+			->where('viviendas.id_usuario', '=', $id_propietario)
+			->where('alquiler.fecha_inicio', '>=', Herramientas::formatearFechaBD($fecha_inicio))
+			->where('alquiler.fecha_fin', '<=', Herramientas::formatearFechaBD($fecha_fin))
+			->where('alquiler.confirmado', '=', 1)
+			->select('clientes.nombre as nom_cliente', 'clientes.email as email', 'clientes.telefono as telefono',
+				'viviendas.nombre as nom_vivienda','alquiler.fecha_inicio','alquiler.fecha_fin')
+			->orderBy('alquiler.fecha_inicio')
+			->get();
+		return $alquileres;
+	}
+
+	public static function generarInforme($input){
+		$respuesta = array();
+
+		$reglas = array(
+			'desde' => array('required', 'date_format:d-m-Y'),
+			'hasta' => array('required', 'date_format:d-m-Y'),
+		);
+
+		$validator = Validator::make($input, $reglas);
+
+		if ($validator->fails()) {
+			$respuesta['mensaje'] = $validator;
+			$respuesta['error'] = true;
+
+			return $respuesta;
+		} else {
+			$reservas = Alquiler::getAlquileresPropietario(Auth::id(), $input['desde'], $input['hasta']);
+
+			if(count($reservas) <= 0){
+				$respuesta['mensaje'] = 'No hay reservas en las fechas indicadas.';
+				return $respuesta;
+			}else{
+
+				//$reservas['fecha_inicio'] = $input['desde'];
+				//$reservas['fecha_fin'] = $input['hasta'];
+
+				return $reservas;
+			}
+		}
+	}
+
 	public static function getDiasAlquilados($fecha_inicio, $fecha_fin){
 
 		$fecha_inicio = new DateTime($fecha_inicio);

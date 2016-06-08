@@ -129,5 +129,7 @@ return array(
         'precio_dia' => 'precio por día',
         'descripcion' =>'descripción',
         'mensaje' => 'mensaje',
+        'desde' => 'desde',
+        'hasta' => 'hasta',
     ),
 );

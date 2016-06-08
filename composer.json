@@ -6,7 +6,8 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"barryvdh/laravel-ide-helper": "~1.11",
-	  	"intervention/image": "1.*"
+	  	"intervention/image": "1.*",
+	  	"barryvdh/laravel-dompdf": "0.4.*"
 	},
 	"autoload": {
 		"classmap": [

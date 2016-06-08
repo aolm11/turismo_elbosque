@@ -110,6 +110,8 @@ Route::group(array('before' => ['auth']), function () {
 
 		Route::get('eliminar/reserva/{id}', 'AlquilerController@eliminarReserva');
 
+		Route::post('generar/informe', 'AlquilerController@generarInforme');
+
 
 
 
@@ -146,8 +148,9 @@ Route::get('prueba', function(){
 
 	//dd(Vivienda::getTodasFechasReservadas(2, true));
 
-	dd(Imagen::getNombreImagenVivienda(11)->nombre);
+	//dd(Imagen::getNombreImagenVivienda(11)->nombre);
 
+	dd(Alquiler::getAlquileresPropietario(18, '2016-06-01', '2016-06-20'));
 
 	//dd($reservasConfirmadas);
 
