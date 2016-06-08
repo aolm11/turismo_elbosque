@@ -14,7 +14,7 @@ class ImagenController extends BaseController {
     $vivienda = Vivienda::find(($imagen->id_vivienda));
 
     if(Auth::id() != $vivienda->id_usuario){
-      return Redirect::to('401');
+      return Response::view('401', array(), 401);
     }else {
 
       $respuesta = Imagen::borrar($id_imagen);

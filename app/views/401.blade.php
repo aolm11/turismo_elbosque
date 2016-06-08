@@ -18,7 +18,7 @@
                         <span class="caption-subject font-blue-dark bold uppercase"> </span>
                         <p class="font-green-seagreen">HTTP Error 401 - Unauthorized</p>
                         <p>Lo sentimos...</p>
-                        <img src="{{URL::asset('img/oh.png')}}">
+                        <img src="{{URL::asset('img/AccesoDenegado.png')}}" style="max-width: 10%">
                         <p>...no tienes permisos para ver este contenido.</p>
                     </div>
 
@@ -27,4 +27,5 @@
 
             </div>
         </div>
+    </div>
 @stop

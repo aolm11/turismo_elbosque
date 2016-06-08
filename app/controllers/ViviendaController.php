@@ -59,7 +59,7 @@ class ViviendaController extends BaseController {
     $imagenes = Imagen::imagenesVivienda($vivienda->id);
 
     if($propietario->id != $vivienda->id_usuario){
-      return Redirect::to('401');
+      return Response::view('401', array(), 401);
     }else{
       return View::make('editarVivienda')->with(['vivienda' => $vivienda, 'imagenes' => $imagenes]);
     }
@@ -83,7 +83,7 @@ class ViviendaController extends BaseController {
     $vivienda = Vivienda::find($id_vivienda);
 
     if(Auth::id() != $vivienda->id_usuario){
-      return Redirect::to('401');
+      return Response::view('401', array(), 401);
     }else {
 
       $respuesta = Vivienda::addImagen($id_vivienda, Input::all());
@@ -102,7 +102,7 @@ class ViviendaController extends BaseController {
     $vivienda = Vivienda::find($id_vivienda);
 
     if(Auth::id() != $vivienda->id_usuario){
-      return Redirect::to('401');
+      return Response::view('401', array(), 401);
     }else {
       $respuesta = Vivienda::borrar($id_vivienda);
 

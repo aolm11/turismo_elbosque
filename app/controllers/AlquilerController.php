@@ -37,7 +37,7 @@ class AlquilerController extends BaseController {
     $vivienda = Vivienda::find(($reserva->id_vivienda));
 
     if(Auth::id() != $vivienda->id_usuario){
-      return Redirect::to('401');
+      return Response::view('401', array(), 401);
     }else{
       $respuesta = Alquiler::confirmarReserva($id_reserva);
       return Redirect::to('propietario')
@@ -51,7 +51,7 @@ class AlquilerController extends BaseController {
     $vivienda = Vivienda::find(($reserva->id_vivienda));
 
     if(Auth::id() != $vivienda->id_usuario){
-      return Redirect::to('401');
+      return Response::view('401', array(), 401);
     }else {
       $respuesta = Alquiler::editarReserva($id, Input::all());
 
@@ -74,7 +74,7 @@ class AlquilerController extends BaseController {
     $reservasVivienda = Vivienda::getTodasFechasReservadas($vivienda->id, true, $reserva);
 
     if(Auth::id() != $vivienda->id_usuario){
-      return Redirect::to('401');
+      return Response::view('401', array(), 401);
     }else{
       return View::make('detallesReserva')->with(['reserva' => $reserva, 'vivienda' => $vivienda, 'viviendasPropietario' => $viviendasPropietario, 'cliente' => $cliente, 'reservasVivienda' => $reservasVivienda]);
     }
@@ -88,7 +88,7 @@ class AlquilerController extends BaseController {
     $vivienda = Vivienda::find(($reserva->id_vivienda));
 
     if(Auth::id() != $vivienda->id_usuario){
-      return Redirect::to('401');
+      return Response::view('401', array(), 401);
     }else{
       $respuesta = Alquiler::eliminarReserva($id_reserva);
       return Redirect::to('propietario')
