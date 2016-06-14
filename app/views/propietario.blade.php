@@ -69,7 +69,7 @@
 					<div class="row">
 						<div class="col-md-6 col-xs-12">
 							<div class="form-group">
-								<label for="entrada">Desde:</label>
+								<label for="entrada">Desde: *</label>
 								<div class='input-group date' >
 									<input type="text" class="form-control" id='desde' name="desde" value="{{Input::old('desde')}}">
 								<span class="input-group-addon">
@@ -81,7 +81,7 @@
 						</div>
 						<div class="col-md-6 col-xs-12">
 							<div class="form-group">
-								<label for="salida">Hasta:</label>
+								<label for="salida">Hasta: *</label>
 								<div class='input-group date' >
 									<input type="text" class="form-control" id='hasta' name="hasta" value="{{Input::old('hasta')}}">
 								<span class="input-group-addon">
@@ -161,19 +161,19 @@
 			<form role="form" method="POST" action="{{URL::asset('crear/reserva')}}">
 				<input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
 				<div class="form-group">
-					<label for="nombre">Nombre cliente:</label>
+					<label for="nombre">Nombre cliente: *</label>
 					<input type="text" class="form-control" id="nombre" name="nombre" value="{{Input::old('nombre')}}">
 				</div>
 				<div class="form-group">
-					<label for="email">E-mail:</label>
+					<label for="email">E-mail: *</label>
 					<input type="email" class="form-control" id="email" name="email" value="{{Input::old('email')}}">
 				</div>
 				<div class="form-group">
-					<label for="telefono">Teléfono:</label>
+					<label for="telefono">Teléfono: *</label>
 					<input type="text" class="form-control" id="telefono" name="telefono" value="{{Input::old('telefono')}}">
 				</div>
 				<div class="form-group">
-					<label for="vivienda">Vivienda:</label>
+					<label for="vivienda">Vivienda: *</label>
 					<select class="form-control" name="vivienda" id="vivienda">
 						@if(count($viviendas) > 0)
 							<option value="">Seleccione una vivienda</option>
@@ -188,7 +188,7 @@
 				<div class="row">
 					<div class="col-md-6 col-xs-12">
 						<div class="form-group">
-							<label for="entrada">Entrada:</label>
+							<label for="entrada">Entrada: *</label>
 							<div class='input-group date' >
 								<input type="text" class="form-control" id='entrada' name="entrada" value="{{Input::old('entrada')}}">
 								<span class="input-group-addon">
@@ -200,7 +200,7 @@
 					</div>
 					<div class="col-md-6 col-xs-12">
 						<div class="form-group">
-							<label for="salida">Salida:</label>
+							<label for="salida">Salida: *</label>
 							<div class='input-group date' >
 								<input type="text" class="form-control" id='salida' name="salida" value="{{Input::old('salida')}}">
 								<span class="input-group-addon">

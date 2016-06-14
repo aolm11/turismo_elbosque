@@ -8,16 +8,13 @@ function comprobarForm() {
            document.getElementById("password").value == document.getElementById("password2").value;
 }
 
-// Hacer esta funcion con id como parametro, y modificar la clase del div padre con parentNode.className
 function comprobarInput(id){
     var help = "#"+id+"Ayuda";
-  if (document.getElementById(id).value == "") {  // Compruebo nombre
+  if (document.getElementById(id).value == "") {
     document.getElementById(id).parentNode.className = "form-group has-error";
-    //document.getElementById(id+"Ayuda").setAttribute("class", "help-block");
     $(help).fadeIn();
   }else {
     document.getElementById(id).parentNode.className = "form-group";
-    //document.getElementById(id+"Ayuda").setAttribute("class", "oculto");
     $(help).fadeOut();
   }
 
@@ -29,13 +26,9 @@ function comprobarInput(id){
       document.getElementById(id+"Ayuda").innerHTML = "Las contraseñas no coinciden";
       $(help).fadeIn();
 
-        //document.getElementById(id+"Ayuda").setAttribute("class", "help-block");
-
     }else {
       document.getElementById(id).parentNode.className = "form-group";
       $(help).fadeOut();
-
-        //document.getElementById(id+"Ayuda").setAttribute("class", "oculto");
     }
 
     if (document.getElementById(id).value == "") {
@@ -83,4 +76,20 @@ function actualizaMinDateSalidas(fechas){
             }
         });
     });
+}
+
+function alertas(){
+    window.setTimeout(function () {
+        $("#message").fadeTo(500, 0).slideUp(500, function () {
+            $(this).remove();
+        });
+    }, 2000);
+
+    var mensages = document.getElementsByClassName('message');
+    var segundos = mensages.length * 3000;
+    window.setTimeout(function () {
+        $(".message").fadeTo(500, 0).slideUp(500, function () {
+            $(this).remove();
+        });
+    }, segundos);
 }

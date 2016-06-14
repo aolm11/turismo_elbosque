@@ -62,12 +62,10 @@ Route::group(array('before' => ['auth']), function () {
 
 	Route::post('usuario/editar/{id}', 'UsuarioController@editarPerfil');
 
-	Route::group(array('before' => 'admin'), function () {
+	Route::get('logout', 'UsuarioController@logout');
 
-		/*Route::get('/', function () {
-			$propietarios = Usuario::getPropietarios();
-			return Redirect::to('admin')->with(['propietarios' => $propietarios]);
-		});*/
+
+	Route::group(array('before' => 'admin'), function () {
 
 		Route::get('admin', 'UsuarioController@admin');
 
@@ -80,9 +78,6 @@ Route::group(array('before' => ['auth']), function () {
 		Route::get('propietario/baja/{id}', 'UsuarioController@darDeBajaPropietario');
 
 		Route::get('propietario/eliminar/{id}', 'UsuarioController@eliminarPropietario');
-
-
-		//Route::post('nuevoPropietario', 'UsuarioController@crearPropietario');
 
 	});
 
@@ -126,43 +121,5 @@ Route::group(array('before' => ['auth']), function () {
 
 	});
 
-	/*Route::get('/', function () {
-		if (Usuario::esAdmin()) {
-			return Redirect::to('admin');
-		} elseif (Usuario::esPropietario()) {
-			return Redirect::to('propietario');
-		} else {
-			// retornar a vista sin permisos.
-		}
-
-	});*/
-
-
 });
 
-
-
-Route::get('logout', 'UsuarioController@logout');
-
-Route::resource('usuario', 'UsuarioController');
-Route::resource('rol', 'RolController');
-Route::resource('vivienda', 'ViviendaController');
-Route::resource('imagen', 'ImagenController');
-Route::resource('cliente', 'ClienteController');
-Route::resource('alquiler', 'AlquilerController');
-
-Route::get('prueba', function(){
-
-	//dd(Vivienda::viviendaDisponible(2, '01-06-2016','07-06-2016'));
-
-	//dd(Vivienda::getTodasFechasReservadas(2, true));
-
-	//dd(Imagen::getNombreImagenVivienda(11)->nombre);
-
-	//dd(Alquiler::getAlquileresPropietario(18, '2016-06-01', '2016-06-20'));
-
-	dd(Session::all());
-
-	//dd($reservasConfirmadas);
-
-});

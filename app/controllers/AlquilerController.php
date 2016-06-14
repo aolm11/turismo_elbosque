@@ -7,6 +7,11 @@ class AlquilerController extends BaseController {
     $this->beforeFilter('csrf', array('on' => 'post'));
   }
 
+  /*
+   * Dependiendo del resultado de llamada al mismo método de la clase Alquiler,
+   * se redirecciona a la vista anterior con un mensaje de éxito, o con mensaje de error
+   * y el contenido que haya introducido el usuario en los inputs del formulario.
+   */
   public function crearNotificacion(){
     $respuesta = Alquiler::crearNotificacion(Input::all());
 
@@ -31,6 +36,11 @@ class AlquilerController extends BaseController {
     }
   }
 
+  /*
+   * Se comprueba si la vivienda a la que pertenece la reserva es del propietario logueado,
+   * si no lo es se redirecciona a página de prohibición, en caso contrario, se redirecciona
+   * a página de propietario con mensaje de éxito
+    */
   public function confirmarReserva($id_reserva){
 
     $reserva = Alquiler::find($id_reserva);
@@ -65,6 +75,11 @@ class AlquilerController extends BaseController {
     }
   }
 
+  /*
+   * Se comprueba si la vivienda a la que pertenece la reserva es del propietario logueado,
+   * si no lo es se redirecciona a página de prohibición, en caso contrario, se crea la vista
+   * detallesReserva, a la que se le pasa las variables.
+    */
   public function detallesReserva($id){
     $reserva = Alquiler::find($id);
     $vivienda = Vivienda::find($reserva->id_vivienda);

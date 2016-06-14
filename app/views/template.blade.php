@@ -59,19 +59,7 @@
 
 </footer>
 <script>
-    window.setTimeout(function () {
-        $("#message").fadeTo(500, 0).slideUp(500, function () {
-            $(this).remove();
-        });
-    }, 2000);
-
-    var mensages = document.getElementsByClassName('message');
-    var segundos = mensages.length * 3000;
-    window.setTimeout(function () {
-        $(".message").fadeTo(500, 0).slideUp(500, function () {
-            $(this).remove();
-        });
-    }, segundos);
+    alertas();
 </script>
 </body>
 
