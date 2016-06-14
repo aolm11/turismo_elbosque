@@ -19,7 +19,7 @@
 		<div class="col-md-7 col-sm-7">
 			<div class="section-title">
 				<h1 class="titulo">Mis Viviendas</h1>
-				<a class="btn btn-default derecha" data-toggle="modal" href="#crearVivienda" data-target="#crearVivienda">
+				<a class="btn btn-info derecha" data-toggle="modal" href="#crearVivienda" data-target="#crearVivienda">
 					<i class="fa fa-plus" aria-hidden="true"></i>
 					<i class="fa fa-home" aria-hidden="true"></i> Añadir
 				</a>
@@ -39,14 +39,11 @@
 							<td>{{$vivienda->nombre}}</td>
 							<td>{{$vivienda->direccion}}</td>
 							<td>
-								<a href="{{URL::asset('vivienda/edicion/'.$vivienda->id)}}" class="btn btn-default" role="button">
+								<a href="{{URL::asset('vivienda/edicion/'.$vivienda->id)}}" class="btn btn-info" role="button">
 									<i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar
 								</a>
-								<a href="{{'#modalConfirm'.$vivienda->id}}" class="btn btn-default" role="button" data-toggle="modal">
+								<a href="{{'#modalConfirm'.$vivienda->id}}" class="btn btn-danger" role="button" data-toggle="modal">
 									<i class="fa fa-trash" aria-hidden="true"></i> Eliminar
-								</a>
-								<a href="#" class="btn btn-default" role="button">
-									<i class="fa fa-picture-o" aria-hidden="true"></i> Añadir imágenes
 								</a>
 							</td>
 						</tr>
@@ -94,7 +91,7 @@
 							</div>
 						</div>
 					</div>
-					<button type="submit" class="btn btn-default"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Generar</button>
+					<button type="submit" class="btn btn-info"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Generar</button>
 				</form>
 			</div>
 		@endif
@@ -124,9 +121,9 @@
 							<td>{{Vivienda::find($reserva->id_vivienda)->nombre}}</td>
 							<td>{{Herramientas::formatearFechaFromBD($reserva->fecha_inicio)}}</td>
 							<td>{{Herramientas::formatearFechaFromBD($reserva->fecha_fin)}}</td>
-							<td>{{$reserva->mensaje}}</td>
+							<td class="mensaje">{{$reserva->mensaje}}</td>
 							<td>
-								<a href="{{URL::asset('confirmar/reserva/'.$reserva->id_alquiler)}}" class="btn btn-info" role="button">
+								<a href="{{URL::asset('confirmar/reserva/'.$reserva->id_alquiler)}}" class="btn btn-success" role="button">
 									<i class="fa fa-check-square-o" aria-hidden="true"></i> Reservar
 								</a>
 								<a href="{{URL::asset('eliminar/reserva/'.$reserva->id_alquiler)}}" class="btn btn-danger" role="button">
@@ -214,7 +211,7 @@
 						</div>
 					</div>
 				</div>
-				<button type="submit" class="btn btn-default">Guardar</button>
+				<button type="submit" class="btn btn-success">Guardar</button>
 			</form>
 		</div>
 		<div class="col-md-8 col-sm-8 col-md-offset-1 content-panel">

@@ -78,7 +78,7 @@
                                                 <font face="Arial, Helvetica, sans-serif" size="5" color="#fff"
                                                       style="font-size: 34px;">
 					<span style="font-family: Arial, Helvetica, sans-serif; font-size: 34px; color: #fff; text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);">
-						Bienvenido a <strong>Tursimo El Bosque</strong>
+						<strong>Tursimo El Bosque</strong>
 					</span></font>
                                             </div>
                                             <!-- padding -->
@@ -125,18 +125,8 @@
                                                                       color="#6b6b6b"
                                                                       style="font-size: 34px; text-align: center;">
 					<span style="font-family: Arial, Helvetica, sans-serif; font-size: 24px; color: #6b6b6b; line-height: 30px;">
-						Ya tiene disponible el acceso a nuestra plataforma.
+                            Tiene una nueva notificación de reserva de la vivienda {{$vivienda->nombre}}
 					</span></font>
-                                                            </div>
-                                                            <!-- padding -->
-                                                            <div style="height: 18px; line-height: 18px; font-size: 10px;">
-                                                                &nbsp;</div>
-                                                            <div style="line-height: 21px;">
-                                                                <font face="Arial, Helvetica, sans-serif" size="3"
-                                                                      color="#98a7b9" style="font-size: 14px;">
-								<span style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #98a7b9;">
-									¡Nuestras felicitaciones! Ha obtenido acceso como propietario en nuestra plataforma.
-								</span></font>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -167,7 +157,7 @@
                                                 <font face="Arial, Helvetica, sans-serif" size="5" color="#6b6b6b"
                                                       style="font-size: 34px;">
 					<span style="font-family: Arial, Helvetica, sans-serif; font-size: 24px; color: #6b6b6b; line-height: 30px;">
-						Sus credenciales de usuario son las siguientes:
+						Los datos de la reserva son los siguientes:
 					</span></font>
                                             </div>
                                             <!-- padding -->
@@ -184,13 +174,21 @@
                                             <label class="control-label">Nombre: </label> {{$nombre}}
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label">Apellidos: </label> {{$apellidos}}
+                                            <label class="control-label">Teléfono: </label> {{$telefono}}
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Email: </label> {{$email}}
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label">Contraseña:</label> {{$password}}
+                                            <label class="control-label">Entrada:</label> {{$entrada}}
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Salida:</label> {{$salida}}
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Mensaje:</label> {{$mensaje}}
 
                                         </div>
 
@@ -205,13 +203,14 @@
                                     </tr>
                                     <tr>
                                         <td align="center">
+                                            <p>Debe ir a su sección de propietario para aceptar o cancelar la reserva</p>
                                             <div style="line-height: 24px;">
                                                 <a href="{{URL::asset('inicio')}}" target="_blank"
                                                    style="color: #596167; font-family: Arial, Helvetica, sans-serif; font-size: 13px;">
                                                     <font face="Arial, Helvetica, sans-seri; font-size: 13px;" size="3"
                                                           color="#596167">
                                                         <img src="{{URL::asset('http://www.turismoelbosque.com/wp-content/uploads/2015/10/logo11.png')}}"
-                                                             width="308" height="55" alt="TRY" border="0"
+                                                             width="308" height="55" alt="Ir a la web" border="0"
                                                              class="mob_width_80 mob_center_bl"
                                                              style="display: block; margin-top: 20px;"/></font></a>
                                             </div>

@@ -23,7 +23,7 @@
             </div>
             <div class="modal-footer">
                 <a href="{{(isset($propietario)) ? URL::asset('propietario/eliminar/'.$propietario->id) : URL::asset('vivienda/eliminar/'.$vivienda->id)}}" id="eliminar" class="btn btn-danger"><i class="fa fa-trash-o"></i> Eliminar</a>
-                <button class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button class="btn btn-info" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>

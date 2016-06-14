@@ -18,6 +18,13 @@ class Alquiler extends Eloquent {
 		return $this->belongsTo('Cliente');
 	}
 
+	/**
+	 * Método para crear notificación de reserva pendiente de confirmación por el propietario de la vivienda.
+	 * Comprueba que la vivienda este disponible en las fechas seleccionadas, y envía email de al propietario
+	 * informando de ello, además de crear la notificación en la plataforma.
+	 * @param $input Recibe como parámetro el contenido del formulario desde el controlador.
+	 * @return array Devuelve el resultado de la petición, con un mensaje de éxito o de error según corresponda.
+	 */
 	public static function crearNotificacion($input){
 		$respuesta = array();
 
@@ -61,7 +68,24 @@ class Alquiler extends Eloquent {
 				$respuesta['error'] = false;
 				$respuesta['exito'] = true;
 
-				//TODO email al propietario.
+				$vivienda = Vivienda::find($input['vivienda']);
+
+				$data = array(
+
+					'nombre'=>$cliente->nombre,
+					'email'=>$cliente->email,
+					'telefono'=>$cliente->telefono,
+					'entrada'=>$input['entrada'],
+					'salida'=>$input['entrada'],
+					'mensaje'=>$input['mensaje'],
+					'vivienda'=> $vivienda,
+				);
+
+				$propietario = Usuario::find($vivienda->id_usuario);
+				Mail::send('emails.emailNotificarPropietario', $data, function ($message) use ($propietario) {
+					$email = $propietario->email;
+					$message->to($email)->subject('Tiene una reserva en Turismo El Bosque');
+				});
 			}else{
 				$respuesta['mensaje'] = 'La vivienda no está disponible en las fechas selecciondas.';
 				$respuesta['error'] = false;
@@ -71,6 +95,9 @@ class Alquiler extends Eloquent {
 		return $respuesta;
 	}
 
+	/**
+	 * Método que permite al propietario de una vivienda confirmar una reserva.
+	 */
 	public static function confirmarReserva($id_reserva){
 		$respuesta = array();
 
@@ -86,7 +113,12 @@ class Alquiler extends Eloquent {
 		return $respuesta;
 	}
 
-
+	/**
+	 * Método para crear una reserva confirmada.
+	 * Comprueba que la vivienda este disponible en las fechas seleccionadas.
+	 * @param $input Recibe como parámetro el contenido del formulario desde el controlador.
+	 * @return array Devuelve el resultado de la petición, con un mensaje de éxito o de error según corresponda.
+	 */
 	public static function crearReserva($input){
 		$respuesta = array();
 
@@ -138,6 +170,12 @@ class Alquiler extends Eloquent {
 		return $respuesta;
 	}
 
+	/**
+	 * Método para editar los datos de una reserva confirmada.
+	 * Comprueba que la vivienda este disponible en las fechas seleccionadas.
+	 * @param $input Recibe como parámetro el contenido del formulario desde el controlador.
+	 * @return array Devuelve el resultado de la petición, con un mensaje de éxito o de error según corresponda.
+	 */
 	public static function editarReserva($id, $input){
 		$respuesta = array();
 
@@ -158,8 +196,6 @@ class Alquiler extends Eloquent {
 			$respuesta['error'] = true;
 		} else {
 
-			//TODO. Distinguir si fecha inicio y fecha fin son iguales, Si lo son, actualizar todo menos las fechas. Si es igual fecha inicio
-			//TODO añadir bandera a viviendaDisponible, $editando para que compruebe el resto de dias ; si no es igual comprobar normal.
 			$reserva = Alquiler::find($id);
 			if(Vivienda::viviendaDisponible($input['vivienda'],$input['entrada'],$input['salida'], $reserva)){
 
@@ -188,11 +224,35 @@ class Alquiler extends Eloquent {
 		return $respuesta;
 	}
 
+	/**
+	 * Método usado para eliminar reservas, tanto confirmadas como sin confirmar.
+	 * Envía un email al cliente informando de ello, con los datos del propietario y la reserva.
+	 * @param $id_reserva
+	 * @return array
+	 */
 	public static function eliminarReserva($id_reserva){
 
 		$respuesta = array();
 
 		$reserva =  Alquiler::find($id_reserva);
+
+		$cliente = Cliente::find($reserva->id_cliente);
+
+		$vivienda = Vivienda::find($reserva->id_vivienda);
+
+		$propietario = Usuario::find( $vivienda->id_usuario);
+
+		$data = array(
+
+			'reserva'=>$reserva,
+			'propietario' => $propietario,
+			'vivienda'=> $vivienda,
+		);
+
+		Mail::send('emails.emailCancelacion', $data, function ($message) use ($cliente) {
+			$email = $cliente->email;
+			$message->to($email)->subject('Reserva en Turismo El Bosque');
+		});
 
 		$reserva->delete();
 
@@ -202,11 +262,11 @@ class Alquiler extends Eloquent {
 
 		return $respuesta;
 
-		//TODO Email informando al cliente. (Enviar contacto del propietario por si quiere saber más).
-
-
 	}
 
+	/**
+	 * Consulta para obtener las reservas confirmadas de un propietario.
+	 */
 	public static function reservasPropietarioConfirmadas($id_usuario){
 
 		$reservas = DB::table('alquiler')
@@ -218,7 +278,9 @@ class Alquiler extends Eloquent {
 
 		return $reservas;
 	}
-
+	/**
+	 * Consulta para obtener las reservas sin confirmadar de un propietario.
+	 */
 	public static function reservasPropietarioSinConfirmar($id_usuario){
 
 		$reservas = DB::table('alquiler')
@@ -231,6 +293,10 @@ class Alquiler extends Eloquent {
 		return $reservas;
 	}
 
+	/**
+	 * Consulta para obtener todas las reservas, confirmadas y sin confirmar de una vivienda,
+	 * para avisar de ello al eliminar una vivienda.
+	 */
 	public static function reservasVivienda($id_vivienda){
 
 		$reservas = DB::table('alquiler')
@@ -239,6 +305,10 @@ class Alquiler extends Eloquent {
 		return $reservas;
 	}
 
+	/**
+	 * Consulta para obtener todas las reservas confirmadas de una vivienda.
+	 * Se usa para obtener todos los dias reservados que tiene esa vivienda.
+	 */
 	public static function reservasConfirmadas($id_vivienda){
 
 		$reservas = DB::table('alquiler')
@@ -249,6 +319,10 @@ class Alquiler extends Eloquent {
 		return $reservas;
 	}
 
+	/**
+	 * Consulta para obtener todas las reservas confirmadas de un propietario, entre un rango de fechas determinado.
+	 * Se usa para generar informe PDF.
+	 */
 	public static function getAlquileresPropietario($id_propietario, $fecha_inicio, $fecha_fin){
 		$alquileres = DB::table('viviendas')
 			->join('alquiler', 'alquiler.id_vivienda', '=', 'viviendas.id')
@@ -264,6 +338,9 @@ class Alquiler extends Eloquent {
 		return $alquileres;
 	}
 
+	/**
+	 * Método para generar informe PDF de las reservas de un propietario en un rango de tiempo determinado.
+	 */
 	public static function generarInforme($input){
 		$respuesta = array();
 
@@ -286,15 +363,15 @@ class Alquiler extends Eloquent {
 				$respuesta['mensaje'] = 'No hay reservas en las fechas indicadas.';
 				return $respuesta;
 			}else{
-
-				//$reservas['fecha_inicio'] = $input['desde'];
-				//$reservas['fecha_fin'] = $input['hasta'];
-
 				return $reservas;
 			}
 		}
 	}
 
+	/**
+	 * Método que devuelve la diferencia entre dos fechas.
+	 * Se usa para obtener todos los días que dura un alquiler.
+	 */
 	public static function getDiasAlquilados($fecha_inicio, $fecha_fin){
 
 		$fecha_inicio = new DateTime($fecha_inicio);
@@ -304,10 +381,6 @@ class Alquiler extends Eloquent {
 		$dias = $fecha_inicio->diff($fecha_fin);
 
 		return $dias;
-
-
-
-
 	}
 
 }

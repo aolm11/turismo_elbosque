@@ -11,13 +11,18 @@ class Imagen extends Eloquent {
 		return $this->belongsTo('Vivienda');
 	}
 
+	/**
+	 * Consulta que devuelve las imágenes de una vivienda
+	 */
 	public static function imagenesVivienda($id_vivienda){
 
 		$viviendas = DB::table('imagenes')->where('id_vivienda', '=', $id_vivienda)->get();
 
 		return $viviendas;
 	}
-
+	/**
+	 * Consulta que devuelve el nombre de una imagen de una vivienda.
+	 */
 	public static function getNombreImagenVivienda($id_vivienda){
 
 		$nombre = DB::table('imagenes')->where('id_vivienda', '=', $id_vivienda)->select('nombre')->first();
@@ -25,6 +30,9 @@ class Imagen extends Eloquent {
 		return $nombre;
 	}
 
+	/**
+	 * Método para eliminar una imagen.
+	 */
 	public static function borrar($id_imagen){
 
 		$respuesta = array();

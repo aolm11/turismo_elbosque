@@ -173,15 +173,6 @@ header.carousel .fill {
     left: 0;
     width: 25%;
     margin: 0 auto;
-
-    /*
-    TODO mostrar mensajes de alerta sobre el contenido.
-    position: absolute;
-    top: 30px;
-    left: 20px;
-    right: 20px;
-    width: 25%;
-    margin: 0 auto;*/
 }
 #inner-message {
     margin: 0 auto;
@@ -335,3 +326,8 @@ header.carousel .fill {
     background-color: #47b475;
     border-color: #e7e7e7;
 }*/
+
+td.mensaje{
+    max-width: 600px;
+    word-wrap: break-word;
+}

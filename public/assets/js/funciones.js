@@ -5,24 +5,8 @@ function comprobarForm() {
            document.getElementById("email").value != ""    &&
            document.getElementById("password").value != "" &&
            document.getElementById("password2").value != "" &&
-           document.getElementById("password").value == document.getElementById("password2").value; //TODO comprobar que las contraseñas coinciden
-  if (ok) {
-   document.getElementsByName("btnRegistro")[0].disabled = false;
- }else {
-   document.getElementsByName("btnRegistro")[0].disabled = true;
- }
+           document.getElementById("password").value == document.getElementById("password2").value;
 }
-
-Array.prototype.getKeyValue = function(v) {
-    for(var prop in this ) {
-        if( this.hasOwnProperty( prop ) ) {
-             if( this[prop] === v )
-                 return prop;
-        }
-    }
-}
-
-//http://librosweb.es/libro/bootstrap_3/capitulo_5/estados_de_formulario.html
 
 // Hacer esta funcion con id como parametro, y modificar la clase del div padre con parentNode.className
 function comprobarInput(id){

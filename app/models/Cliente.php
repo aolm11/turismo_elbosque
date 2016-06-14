@@ -13,6 +13,9 @@ class Cliente extends Eloquent {
 		return $this->hasMany('Alquiler');
 	}
 
+	/**
+	 * Consulta que obtiene un cliente por su email.
+	 */
 	public static function getClienteByEmail($email){
 		$cliente = DB::table('clientes')->where('email', '=', $email)->first();
 		return $cliente;

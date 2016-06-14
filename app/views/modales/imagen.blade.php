@@ -10,7 +10,7 @@
             </div>
             <div class="modal-footer">
                 <a href="" id="eliminar" class="btn btn-danger"><i class="fa fa-trash-o"></i> Eliminar</a>
-                <button class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button class="btn btn-info" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>

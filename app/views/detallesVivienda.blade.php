@@ -139,7 +139,7 @@
                         <label for='mensaje'>Mensaje:</label>
                         <textarea class='form-control' id='mensaje' name='mensaje' rows='10'>{{Input::old('mensaje')}}</textarea>
                     </div>
-                    <button type="submit" class="btn btn-default">Enviar</button>
+                    <button type="submit" class="btn btn-info">Enviar</button>
                 </form>
             </div>
         </div>

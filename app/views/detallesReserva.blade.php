@@ -103,7 +103,7 @@
             <div class='form-group'>
                 <button type="submit" class="btn btn-success">Guardar</button>
                 <a href="{{URL::asset('eliminar/reserva/'.$reserva->id)}}" id="eliminar" class="btn btn-danger"><i class="fa fa-trash-o"></i> Anular</a>
-                <a href="{{URL::to('propietario')}}" id="volver" class="btn btn-default"> Volver</a>
+                <a href="{{URL::to('propietario')}}" id="volver" class="btn btn-info"> Volver</a>
 
             </div>
         </div>

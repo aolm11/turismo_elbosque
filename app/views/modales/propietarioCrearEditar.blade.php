@@ -60,7 +60,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-success">Guardar</button>
-                    <button type="button" data-dismiss="modal" class="btn btn-warning">Cerrar</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-info">Cerrar</button>
                 </div>
 
             </div>

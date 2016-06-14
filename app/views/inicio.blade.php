@@ -25,12 +25,12 @@
                         </div>
                         <div class="item">
                             <img class="img-responsive" style="min-height: 450px; max-height: 450px;  min-width: 100%"
-                                 src="{{URL::asset('http://www.cadiz-turismo.com/municipios/elbosque/10_El_Bosque.jpg')}}">
+                                 src="{{URL::asset('img/slider/elbosque2.jpg')}}">
                         </div>
 
                         <div class="item">
                             <img class="img-responsive" style="min-height: 450px; max-height: 450px; min-width: 100%"
-                                 src="{{URL::asset('http://www.cadiz-turismo.com/municipios/elbosque/4_Parque_Natural_Sierra_de_Grazalema_El_Bosque.jpg')}}">
+                                 src="{{URL::asset('img/slider/elbosque3.jpg')}}">
                         </div>
                     </div>
                     <form class="form-inline " role="form" id="busqueda" method="POST" action="{{URL::asset('viviendas/filtradas')}}">
@@ -53,7 +53,7 @@
 									<i class="fa fa-users" aria-hidden="true"></i>
 								</span>
                         </div>
-                        <button type="submit" class="btn btn-default"> <i class="fa fa-search" aria-hidden="true"></i> Buscar</button>
+                        <button type="submit" class="btn btn-info"> <i class="fa fa-search" aria-hidden="true"></i> Buscar</button>
                     </form>
                     <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
                         <span class="glyphicon glyphicon-chevron-left"></span>

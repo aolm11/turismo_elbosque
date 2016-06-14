@@ -53,6 +53,9 @@ class Usuario extends Eloquent implements UserInterface, RemindableInterface {
 		return 'remember_token';
 	}
 
+	/**
+	 * Método para comprobar si un usuario logueado es administrador.
+	 */
 	public static function esAdmin(){
 		if (Auth::check() == true) {
 			$idRol=Auth::user()->id_rol;
@@ -66,6 +69,9 @@ class Usuario extends Eloquent implements UserInterface, RemindableInterface {
 		}
 	}
 
+	/**
+	 * Método para comprobar si un usuario logueado es propietario.
+	 */
 	public static function esPropietario(){
 		if (Auth::check() == true) {
 			$idRol=Auth::user()->id_rol;
@@ -79,12 +85,19 @@ class Usuario extends Eloquent implements UserInterface, RemindableInterface {
 		}
 	}
 
+	/**
+	 * Consulta que devuelve todos los propietarios de la plataforma.
+	 */
 	public static function getPropietarios(){
 		$propietarios = DB::table('usuarios')->where('id_rol', '=', 2)->get();
 
 		return $propietarios;
 	}
 
+	/**
+	 * Método para crear propietarios.
+	 * Envía email al propietario informado de ello.
+	 */
 	public static function crearPropietario($input){
 
 		$respuesta = array();
@@ -142,6 +155,9 @@ class Usuario extends Eloquent implements UserInterface, RemindableInterface {
 		return $respuesta;
 	}
 
+	/**
+	 *  Método para editar un propietario.
+	 */
 	public static function editarPropietario($id, $input){
 		$respuesta = array();
 
@@ -180,13 +196,14 @@ class Usuario extends Eloquent implements UserInterface, RemindableInterface {
 			$respuesta['exito'] = true;
 
 		}
-
-		//TODO: email de notificación de modificación de datos..
-
-
 		return $respuesta;
 	}
 
+	/**
+	 * Método para dar de baja un propietario.
+	 * Los propietarios que esten en esta situación no podrán
+	 * loguearse en la web y sus viviendas no serán mostradas.
+	 */
 	public static function darDeBajaPropietario($id_propietario){
 
 		$respuesta = array();
@@ -206,6 +223,9 @@ class Usuario extends Eloquent implements UserInterface, RemindableInterface {
 
 	}
 
+	/**
+	 * Método para dar de alta un propietario.
+	 */
 	public static function darDeAltaPropietario($id_propietario){
 
 		$respuesta = array();
@@ -223,6 +243,9 @@ class Usuario extends Eloquent implements UserInterface, RemindableInterface {
 		return $respuesta;
 	}
 
+	/**
+	 * Método para eliminar a un propietario, con todas sus vivienda y reservas.
+	 */
 	public static function eliminarPropietario($id_propietario){
 
 		$respuesta = array();
@@ -270,6 +293,9 @@ class Usuario extends Eloquent implements UserInterface, RemindableInterface {
 
 	}
 
+	/**
+	 *  Método para modifcar los datos de un usuario.
+ 	*/
 	public static function editarPerfil($id_usuario, $input)
 	{
 		$respuesta = array();

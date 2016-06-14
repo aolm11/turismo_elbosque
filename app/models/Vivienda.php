@@ -21,16 +21,27 @@ class Vivienda extends Eloquent {
 		return $this->hasMany('Alquiler');
 	}
 
+	/**
+	 * Consulta para obtener todas las viviendas de un propietario.
+	 */
 	public static function viviendasPropietario($idPropietario){
 		$viviendas = DB::table('viviendas')->where('id_usuario', '=', $idPropietario)->get();
 		return $viviendas;
 	}
 
+	/**
+	 * Consulta para obtener todas las viviendas de la plataforma, paginándolas mostrando 9 por cada página.
+	 * Se usa para mostrar el listado general de viviendas.
+	 */
 	public static function getTodasViviendas(){
 		$viviendas = DB::table('viviendas')->paginate(9);
 		return $viviendas;
 	}
 
+
+	/**
+	 * Método que sirve para filtrar las viviendas desde el buscador de inicio.
+	 */
 	public static function buscarViviendas($input){
 		$respuesta = array();
 
@@ -63,6 +74,9 @@ class Vivienda extends Eloquent {
 		}
 	}
 
+	/*
+	 * Método usado para crear viviendas.
+	 */
 	public static function crear($input){
 
 		$respuesta = array();
@@ -115,6 +129,9 @@ class Vivienda extends Eloquent {
 		return $respuesta;
 	}
 
+	/*
+	 * Método usado para editar viviendas.
+	 */
 	public static function editar($id, $input){
 
 		$respuesta = array();
@@ -167,6 +184,9 @@ class Vivienda extends Eloquent {
 		return $respuesta;
 	}
 
+	/*
+	 * Método usado para añadir imágenes a una vivienda.
+	 */
 	public static function addImagen($id_vivienda, $input){
 
 		$vivienda = Vivienda::find($id_vivienda);
@@ -219,14 +239,14 @@ class Vivienda extends Eloquent {
 		return $respuesta;
 	}
 
+	/**
+	 * Método para eliminar viviendas, si no tienen reservas asociadas.
+	 */
 	public static function borrar($id_vivienda){
-
-		//TODO: mostrar mensaje de advertencia indicando que se eliminarán también las imágenes de la vivienda.
 
 		$respuesta = array();
 
 		$vivienda = Vivienda::find($id_vivienda);
-
 
 		$reservas = Alquiler::reservasVivienda($id_vivienda);
 
@@ -259,6 +279,7 @@ class Vivienda extends Eloquent {
 	}
 
 	/**
+	 * Método usado para obtener las fechas reservadas de una vivienda, con diferentes formatos según su uso.
 	 * @param $id_vivienda
 	 * @param bool|false $pickers. Devolverá todas las fechas en único array. Se usa para deshabilitar las fechas reservadas en los datepickers.
 	 * 							   Si es false, devolverá una matriz con los los días de cada reserva.
@@ -307,6 +328,7 @@ class Vivienda extends Eloquent {
 	}
 
 	/**
+	 * Método usado para comprobar la disponibilidad de una vivienda, en el periodo de tiempo indicado.
 	 * @param $id_vivienda
 	 * @param $fecha_inicio
 	 * @param $fecha_fin

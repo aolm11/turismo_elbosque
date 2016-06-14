@@ -45,9 +45,9 @@
                                                                            style="color: #596167; font-family: Arial, Helvetica, sans-serif; font-size: 13px;">
                                                                             <font face="Arial, Helvetica, sans-seri; font-size: 13px;"
                                                                                   size="3" color="#596167">
-                                                                                <img src="{{URL::asset('/assets/layouts/layout2/img/logo_mail.png')}}"
+                                                                                <img src="{{URL::asset('http://www.turismoelbosque.com/wp-content/uploads/2015/10/logo11.png')}}"
                                                                                      width="167" height="auto"
-                                                                                     alt="OpOnline" border="0"
+                                                                                     alt="Tursimo El Bosque" border="0"
                                                                                      style="display: block;"/></font></a>
                                                                     </td>
                                                                 </tr>
@@ -68,7 +68,7 @@
                         <!--content 1 -->
                         <tr>
                             <td align="center" bgcolor="#fff"
-                                style="background-image: url('{{URL::asset('/assets/layouts/layout2/img/001.jpg')}}'); background-size: cover;">
+                                style="background-image: url('')}}'); background-size: cover;">
                                 <table width="90%" border="0" cellspacing="0" cellpadding="0">
                                     <tr>
                                         <td align="center">
@@ -78,7 +78,7 @@
                                                 <font face="Arial, Helvetica, sans-serif" size="5" color="#fff"
                                                       style="font-size: 34px;">
 					<span style="font-family: Arial, Helvetica, sans-serif; font-size: 34px; color: #fff; text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);">
-						Bienvenido a <strong>OpOnline</strong>
+						<strong>Tursimo El Bosque</strong>
 					</span></font>
                                             </div>
                                             <!-- padding -->
@@ -125,7 +125,7 @@
                                                                       color="#6b6b6b"
                                                                       style="font-size: 34px; text-align: center;">
 					<span style="font-family: Arial, Helvetica, sans-serif; font-size: 24px; color: #6b6b6b; line-height: 30px;">
-						Ya tiene disponible el acceso a nuestra plataforma.
+						Su reserva ha sido cancelada.
 					</span></font>
                                                             </div>
                                                             <!-- padding -->
@@ -135,7 +135,7 @@
                                                                 <font face="Arial, Helvetica, sans-serif" size="3"
                                                                       color="#98a7b9" style="font-size: 14px;">
 								<span style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #98a7b9;">
-									¡Nuestras felicitaciones! Ha obtenido acceso como Alumno en nuestra plataforma.
+									Lo sentimos pero el propietario de la vivienda {{$vivienda->nombre}} ha cancelado su reserva con fecha de entrada {{Herramientas::formatearFechaFromBD($reserva->fecha_inicio)}}. Si desconoce los motivos, puede ponerse en contacto con él.
 								</span></font>
                                                             </div>
                                                         </td>
@@ -161,12 +161,56 @@
                                 <table width="90%" border="0" cellspacing="0" cellpadding="0">
                                     <tr>
                                         <td align="center">
+                                            <!-- padding -->
+                                            <div style="height: 60px; line-height: 0px; font-size: 10px;">&nbsp;</div>
+                                            <div style="line-height: 44px;">
+                                                <font face="Arial, Helvetica, sans-serif" size="5" color="#6b6b6b"
+                                                      style="font-size: 34px;">
+					<span style="font-family: Arial, Helvetica, sans-serif; font-size: 24px; color: #6b6b6b; line-height: 30px;">
+						Datos del propietario:
+					</span></font>
+                                            </div>
+                                            <!-- padding -->
+                                            <div style="height: 20px; line-height: 20px; font-size: 10px;">&nbsp;</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left">
+                                            <div style="line-height: 24px; margin-left: 70px;">
+                                                <font face="Arial, Helvetica, sans-serif" size="4" color="#9c9c9c"
+                                                      style="font-size: 15px;">
+
+                                        <div class="form-group">
+                                            <label class="control-label">Nombre: </label> {{$propietario->nombre}}
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Apellidos: </label> {{$propietario->apellidos}}
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Email: </label> {{$propietario->email}}
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Teléfono:</label> {{$propietario->telefono}}
+
+                                        </div>
+
+                                           </font>
+
+                                            <!-- padding -->
+
+                                            <div style="height: 50px; line-height: 50px; font-size: 10px;">&nbsp;</div>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td align="center">
                                             <div style="line-height: 24px;">
                                                 <a href="{{URL::asset('inicio')}}" target="_blank"
                                                    style="color: #596167; font-family: Arial, Helvetica, sans-serif; font-size: 13px;">
                                                     <font face="Arial, Helvetica, sans-seri; font-size: 13px;" size="3"
                                                           color="#596167">
-                                                        <img src="{{URL::asset('/assets/layouts/layout2/img/trial.gif')}}"
+                                                        <img src="{{URL::asset('http://www.turismoelbosque.com/wp-content/uploads/2015/10/logo11.png')}}"
                                                              width="308" height="55" alt="TRY" border="0"
                                                              class="mob_width_80 mob_center_bl"
                                                              style="display: block; margin-top: 20px;"/></font></a>

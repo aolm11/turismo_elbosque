@@ -18,7 +18,7 @@
 		<div class="col-md-12 col-sm-12">
 			<div class="section-title">
 				<h1 class="titulo">Propietarios</h1>
-				<a class="btn btn-default derecha" data-toggle="modal" href="#crearPropietario" data-target="#crearPropietario">
+				<a class="btn btn-info derecha" data-toggle="modal" href="#crearPropietario" data-target="#crearPropietario">
 					<i class="fa fa-user-plus" aria-hidden="true"></i> Añadir
 				</a>
 			@include('modales.propietarioCrearEditar')
@@ -41,7 +41,7 @@
 							<td>{{$propietario->email}}</td>
 							<td>{{count(Vivienda::viviendasPropietario($propietario->id))}}</td>
 							<td>
-								<a href="{{'#editarPropietario'.$propietario->id}}" class="btn btn-default" role="button" data-toggle="modal">
+								<a href="{{'#editarPropietario'.$propietario->id}}" class="btn btn-info" role="button" data-toggle="modal">
 									<i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar
 								</a>
 								@if($propietario->alta == 1)

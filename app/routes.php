@@ -24,8 +24,12 @@ Route::get('detalles/vivienda/{id}', 'ViviendaController@detallesVivienda');
 Route::post('login', function () {
 
 	if (Auth::attempt(array('email' => Input::get('email'), 'password' => Input::get('password')), true)) {
-
-		return Redirect::to('inicio');
+		if(Auth::user()->id_rol == 2 and Auth::user()->alta == 0){
+			Auth::logout();
+			return Redirect::back()->with('mensaje', 'Su cuenta de propietario se encuentra desactivada. Póngase en contacto con el administrador.');
+		}else{
+			return Redirect::to('inicio');
+		}
 	} else {
 		return Redirect::back()->with('mensaje', 'El email o la contraseña introducidos no son válidos');
 	}
@@ -155,7 +159,9 @@ Route::get('prueba', function(){
 
 	//dd(Imagen::getNombreImagenVivienda(11)->nombre);
 
-	dd(Alquiler::getAlquileresPropietario(18, '2016-06-01', '2016-06-20'));
+	//dd(Alquiler::getAlquileresPropietario(18, '2016-06-01', '2016-06-20'));
+
+	dd(Session::all());
 
 	//dd($reservasConfirmadas);
 
