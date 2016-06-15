@@ -263,8 +263,6 @@
 								crearDatePickers(data);
 								actualizaMinDateSalidas(data);
 							}
-							//$("#vivienda").trigger('change');
-
 						},
 						error: function (datas) {
 							alert('error');
