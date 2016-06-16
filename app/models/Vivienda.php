@@ -34,7 +34,11 @@ class Vivienda extends Eloquent {
 	 * Se usa para mostrar el listado general de viviendas.
 	 */
 	public static function getTodasViviendas(){
-		$viviendas = DB::table('viviendas')->paginate(9);
+		$viviendas = DB::table('viviendas')
+			->join('usuarios','viviendas.id_usuario', '=', 'usuarios.id')
+			->where('usuarios.alta', '=', 1)
+			->select('viviendas.id', 'viviendas.nombre', 'viviendas.capacidad','viviendas.descripcion', 'viviendas.precio_persona', 'viviendas.precio_dia')
+			->paginate(9);
 		return $viviendas;
 	}
 
@@ -59,9 +63,17 @@ class Vivienda extends Eloquent {
 			return $respuesta;
 		} else {
 			if(!empty($input['personas'])){
-				$viviendas = DB::table('viviendas')->where('capacidad', '>=', $input['personas'])->get();
+				$viviendas = DB::table('viviendas')
+					->join('usuarios','viviendas.id_usuario', '=', 'usuarios.id')
+					->where('usuarios.alta', '=', 1)
+					->select('viviendas.id', 'viviendas.nombre', 'viviendas.capacidad','viviendas.descripcion', 'viviendas.precio_persona', 'viviendas.precio_dia')
+					->where('capacidad', '>=', $input['personas'])->get();
 			}else{
-				$viviendas = DB::table('viviendas')->get();
+				$viviendas = DB::table('viviendas')
+					->join('usuarios','viviendas.id_usuario', '=', 'usuarios.id')
+					->where('usuarios.alta', '=', 1)
+					->select('viviendas.id', 'viviendas.nombre', 'viviendas.capacidad','viviendas.descripcion', 'viviendas.precio_persona', 'viviendas.precio_dia')
+					->get();
 			}
 
 			foreach ($viviendas as $key => $vivienda) {

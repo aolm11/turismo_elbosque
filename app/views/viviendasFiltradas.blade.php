@@ -20,11 +20,7 @@
         @if(count($viviendas) > 0)
         <?php
             $cont = 0;
-            if(count($viviendas) > 1){
-                $ultima = $viviendas[count($viviendas)-1];
-            }else{
-                $ultima = $viviendas[count($viviendas)];
-            }
+            $ultima = $viviendas[count($viviendas)-1];
         ?>
         @foreach($viviendas as $vivienda)
         @if($cont == 0)

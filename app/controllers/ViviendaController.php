@@ -26,7 +26,12 @@ class ViviendaController extends BaseController {
     if (isset($viviendas['error'])) {
       return Redirect::back()->withErrors($viviendas['mensaje']);
     } else {
-      return View::make('viviendasFiltradas')->with(['viviendas' => $viviendas]);
+      if(count($viviendas) == 0){
+        return Redirect::back()
+            ->with('mensaje', 'No hay viviendas disponibles con los datos introducidos.');
+      }else{
+       return View::make('viviendasFiltradas')->with(['viviendas' => $viviendas]);
+      }
     }
   }
 
