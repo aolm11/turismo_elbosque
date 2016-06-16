@@ -51,7 +51,7 @@
                                 @endif
                                 <div class="form-group">
                                     <div class="checkbox">
-                                        <label><input type="checkbox" name="permiso_app" id="permiso_app" {{(isset($propietario->permiso_app)) ? 'checked' : ""}}><strong>Permiso app:</strong></label>
+                                        <label><input type="checkbox" name="permiso_app" id="permiso_app" {{(isset($propietario->permiso_app) and $propietario->permiso_app == 1) ? 'checked' : ""}}><strong>Permiso app:</strong></label>
                                     </div>
                                 </div>
                             </div>
